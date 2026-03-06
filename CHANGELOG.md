@@ -1,6 +1,10 @@
 # Changelog
 
 ```log
+0.2.1 - 2026/03/06
+refactor(maestro): update Identity — chief of staff role, accountability, clarification over prohibition
+feat(maestro): add commit flow to Handoff — branch guard, user confirmation, git commandment reference
+
 0.2.0 - 2026/03/05
 feat(dispatch): add multi-provider routing with Providers table, host runtime detection, and native/CLI dispatch logic
 feat(personas): add preferredModel frontmatter field for provider routing
