@@ -1,3 +1,3 @@
-# CLAUDE.md
+# AGENTS.md
 
 Read `.agents/README.md`.

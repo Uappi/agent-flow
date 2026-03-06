@@ -1,14 +1,16 @@
 # Agent Starter Kit
 
-The scaffold for your ultra-personalized, multi-model AI crew in pure natural language. Route different personas to different providers — run your Architect on Claude, your Reviewer on Qwen, or any combination.
+The scaffold for your ultra-personalized, **multi-model** AI crew in **pure natural language**. The smartest model orchestrates the workflow while cheaper/faster ones handle the less complicated bits, **extending your premium coding plan (such as Claude Code)** while fresh eyes enhance the output.
+
+It's model-agnostic: orchestrate from Claude, plan on GLM, review on Qwen, or any combination — any CLI scoring 1300+ ELO on [GDPval-AA](https://artificialanalysis.ai/evaluations/gdpval-aa) can run the show.
 
 ## Setup
 
 1. Clone this repo into a `.agents/` directory in the project you want to work on.
 2. Add `.agents/` and `.memory/` to the project's `.gitignore`.
-3. Copy the `CLAUDE.md` file from this repo into the root of the project (or point your AI tool's entry file to `.agents/README.md`).
+3. Copy `AGENTS.md` from this repo into the root of the project (or point your AI tool's entry file to `.agents/README.md`).
 4. Start the AI agent (e.g., `claude`, or whatever CLI you use).
-5. Say **"Please comply with CLAUDE.md."** — this boots the Maestro and loads the framework.
+5. Say **"Please comply with AGENTS.md."** — this boots the Maestro and loads the framework.
 6. From there, speak naturally. The Maestro orchestrates everything. On first run, it automatically dispatches the Contextualizer to map the codebase.
 7. Customize — add personas, rules, skills, and providers to fit your project (see Customization below).
 
