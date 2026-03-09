@@ -2,7 +2,7 @@
 
 > You speak naturally, a Maestro agent breaks it into tasks and routes each one to a specialized AI model.
 
-The scaffold for your ultra-personalized, **multi-model** AI crew in **pure natural language**. The smartest model orchestrates the workflow while cheaper/faster ones handle the less complicated bits, **extending your premium coding plan (such as Claude Code)** while fresh eyes enhance the output.
+A harness for your ultra-personalized, **multi-model** AI crew in **pure natural language**. The smartest model orchestrates the workflow while cheaper/faster ones handle the less complicated bits, **extending your premium coding plan (such as Claude Code)** while fresh eyes enhance the output.
 
 It's model-agnostic: orchestrate from Claude, plan on GLM, review on Qwen, or any combination — any CLI scoring 1300+ ELO on [GDPval-AA](https://artificialanalysis.ai/evaluations/gdpval-aa) can run the show.
 
