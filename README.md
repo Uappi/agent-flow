@@ -2,7 +2,7 @@
 
 > Speak naturally. A Maestro agent breaks your request into tasks and routes each one to a specialized AI model.
 
-A fully customizable, **multi-model** AI harness in **pure natural language**. The smartest model orchestrates the workflow while cheaper/faster ones handle the less complicated bits, **extending your premium coding plan (such as Claude Code)**.
+The scaffold for a fully customizable, **multi-model** AI harness in **pure natural language**. The smartest model orchestrates the workflow while cheaper/faster ones handle the less complicated bits, **extending your premium coding plan (such as Claude Code)**.
 
 It's model-agnostic: orchestrate from Claude, plan on GLM, review on Qwen, or any combination you want.
 
@@ -81,11 +81,11 @@ Other harnesses are bulldozers — heavy with built-in packages, skills, and gui
 
 ### Why multi-model?
 
-Premium models are routinely quantized weeks after launch — the version you fell in love with gradually loses sharpness as the provider optimizes for throughput. A multi-model harness fights this in two ways:
+Coding plans are routinely quantized and rate-limited weeks after launch — the version you fell in love with gradually loses sharpness as the provider optimizes for throughput. A multi-model harness fights this in three ways:
 
-1. **Token conservation.** The orchestrator (Maestro) only handles short, high-leverage decisions — routing, decomposition, review gating. Token-heavy roles like Architect and Coder are delegated to other capable models, so your premium plan lasts longer and you stay under rate limits.
-2. **Fresh eyes.** Different models catch different things. A reviewer running on a separate provider will flag issues that the coder's model normalized. Multi-model is not just cheaper — it produces better output.
-3. **Resilience.** Coding plans tend to have their rate limits reduced or models quantized over time. Spreading work across providers means you're less affected when any single plan degrades. If one provider tightens limits or loses quality, shift that persona's `preferredModel` to another row in the Providers table.
+1. **Resilience.** Spreading work across providers means you're less affected when any single plan degrades. If one provider tightens limits or loses quality, shift that persona's `preferredModel` to another row in the Providers table.
+2. **Token conservation.** The orchestrator (Maestro) only handles routing and decomposition. Token-heavy roles like Architect and Coder are delegated to other capable models, so your premium plan lasts longer.
+3. **Fresh eyes.** Different models catch different things. A reviewer running on a separate provider will flag issues that the coder's model normalized.
 
 ### What do I need to run this?
 
@@ -101,7 +101,13 @@ Yes. Set every persona's `preferredModel` to your host runtime (e.g., `claude`) 
 
 ### How should I assign models to personas?
 
-Keep premium models as the orchestrator. The Maestro makes routing decisions and manages context — these are short, high-leverage interactions worth the cost. Token-heavy roles like Architect and Reviewer can be delegated to capable but cheaper models to reduce consumption without sacrificing quality.
+Each persona declares a `preferredModel` in its frontmatter — this is what the Maestro uses to route work. Keep premium models as the orchestrator (Maestro makes routing decisions and manages context — short, high-leverage interactions worth the cost). For the rest, match the model to the persona's job using role-specific benchmarks:
+
+- **Coder** — [LiveCodeBench](https://artificialanalysis.ai/evaluations/livecodebench) (real-world coding tasks)
+- **Architect** — [Artificial Analysis Long Context Reasoning](https://artificialanalysis.ai/evaluations/artificial-analysis-long-context-reasoning) (multi-step reasoning across large contexts)
+- **Reviewer** — [IFBench](https://artificialanalysis.ai/evaluations/ifbench) (instruction following and constraint verification)
+
+These benchmarks are examples — new ones emerge frequently. Pick whatever benchmark best measures the capability each role needs, then set `preferredModel` accordingly in the persona's frontmatter.
 
 ### Does the framework auto-update?
 
