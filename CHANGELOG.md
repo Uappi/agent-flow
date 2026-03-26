@@ -1,6 +1,9 @@
 # Changelog
 
 ```log
+0.3.1 - 2026/03/26
+fix(agents,boot): symlink-aware paths — AGENTS.md references use .agents/ prefix, boot skill hints bare paths resolve under .agents/
+
 0.3.0 - 2026/03/26
 refactor: merge README boot content into AGENTS.md — single-hop boot
 feat(skills): add loop-recovery — structured retry pivot/abandon with oscillation and drift detection
