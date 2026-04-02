@@ -1,6 +1,13 @@
 # Changelog
 
 ```log
+0.4.2 - 2026/04/02
+feat(skills): add plan-critique — adversarial plan validation (structural checks + assumption attack) before implementation begins
+feat(skills): add reviewer-handoff — extract structured review summary format from reviewer persona to standalone skill
+feat(reviewer): add plan-critique routing — plans go through adversarial validation before implementation
+feat(reviewer): add file creation prohibition red line — findings belong in handoff, not loose files
+feat(architect): add per-phase test specifications — happy path, error cases, and adversarial cases
+
 0.4.1 - 2026/03/30
 feat(dispatch): add providers codex and cursor to routing matrix
 

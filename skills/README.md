@@ -4,17 +4,19 @@ Skills are collected intelligence on how to operate a specific tool — whether 
 
 ### Available Skills
 
-| Skill                  | Description                                                     |
-| ---------------------- | --------------------------------------------------------------- |
-| `agent-memory`          | Long-term and session memory across sessions                    |
-| `boot`                  | Session startup — gitignore, auto-update, memory, rules, orient |
-| `code-coherence-review` | Logic coherence, correctness, and structural integrity checks   |
-| `code-quality-review`   | Rules-walk procedure for coding standards compliance            |
-| `code-sec-review`       | OWASP-aligned security code review checklist                    |
-| `context-maintenance`   | How to maintain .context.md files as the project evolves        |
-| `dispatch`              | Assembles sub-agent prompts with task brief                     |
-| `loop-recovery`         | Structured recovery and escalation for retry loops              |
-| `task-tracking`         | File-based to-do tracking for multi-step and multi-session work |
+| Skill                   | Description                                                                                 |
+| ----------------------- | ------------------------------------------------------------------------------------------- |
+| `agent-memory`          | Long-term and session memory across sessions                                                |
+| `boot`                  | Session startup — gitignore, auto-update, memory, rules, orient                             |
+| `code-coherence-review` | Logic coherence, correctness, and structural integrity checks                               |
+| `code-quality-review`   | Rules-walk procedure for coding standards compliance                                        |
+| `code-sec-review`       | OWASP-aligned security code review checklist                                                |
+| `context-maintenance`   | How to maintain .context.md files as the project evolves                                    |
+| `dispatch`              | Assembles sub-agent prompts with task brief                                                 |
+| `loop-recovery`         | Structured recovery and escalation for retry loops                                          |
+| `plan-critique`         | Adversarial plan validation — structural checks and assumption attack before implementation |
+| `reviewer-handoff`      | Structured review summary format with verdict logic and confidence scale                    |
+| `task-tracking`         | File-based to-do tracking for multi-step and multi-session work                             |
 
 ## When to Extract a Skill
 
