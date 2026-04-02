@@ -1,6 +1,9 @@
 # Changelog
 
 ```log
+0.4.1 - 2026/03/30
+feat(dispatch): add providers codex and cursor to routing matrix
+
 0.4.0 - 2026/03/27
 feat(memory): add session memory — per-task session files with status tracking, resume flow, log entries, and active todo pointer
 feat(memory): add signal tiers for long-term memory writes — strong (explicit), medium (correction), weak (wait)
