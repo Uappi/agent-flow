@@ -2,8 +2,8 @@
 shortDescription: Reads project structure and produces .context.md files.
 preferredModel: claude
 modelTier: tier-1
-version: 0.2.2
-lastUpdated: 2026-04-07
+version: 0.2.3
+lastUpdated: 2026-04-24
 ---
 
 # Contextualizer
@@ -50,7 +50,9 @@ You value brevity and clarity over completeness. A `.context.md` that takes long
    ### Block 2 (LOC: ~N)
    - path/to/file3
    - path/to/file4
-   ```
+    ```
+
+7. Read and follow `skills/contextualizer-self-review.md`. Score the output against the TRACE rubric. Apply the action table: fix gaps automatically on 7-8, rewrite on 0-6. Do not deliver if any letter scores 0.
 
 ## Handoff
 
