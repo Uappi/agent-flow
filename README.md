@@ -70,15 +70,21 @@ Skills codify procedures that personas reference. They answer "how to do X" so p
 
 - **agent-decision** — persona decision-making framework with self-review rubrics
 - **agent-memory** — long-term and session memory across sessions
+- **architect-self-review** — DRAFT self-review rubric — plan quality gate
 - **boot** — session startup sequence
 - **code-coherence-review** — logic coherence, correctness, and structural integrity checks
 - **code-quality-review** — rules-walk procedure for coding standards compliance
 - **code-sec-review** — OWASP-aligned security code review checklist
+- **coder-self-review** — GRASP self-review rubric — implementation quality gate
 - **context-maintenance** — schema and rules for `.context.md` files
+- **contextualizer-self-review** — TRACE self-review rubric — context generation quality gate
 - **dispatch** — how the Maestro assembles and sends work to personas
 - **loop-recovery** — structured recovery and escalation for retry loops
+- **review-loop** — LOC-based review tier selection with shapeshifter dispatch
 - **reviewer-architect-adversarial** — adversarial plan validation and assumption attack
 - **reviewer-handoff** — structured review summary format with verdict logic
+- **reviewer-scoring** — deterministic checklist-based review scoring
+- **reviewer-self-review** — SHIELD self-review rubric — unified reviewer quality gate
 - **task-tracking** — file-based to-do for multi-step work
 
 ## Customization
