@@ -1,6 +1,20 @@
 # Changelog
 
 ```log
+0.5.2 - 2026/04/25
+fix(personas/maestro): add dedicated "Load dispatch procedure" step — read dispatch.md IN FULL before any dispatch
+fix(personas/maestro): plan review gate names Reviewer persona + adversarial skill + dispatch skill
+fix(personas/coder): add (uses:)/(follows:) annotations to naked steps, make complex task threshold concrete (>5 files or >300 LOC)
+fix(personas/contextualizer): handoff mentions TRACE self-review gate
+fix(personas/architect): plan template references correct step 7 (was step 8) for self-review
+fix(skills/context-maintenance.md): renumber duplicate step 6 to 7 in FEATURE-MAP section
+fix(skills/review-loop.md): specify step 6 of contextualizer.md for review scoping dispatch
+fix(skills/boot.md): clarify shell commands always use .agents/ prefix
+fix(skills/task-tracking.md): usedBy scope expanded to [all]
+fix(rules/README.md): remove superseded counsel/clarification entry
+delete(rules/counsel/clarification.md): superseded by skills/agent-decision.md
+fix(README.md): complete skills list from 12 to all 18 skills in alphabetical order
+
 0.5.1 - 2026/04/25
 feat(personas): add humor frontmatter field to all personas (architect/extrovert, coder/pragmatic, contextualizer/introvert, maestro/sympathetic, reviewer/pragmatic)
 feat(personas): move parallel dispatch instruction from maestro identity to boot greet
