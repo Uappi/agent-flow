@@ -1,6 +1,11 @@
 # Changelog
 
 ```log
+0.5.7 - 2026/04/25
+fix(skills/task-tracking): remove scratchpad offloading — too much overhead for starter kit
+fix(skills/task-tracking): port explicitness from main framework's agent-todo — explicit ls command, mkdir+cat create command, target directory callout, truncate-on-close, git branch slug derivation, explicit location guardrail
+docs(readme): replace demo.png with demo.jpg
+
 0.5.6 - 2026/04/25
 docs(readme): add restart instruction to OpenCode Configuration — opencode.json created on first run requires CLI restart
 fix(skills/agent-memory): remove cycle-count reset and increment steps — removed from starter kit
