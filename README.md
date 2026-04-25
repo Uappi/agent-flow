@@ -48,7 +48,13 @@ The framework **learns as it works**. Corrections, preferences, and lessons are 
 
 The framework works with any AI CLI — Claude Code, Codex, opencode, or any tool that can accept a prompt via `stdin`. No harness requires special configuration to use the personas, rules, and skills. OpenCode is the first-class supported target with native persona agent binding.
 
-If you're running OpenCode and have [`yq`](https://github.com/mikefarah/yq) and [`jq`](https://jqlang.org/) installed, the boot sequence auto-detects it and writes `opencode.json` at the project root with persona agent bindings. Each persona gets a named agent with its model (read from frontmatter), humor-based temperature and thinking budget, and permission profiles. The script is idempotent — subsequent runs update existing bindings rather than create duplicates. If the tools aren't installed or you're using a different CLI, the script exits silently and no configuration is needed.
+If you're running OpenCode and have [`yq`](https://github.com/mikefarah/yq) and [`jq`](https://jqlang.org/) installed, the boot sequence auto-detects it and writes `opencode.json` at the project root with persona agent bindings.
+
+**On the first run, `opencode.json` is created from scratch — restart the CLI so the new agent bindings are picked up.**
+
+Each persona gets a named agent with its model (read from frontmatter), humor-based temperature and thinking budget, and permission profiles. The script is idempotent — subsequent runs update existing bindings rather than create duplicates.
+
+If the tools aren't installed or you're using a different CLI, the script exits silently and no configuration is needed.
 
 ## Structure
 
