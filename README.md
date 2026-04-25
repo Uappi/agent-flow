@@ -4,12 +4,25 @@
 
 The scaffold for a fully customizable, **multi-model** AI harness in **pure natural language**. The smartest model orchestrates the workflow while cheaper/faster ones handle the less complicated bits, **extending your premium coding plan (such as Claude Code)**.
 
-It's model-agnostic: orchestrate from Claude, plan on GLM, review on Qwen, or any combination you want.
+It's model-agnostic: orchestrate from Claude, plan on Kimi, review on Qwen, or any combination you want.
 
 ![Boot sequence demo](docs/demo.png)
-*Maestro booted on a Clean Architecture Go project — gitignore, auto-update, memory, rules, and 35 context files created automatically.*
+_Maestro booted on a Clean Architecture Go project — gitignore, auto-update, memory, rules, and 35 context files created automatically._
 
 This is a **foundation**, not a finished product. It ships only what an average developer needs out of the box — general-purpose personas, common workflow skills, and unopinionated rules. Anything domain-specific or highly opinionated belongs in your own fork. Clone it, extend it, make it yours — or better yet, make one for your entire company to use.
+
+## How It Works
+
+The **Maestro** is the conductor. It receives user requests, decomposes them, and dispatches work to specialized personas:
+
+- **Architect** — plans implementations, defines before/after states
+- **Coder** — writes software following the plan
+- **Reviewer** — checks work for correctness and quality
+- **Contextualizer** — documents project structure for orientation
+
+Each persona has an identity (who they are), a playbook (what they do), a handoff format (what they deliver), and red lines (what they must not do). Each persona also declares a `humor` style — which controls temperature and thinking budget — plus a self-review rubric that scores its own work before delivery. Each persona declares a `preferredModel` — the Maestro uses this to route work to the right provider automatically. You can route every persona to the same model and skip multi-provider routing entirely if you prefer.
+
+The framework **learns as it works**. Corrections, preferences, and lessons are captured to long-term memory and carried into every future session. Interrupted work is tracked in session files so the next boot can resume where the last one stopped.
 
 ## Setup
 
@@ -29,20 +42,13 @@ This is a **foundation**, not a finished product. It ships only what an average 
 3. Start the AI agent (e.g., `claude`, or whatever CLI you use).
 4. Say **"Please comply with AGENTS.md."** — this boots the Maestro and loads the framework.
 5. The Maestro orchestrates everything. On first run, it automatically dispatches the Contextualizer to map the codebase.
-6. Customize — add personas, rules, skills, and providers to fit your project (see Customization below).
+6. (Optional) Customize — add personas, rules, skills, and providers to fit your project (see Customization below).
 
-## How It Works
+#### OpenCode Configuration
 
-The **Maestro** is the conductor. It receives user requests, decomposes them, and dispatches work to specialized personas:
+The framework works with any AI CLI — Claude Code, Codex, opencode, or any tool that can accept a prompt via `stdin`. No harness requires special configuration to use the personas, rules, and skills. OpenCode is the first-class supported target with native persona agent binding.
 
-- **Architect** — plans implementations, defines before/after states
-- **Coder** — writes software following the plan
-- **Reviewer** — checks work for correctness and quality
-- **Contextualizer** — documents project structure for orientation
-
-Each persona has an identity (who they are), a playbook (what they do), a handoff format (what they deliver), and red lines (what they must not do). Each persona also declares a `preferredModel` — the Maestro uses this to route work to the right provider automatically.
-
-The framework **learns as it works**. Corrections, preferences, and lessons are captured to long-term memory and carried into every future session. Interrupted work is tracked in session files so the next boot can resume where the last one stopped.
+If you're running OpenCode and have [`yq`](https://github.com/mikefarah/yq) and [`jq`](https://jqlang.org/) installed, the boot sequence auto-detects it and writes `opencode.json` at the project root with persona agent bindings. Each persona gets a named agent with its model (read from frontmatter), humor-based temperature and thinking budget, and permission profiles. The script is idempotent — subsequent runs update existing bindings rather than create duplicates. If the tools aren't installed or you're using a different CLI, the script exits silently and no configuration is needed.
 
 ## Structure
 
@@ -62,6 +68,7 @@ skills/      Reusable procedures and protocols
 
 Skills codify procedures that personas reference. They answer "how to do X" so personas can focus on "what to do."
 
+- **agent-decision** — persona decision-making framework with self-review rubrics
 - **agent-memory** — long-term and session memory across sessions
 - **boot** — session startup sequence
 - **code-coherence-review** — logic coherence, correctness, and structural integrity checks
@@ -70,7 +77,7 @@ Skills codify procedures that personas reference. They answer "how to do X" so p
 - **context-maintenance** — schema and rules for `.context.md` files
 - **dispatch** — how the Maestro assembles and sends work to personas
 - **loop-recovery** — structured recovery and escalation for retry loops
-- **plan-critique** — adversarial plan validation before implementation
+- **reviewer-architect-adversarial** — adversarial plan validation and assumption attack
 - **reviewer-handoff** — structured review summary format with verdict logic
 - **task-tracking** — file-based to-do for multi-step work
 
@@ -92,9 +99,9 @@ If you use Mixture-of-Experts models (Kimi, Qwen, DeepSeek, or similar), cap thi
 
 ### Why this over other harnesses?
 
-Frameworks like GSD, HumanLayer, and OpenDev are software — they require a programming language, dependencies, and runtime integration. This kit is **pure natural language**. Every persona, rule, and skill is a Markdown file. There is no code to install, no SDK to learn, no build step to maintain.
+GSD, GStack, and Gas Town are software — they lock you into dependencies, runtimes, and rigid workflows. Agent Starter Kit is **pure natural language**. Every persona, rule, and skill is a Markdown file you can edit with zero installation or build step.
 
-Other harnesses are bulldozers — heavy with built-in packages, skills, and guidance that consume tokens every session, even when most of it is irrelevant to your project. This kit is a **scalpel**: minimal by design, meant to be extended with your own tailored personas, rules, and skills. You pay only for the context you actually need. Add a persona by writing a `.md` file. Change a rule by editing a line. Swap a provider by updating a table row.
+Most harnesses are built around dense, expensive models and burn thousands of tokens on guidance you'll never use. This kit is a **scalpel**: minimal by design, tuned for cheaper MoE models like DeepSeek, GLM, Kimi, and Qwen. You pay only for the context you need. When your project grows, you extend it — add a persona, tweak a rule, swap a provider — all in plain text. Other tools produce code once and walk away. This framework learns, remembers, and adapts across every session.
 
 ### Why multi-model?
 
