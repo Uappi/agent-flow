@@ -6,8 +6,8 @@ The scaffold for a fully customizable, **multi-model** AI harness in **pure natu
 
 It's model-agnostic: orchestrate from Claude, plan on Kimi, review on Qwen, or any combination you want.
 
-![Boot sequence demo](docs/demo.png)
-_Maestro booted on a Clean Architecture Go project — gitignore, auto-update, memory, rules, and 35 context files created automatically._
+![Boot sequence demo](docs/demo.jpg)
+_Maestro booted on a Clean Architecture Go project — gitignore, auto-update, memory, rules, and 33 context files created automatically._
 
 This is a **foundation**, not a finished product. It ships only what an average developer needs out of the box — general-purpose personas, common workflow skills, and unopinionated rules. Anything domain-specific or highly opinionated belongs in your own fork. Clone it, extend it, make it yours — or better yet, make one for your entire company to use.
 
