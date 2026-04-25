@@ -1,7 +1,7 @@
 ---
 shortDescription: Assembles sub-agent prompts with task brief and routes to the correct provider.
 usedBy: [maestro]
-version: 0.2.7
+version: 0.2.10
 lastUpdated: 2026-04-25
 ---
 
@@ -21,7 +21,7 @@ This is the only registry. If a persona is not listed there, it does not exist. 
 
 ## Procedure
 
-1. **Identify the host runtime.** Run `ps -p $PPID -o comm=` and match the process name against the **CLI** column of the Providers table to identify the host runtime's provider (e.g., `claude` → `claude` provider, `codex` → `codex` provider, `cursor-agent` → `cursor` provider). Store the result in session state — the host runtime does not change mid-conversation.
+1. **Identify the host runtime.** Run `ps -p $PPID -o comm=` and match the process name against the **CLI** column of the Providers table to identify the host runtime's provider (e.g., `opencode` → `opencode` host, `claude` → `claude` provider, `codex` → `codex` provider, `cursor-agent` → `cursor` provider). Store the result in session state — the host runtime does not change mid-conversation.
 
 2. **Extract routing fields.**
 
@@ -31,12 +31,12 @@ This is the only registry. If a persona is not listed there, it does not exist. 
 
 3. **Select the provider and model.** Resolve `preferredModel` and `modelTier` against the Providers table. If `preferredModel` is `host`, always use native dispatch — the persona runs on whatever model the host runtime provides, ignoring tier upgrades. If `preferredModel` is omitted, use the host runtime's provider. The persona's `modelTier` is a floor — upgrade one tier when the task demands multi-step reasoning across system boundaries (e.g., cross-layer architectural changes, security/auth logic, or production deployment pipelines). If already at tier-3, remain at tier-3.
 
-4. **Decide how to dispatch.** If `preferredModel` is `host`, use native dispatch and skip to step 5. Otherwise, look up the persona's `preferredModel` in the Providers table to find its CLI column. Then:
-   - **Native dispatch** — the provider's CLI matches the host runtime. Use the host's built-in subagent mechanism (e.g., Task tool for Claude Code, Codex subagent environment, Cursor's native agent/subagent flow). Do not shell out to the same tool's CLI.
-   - **CLI dispatch** — the provider's CLI does not match the host runtime. Shell out to the provider's CLI tool (see CLI Dispatch section).
-   - If the preferred provider's CLI is not installed or unreachable, fall back to native dispatch and record the deviation in session memory.
+4. **Decide how to dispatch.** If `preferredModel` is `host`, use native dispatch and skip the provider lookup. Otherwise, look up the persona's `preferredModel` in the Providers table to find its CLI column. Then:
+    - **Native dispatch** — the provider's CLI matches the host runtime. Use the host's built-in subagent mechanism (e.g., OpenCode's `task` tool, Claude Code's `Task` tool, Codex subagent environment, Cursor's native agent/subagent flow). Do not shell out to the same tool's CLI.
+    - **CLI dispatch** — the provider's CLI does not match the host runtime. Shell out to the provider's CLI tool (see CLI Dispatch section).
+    - If the preferred provider's CLI is not installed or unreachable, fall back to native dispatch and record the deviation in session memory.
 
-5. **Strip the frontmatter.** Wrap the result in `<agent>` tags verbatim — do not summarize, paraphrase, or shorten the persona file. The full text must arrive exactly as written. Each dispatch targets exactly one agent — never multiple personas in a single prompt.
+5. **Strip the frontmatter.** Run the `sed` command below to remove YAML frontmatter from the persona file. Take the complete, unmodified `sed` output and wrap it in `<identity>` tags — do not summarize, paraphrase, or shorten the persona file. The full text must arrive exactly as written. Each dispatch targets exactly one persona — never multiple in a single prompt.
 
    ```bash
    sed '/^---$/,/^---$/d' personas/<name>.md
@@ -55,9 +55,9 @@ This is the only registry. If a persona is not listed there, it does not exist. 
 9. **Compose and dispatch.** Assemble the final prompt:
 
 ```markdown
-<agent>
-  [persona file without frontmatter]
-</agent>
+<identity>
+  [PASTE STRIPPED PERSONA CONTENT HERE — DO NOT LITERALLY OUTPUT THIS BRACKETED TEXT]
+</identity>
 
 <rules>
   [file paths to scoped rules — omit block if no scope matches]

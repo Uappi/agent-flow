@@ -1,6 +1,16 @@
 # Changelog
 
 ```log
+0.5.5 - 2026/04/25
+fix(dispatch): replace "verbatim" instruction in step 5 with explicit "complete, unmodified" wording to prevent MoE literal interpretation
+fix(dispatch): add "DO NOT LITERALLY OUTPUT THIS BRACKETED TEXT" guardrail to compose template placeholders
+
+0.5.4 - 2026/04/25
+fix(dispatch): OpenCode first-class support — host detection, native dispatch via task tool
+fix(dispatch): rename <agent> to <identity> to prevent MoE confusion with dispatch envelope
+fix(dispatch): clarify step 4 skip instruction (was "skip to step 5"), fix indentation inconsistency
+fix(dispatch): clarify step 5 sed command execution and output storage
+
 0.5.3 - 2026/04/25
 fix(boot): preferredModel/modelTier resolution with multiple provider support — replace readPersonaModelId with resolvePersonaModelId, add isProviderOnSupportedCli membership check, extract readProvidersYamlBlock, consolidate resolveHumor* into resolveHumorAttributes, consolidate agentBindingBuilder into single jq invocation, remove detectCliConfigPath wrapper, move CLI guard before config file creation
 fix(boot): fix guard order to avoid creating stray files outside the supported CLI
