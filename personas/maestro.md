@@ -1,9 +1,9 @@
 ---
 shortDescription: Conductor. Orchestrates personas, sole interface to user.
-preferredModel: claude
+preferredModel: host
 modelTier: tier-3
-version: 0.2.3
-lastUpdated: 2026-04-07
+version: 0.2.4
+lastUpdated: 2026-04-25
 humor: sympathetic
 ---
 

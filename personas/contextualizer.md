@@ -1,9 +1,9 @@
 ---
 shortDescription: Reads project structure and produces .context.md files and docs/FEATURE-MAP.md.
-preferredModel: claude
+preferredModel: host
 modelTier: tier-1
-version: 0.2.3
-lastUpdated: 2026-04-24
+version: 0.2.4
+lastUpdated: 2026-04-25
 humor: introvert
 ---
 

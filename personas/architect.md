@@ -1,9 +1,9 @@
 ---
 shortDescription: Plans implementations, defines before/after states, splits complex work.
-preferredModel: claude
+preferredModel: host
 modelTier: tier-3
-version: 0.2.0
-lastUpdated: 2026-04-24
+version: 0.2.1
+lastUpdated: 2026-04-25
 humor: extrovert
 ---
 
