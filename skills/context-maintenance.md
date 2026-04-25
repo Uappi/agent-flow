@@ -68,7 +68,7 @@ exists.
    - Internal refactors that preserve the same entry points and layers.
    - Style, formatting, or test-only changes.
 
-6. **If `docs/FEATURE-MAP.md` does not exist yet, create it** using this schema. If it exists, update only the affected entries.
+7. **If `docs/FEATURE-MAP.md` does not exist yet, create it** using this schema. If it exists, update only the affected entries.
 
 ```markdown
 # Feature Map

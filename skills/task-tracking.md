@@ -1,8 +1,8 @@
 ---
 shortDescription: File-based to-do tracking for multi-step and multi-session work.
-usedBy: [coder]
-version: 0.1.0
-lastUpdated: 2026-03-04
+usedBy: [all]
+version: 0.1.1
+lastUpdated: 2026-04-25
 ---
 
 ## Purpose

@@ -13,7 +13,6 @@ Rules are constraints — short, direct, and non-procedural. A rule that needs m
 - **`commandments/git`** — Conventional commits, branch naming, commit style (coding)
 - **`edicts/code-quality`** — Universal naming, testing, and quality conventions (coding)
 - **`edicts/code-debugging`** — Root cause before fix, three-strike rule, anti-rationalization (coding)
-- **`counsel/clarification`** — When ambiguity warrants stopping vs proceeding with best judgment (communication)
 
 ## File Naming
 
