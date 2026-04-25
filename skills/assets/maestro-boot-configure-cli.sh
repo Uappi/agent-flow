@@ -6,13 +6,13 @@
 #               per-agent based on persona humor style.
 #
 # Multi-CLI agent configuration. Currently OpenCode only — add new CLIs
-# by adding a resolve<Name>ConfigPath function and updating detectCliConfigPath.
+# by adding a resolve<Name>ConfigPath function and updating resolveSupportedCliConfigPath.
 #
 # @usage        maestro-boot-configure-cli.sh
 # @output       Summary line with agent count, or nothing if no CLI config found.
 # @requires     bash v4+, yq v4+, jq v1.6+, ps
-# @version      0.3.0
-# @updated      2026-04-24
+# @version      0.4.0
+# @updated      2026-04-25
 set -euo pipefail
 
 checkRequiredDependencies() {
@@ -78,25 +78,82 @@ resolveSupportedCliConfigPath() {
   return 0
 }
 
-detectCliConfigPath() {
-  local configPath
-  configPath=$(resolveSupportedCliConfigPath)
-  if [ -n "$configPath" ]; then
-    echo "$configPath"
-    return 0
-  fi
-  echo ""
-  return 0
-}
-
 readPersonaFrontmatter() {
   local personaPath="$1"
   sed -n '/^---$/,/^---$/{ //d; p }' "$personaPath"
 }
 
-readPersonaModelId() {
+readProvidersYamlBlock() {
+  local dispatchMdPath
+  dispatchMdPath="$(resolveScriptDir)/../dispatch.md"
+  sed -n '/^## Providers$/,/^## /{ /^```yaml$/,/^```$/{ /^```/d; p } }' "$dispatchMdPath"
+}
+
+resolveSupportedCliProviderName() {
+  local supportedCliProviderKey
+  supportedCliProviderKey=$(readProvidersYamlBlock | yq '.providers | to_entries[] | select(.value.cli == "opencode") | .key // ""' 2>/dev/null || true)
+  echo "$supportedCliProviderKey"
+  return 0
+}
+
+resolveHostProviderName() {
+  if [ "${resolveHostProviderNameEnvOverride+set}" = "set" ]; then
+    echo "$resolveHostProviderNameEnvOverride"
+    return 0
+  fi
+
+  resolveSupportedCliProviderName
+}
+
+resolveProviderModelId() {
+  local providerName="$1"
+  local modelTier="$2"
+
+  local resolvedModelString
+  resolvedModelString=$(readProvidersYamlBlock | yq ".providers[\"$providerName\"][\"$modelTier\"] // \"\"")
+
+  if [ "$resolvedModelString" = "null" ]; then
+    echo ""
+    return 0
+  fi
+
+  echo "$resolvedModelString"
+  return 0
+}
+
+resolvePersonaModelId() {
   local personaPath="$1"
-  readPersonaFrontmatter "$personaPath" | yq '.modelId // ""'
+
+  local frontmatterYaml preferredModelValue modelTierValue providerName resolvedModelString supportedCliProviderKey
+  frontmatterYaml=$(readPersonaFrontmatter "$personaPath")
+  preferredModelValue=$(echo "$frontmatterYaml" | yq '.preferredModel // ""')
+
+  if [ -z "$preferredModelValue" ]; then
+    echo ""
+    return 0
+  fi
+
+  modelTierValue=$(echo "$frontmatterYaml" | yq '.modelTier // "tier-2"')
+
+  if [ "$preferredModelValue" = "host" ]; then
+    providerName=$(resolveHostProviderName)
+    if [ -z "$providerName" ]; then
+      echo ""
+      return 0
+    fi
+    resolvedModelString=$(resolveProviderModelId "$providerName" "$modelTierValue")
+    echo "$resolvedModelString"
+    return 0
+  fi
+
+  supportedCliProviderKey=$(resolveSupportedCliProviderName)
+  if [ "$preferredModelValue" != "$supportedCliProviderKey" ]; then
+    echo ""
+    return 0
+  fi
+
+  resolvedModelString=$(resolveProviderModelId "$preferredModelValue" "$modelTierValue")
+  echo "$resolvedModelString"
 }
 
 readPersonaShortDescription() {
@@ -109,36 +166,41 @@ readPersonaHumor() {
   readPersonaFrontmatter "$personaPath" | yq '.humor // "default"'
 }
 
-resolveHumorTemperature() {
+resolveHumorAttributes() {
   local humor="$1"
+  local attribute="$2"
   case "$humor" in
-    introvert)    echo "0.2" ;;
-    pragmatic)    echo "0.25" ;;
-    sympathetic)  echo "0.3" ;;
-    extrovert)    echo "0.35" ;;
-    *)            echo "" ;;
-  esac
-}
-
-resolveHumorTopP() {
-  local humor="$1"
-  case "$humor" in
-    introvert)    echo "0.85" ;;
-    pragmatic)    echo "0.85" ;;
-    sympathetic)  echo "0.85" ;;
-    extrovert)    echo "0.85" ;;
-    *)            echo "" ;;
-  esac
-}
-
-resolveHumorThinkingBudget() {
-  local humor="$1"
-  case "$humor" in
-    introvert)    echo "10240" ;;
-    pragmatic)    echo "12288" ;;
-    sympathetic)  echo "14336" ;;
-    extrovert)    echo "16384" ;;
-    *)            echo "" ;;
+    introvert)
+      case "$attribute" in
+        temperature)    echo "0.2" ;;
+        topP)           echo "0.85" ;;
+        thinkingBudget) echo "10240" ;;
+      esac
+      ;;
+    pragmatic)
+      case "$attribute" in
+        temperature)    echo "0.25" ;;
+        topP)           echo "0.85" ;;
+        thinkingBudget) echo "12288" ;;
+      esac
+      ;;
+    sympathetic)
+      case "$attribute" in
+        temperature)    echo "0.3" ;;
+        topP)           echo "0.85" ;;
+        thinkingBudget) echo "14336" ;;
+      esac
+      ;;
+    extrovert)
+      case "$attribute" in
+        temperature)    echo "0.35" ;;
+        topP)           echo "0.85" ;;
+        thinkingBudget) echo "16384" ;;
+      esac
+      ;;
+    *)
+      echo ""
+      ;;
   esac
 }
 
@@ -529,37 +591,22 @@ agentBindingBuilder() {
   local thinkingBudget="$6"
   local agentBindings="$7"
 
-  if [ -n "$temperature" ] && [ -n "$topP" ] && [ -n "$thinkingBudget" ]; then
-    jq \
-      --arg name "$agentName" \
-      --arg model "$modelId" \
-      --arg description "$description" \
-      --argjson temperature "$temperature" \
-      --argjson topP "$topP" \
-      --argjson thinkingBudget "$thinkingBudget" \
-      '.[$name] = {"model": $model, "description": $description, "temperature": $temperature, "brainstorm": {"top_p": $topP}, "thinking": {"type": "enabled", "budgetTokens": $thinkingBudget}}' \
-      <<< "$agentBindings"
-    return
-  fi
-
-  if [ -n "$temperature" ] && [ -n "$topP" ]; then
-    jq \
-      --arg name "$agentName" \
-      --arg model "$modelId" \
-      --arg description "$description" \
-      --argjson temperature "$temperature" \
-      --argjson topP "$topP" \
-      '.[$name] = {"model": $model, "description": $description, "temperature": $temperature, "brainstorm": {"top_p": $topP}}' \
-      <<< "$agentBindings"
-    return
-  fi
-
   jq \
     --arg name "$agentName" \
     --arg model "$modelId" \
     --arg description "$description" \
-    '.[$name] = {"model": $model, "description": $description}' \
-    <<< "$agentBindings"
+    --arg temperature "$temperature" \
+    --arg topP "$topP" \
+    --arg thinkingBudget "$thinkingBudget" \
+    '.[$name] = (
+      {
+        "model": $model,
+        "description": $description,
+        "temperature": (if $temperature == "" then null else ($temperature | tonumber) end),
+        "brainstorm": (if $topP == "" then null else {"top_p": ($topP | tonumber)} end),
+        "thinking": (if $thinkingBudget == "" then null else {"type": "enabled", "budgetTokens": ($thinkingBudget | tonumber)} end)
+      } | to_entries | map(select(.value != null)) | from_entries
+    )' <<< "$agentBindings"
 }
 
 personaAgentJsonBuilder() {
@@ -575,7 +622,7 @@ personaAgentJsonBuilder() {
 
     agentName=$(resolveAgentName "$agentName")
 
-    modelId=$(readPersonaModelId "$personaPath")
+    modelId=$(resolvePersonaModelId "$personaPath")
 
     if [ -z "$modelId" ]; then
       continue
@@ -583,9 +630,9 @@ personaAgentJsonBuilder() {
 
     humor=$(readPersonaHumor "$personaPath")
     shortDescription=$(readPersonaShortDescription "$personaPath")
-    temperature=$(resolveHumorTemperature "$humor")
-    topP=$(resolveHumorTopP "$humor")
-    thinkingBudget=$(resolveHumorThinkingBudget "$humor")
+    temperature=$(resolveHumorAttributes "$humor" "temperature")
+    topP=$(resolveHumorAttributes "$humor" "topP")
+    thinkingBudget=$(resolveHumorAttributes "$humor" "thinkingBudget")
 
     agentBindings=$(agentBindingBuilder "$agentName" "$modelId" "$shortDescription" "$temperature" "$topP" "$thinkingBudget" "$agentBindings")
 
@@ -606,18 +653,18 @@ addGeneralAgent() {
   echo "$agentBindings" | jq '. + {"general": .coder}'
 }
 
-configLine=$(detectCliConfigPath)
+isInsideSupportedCli=$(isRunningInsideSupportedCli)
+if [ "$isInsideSupportedCli" != "true" ]; then
+  exit 0
+fi
+
+configLine=$(resolveSupportedCliConfigPath)
 if [ -z "$configLine" ]; then
   exit 0
 fi
 
 configPath="${configLine%% *}"
 configStatus="${configLine##* }"
-
-isInsideSupportedCli=$(isRunningInsideSupportedCli)
-if [ "$isInsideSupportedCli" != "true" ]; then
-  exit 0
-fi
 
 checkRequiredDependencies yq jq
 

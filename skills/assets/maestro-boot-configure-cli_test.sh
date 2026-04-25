@@ -4,8 +4,8 @@
 # @usage        maestro-boot-configure-cli_test.sh
 # @output       PASS/FAIL per test case, summary at end.
 # @requires     bash v4+, yq v4+, jq v1.6+
-# @version      0.0.21
-# @updated      2026-04-24
+# @version      0.0.22
+# @updated      2026-04-25
 set -euo pipefail
 
 scriptDir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -62,7 +62,8 @@ setupNoCliConfig() {
   mkdir -p "$testDir/personas"
   cat > "$testDir/personas/coder.md" <<'EOF'
 ---
-modelId: bailian-coding-plan/qwen3-coder-next
+preferredModel: qwen
+modelTier: tier-2
 shortDescription: Software development.
 ---
 You are a coder.
@@ -77,14 +78,16 @@ setupSkipsReadme() {
   mkdir -p "$testDir/personas"
   cat > "$testDir/personas/coder.md" <<'EOF'
 ---
-modelId: bailian-coding-plan/qwen3-coder-next
+preferredModel: qwen
+modelTier: tier-2
 shortDescription: Software development.
 ---
 You are a coder.
 EOF
   cat > "$testDir/personas/README.md" <<'EOF'
 ---
-modelId: bailian-coding-plan/qwen3-coder-next
+preferredModel: qwen
+modelTier: tier-2
 ---
 Documentation.
 EOF
@@ -98,7 +101,8 @@ setupMergesWithExistingAgents() {
   mkdir -p "$testDir/personas"
   cat > "$testDir/personas/coder.md" <<'EOF'
 ---
-modelId: bailian-coding-plan/qwen3-coder-next
+preferredModel: qwen
+modelTier: tier-2
 shortDescription: Software development.
 ---
 You are a coder.
@@ -119,14 +123,16 @@ setupReviewerPersona() {
   mkdir -p "$testDir/personas"
   cat > "$testDir/personas/coder.md" <<'EOF'
 ---
-modelId: bailian-coding-plan/qwen3-coder-next
+preferredModel: qwen
+modelTier: tier-2
 shortDescription: Software development.
 ---
 You are a coder.
 EOF
   cat > "$testDir/personas/reviewer.md" <<'EOF'
 ---
-modelId: bailian-coding-plan/qwen3-coder-next
+preferredModel: qwen
+modelTier: tier-2
 shortDescription: Reviews code.
 ---
 You are a reviewer.
@@ -187,35 +193,40 @@ runThinkingBudgetVerificationCases() {
   mkdir -p "$testDir/personas"
   cat > "$testDir/personas/introvert.md" <<'EOF'
 ---
-modelId: bailian-coding-plan/qwen3-coder-next
+preferredModel: qwen
+modelTier: tier-2
 humor: introvert
 ---
 Quiet persona.
 EOF
   cat > "$testDir/personas/pragmatic.md" <<'EOF'
 ---
-modelId: bailian-coding-plan/qwen3-coder-next
+preferredModel: qwen
+modelTier: tier-2
 humor: pragmatic
 ---
 Direct persona.
 EOF
   cat > "$testDir/personas/sympathetic.md" <<'EOF'
 ---
-modelId: bailian-coding-plan/qwen3-coder-next
+preferredModel: qwen
+modelTier: tier-2
 humor: sympathetic
 ---
 Warm persona.
 EOF
   cat > "$testDir/personas/extrovert.md" <<'EOF'
 ---
-modelId: bailian-coding-plan/qwen3-coder-next
+preferredModel: qwen
+modelTier: tier-2
 humor: extrovert
 ---
 Outgoing persona.
 EOF
   cat > "$testDir/personas/default.md" <<'EOF'
 ---
-modelId: bailian-coding-plan/qwen3-coder-next
+preferredModel: qwen
+modelTier: tier-2
 ---
 No humor field.
 EOF
@@ -351,7 +362,8 @@ runExternalDirVerificationCases() {
   for personaName in build architect coder reviewer contextualizer; do
     cat > "$testDir/personas/${personaName}.md" <<EOF
 ---
-modelId: bailian-coding-plan/qwen3-coder-next
+preferredModel: qwen
+modelTier: tier-2
 shortDescription: ${personaName} persona.
 ---
 ${personaName} body.
@@ -466,6 +478,89 @@ EOF
   passCount=$((passCount + 1))
 }
 
+runHostProviderResolutionCases() {
+  local testDir resolvedModel
+
+  testDir=$(mktemp -d -p "$fixtureDir")
+  mkdir -p "$testDir/personas"
+
+  cat > "$testDir/personas/coder.md" <<'EOF'
+---
+preferredModel: host
+modelTier: tier-2
+shortDescription: Software development.
+---
+You are a coder.
+EOF
+
+  cat > "$testDir/opencode.json" <<'EOF'
+{}
+EOF
+
+  # resolveHostProviderName queries dispatch.md for the provider whose cli == "opencode".
+  # The env override bypasses that lookup and forces the provider name directly.
+  # Setting it to "qwen" exercises the resolution path because dispatch.md maps
+  # qwen -> cli: opencode, tier-2 -> bailian-coding-plan/qwen3.5-plus.
+  cd "$testDir" && isRunningInsideSupportedCliEnvOverride=true resolveHostProviderNameEnvOverride=qwen bash "$configureScript" 2>&1 || true
+
+  resolvedModel=$(jq -r '.agent.coder.model' "$testDir/opencode.json")
+
+  if [[ "$resolvedModel" != "bailian-coding-plan/qwen3.5-plus" ]]; then
+    cat <<EOF
+FAIL host provider resolves to qwen tier-2 model
+  expected bailian-coding-plan/qwen3.5-plus, got: $resolvedModel
+EOF
+    failCount=$((failCount + 1))
+    return
+  fi
+  echo "PASS host provider resolves to qwen tier-2 model"
+  passCount=$((passCount + 1))
+}
+
+runUnsupportedProviderSkippedCases() {
+  local testDir unknownAgentEntry
+
+  testDir=$(mktemp -d -p "$fixtureDir")
+  mkdir -p "$testDir/personas"
+
+  cat > "$testDir/personas/unknown.md" <<'EOF'
+---
+preferredModel: unknown-provider
+modelTier: tier-2
+shortDescription: Unknown provider persona.
+---
+Unknown provider body.
+EOF
+
+  cat > "$testDir/personas/coder.md" <<'EOF'
+---
+preferredModel: qwen
+modelTier: tier-2
+shortDescription: Software development.
+---
+You are a coder.
+EOF
+
+  cat > "$testDir/opencode.json" <<'EOF'
+{}
+EOF
+
+  cd "$testDir" && isRunningInsideSupportedCliEnvOverride=true bash "$configureScript" 2>&1 || true
+
+  unknownAgentEntry=$(jq -r '.agent.unknown // empty' "$testDir/opencode.json")
+
+  if [[ -n "$unknownAgentEntry" ]]; then
+    cat <<EOF
+FAIL unsupported preferredModel is skipped
+  expected no agent binding for unknown, got: $unknownAgentEntry
+EOF
+    failCount=$((failCount + 1))
+    return
+  fi
+  echo "PASS unsupported preferredModel is skipped"
+  passCount=$((passCount + 1))
+}
+
 printResults() {
   echo ""
   echo "Results: $passCount passed, $failCount failed"
@@ -479,4 +574,6 @@ runPermissionVerificationCases
 runExternalDirVerificationCases
 runPlanDisableVerificationCases
 runDependencyCheckVerificationCases
+runHostProviderResolutionCases
+runUnsupportedProviderSkippedCases
 printResults
