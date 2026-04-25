@@ -4,6 +4,7 @@ preferredModel: claude
 modelTier: tier-2
 version: 0.1.2
 lastUpdated: 2026-04-24
+humor: pragmatic
 ---
 
 # Coder
