@@ -1,8 +1,8 @@
 ---
 shortDescription: Assembles sub-agent prompts with task brief and routes to the correct provider.
 usedBy: [maestro]
-version: 0.2.3
-lastUpdated: 2026-03-27
+version: 0.2.4
+lastUpdated: 2026-04-25
 ---
 
 ## Purpose
@@ -21,7 +21,7 @@ This is the only registry. If a persona is not listed there, it does not exist. 
 
 ## Procedure
 
-1. **Identify the host runtime.** Run `ps -p $PPID -o comm=` and match the output against the Providers table (e.g., `claude` → Claude Code, `codex` → Codex CLI, `cursor-agent` → Cursor CLI). Store the result in session state — the host runtime does not change mid-conversation.
+1. **Identify the host runtime.** Run `ps -p $PPID -o comm=` and match the process name against the **CLI** column of the Providers table to identify the host runtime's provider (e.g., `claude` → `claude` provider, `codex` → `codex` provider, `cursor-agent` → `cursor` provider). Store the result in session state — the host runtime does not change mid-conversation.
 
 2. **Extract routing fields.**
 
@@ -29,9 +29,9 @@ This is the only registry. If a persona is not listed there, it does not exist. 
    sed -n '/^---$/,/^---$/{ /^\(preferredModel\|modelTier\):/p }' personas/<name>.md
    ```
 
-3. **Select the provider and model.** Resolve `preferredModel` and `modelTier` against the Providers table. If `preferredModel` is omitted, use the host runtime's provider. The persona's `modelTier` is a floor — upgrade one tier when the task demands multi-step reasoning across system boundaries (e.g., cross-layer architectural changes, security/auth logic, or production deployment pipelines).
+3. **Select the provider and model.** Resolve `preferredModel` and `modelTier` against the Providers table. If `preferredModel` is `host`, always use native dispatch — the persona runs on whatever model the host runtime provides, ignoring tier upgrades. If `preferredModel` is omitted, use the host runtime's provider. The persona's `modelTier` is a floor — upgrade one tier when the task demands multi-step reasoning across system boundaries (e.g., cross-layer architectural changes, security/auth logic, or production deployment pipelines).
 
-4. **Decide how to dispatch.** Look up the persona's `preferredModel` in the Providers table to find its CLI column. Then:
+4. **Decide how to dispatch.** If `preferredModel` is `host`, use native dispatch and skip to step 5. Otherwise, look up the persona's `preferredModel` in the Providers table to find its CLI column. Then:
    - **Native dispatch** — the provider's CLI matches the host runtime. Use the host's built-in subagent mechanism (e.g., Task tool for Claude Code, Codex subagent environment, Cursor's native agent/subagent flow). Do not shell out to the same tool's CLI.
    - **CLI dispatch** — the provider's CLI does not match the host runtime. Shell out to the provider's CLI tool (see CLI Dispatch section).
    - If the preferred provider's CLI is not installed or unreachable, fall back to native dispatch and record the deviation in session memory.
@@ -81,6 +81,12 @@ This is the only registry. If a persona is not listed there, it does not exist. 
 ## Providers
 
 Each entry maps a provider to its `preferredModel` value, CLI tool, and concrete models per tier. Tier classes: **tier-1** = fast/cheap, **tier-2** = balanced, **tier-3** = reasoning/smartest.
+
+### Host (Native)
+
+- preferredModel: `host`
+- CLI: (none — always native dispatch)
+- Uses the host runtime's own subagent mechanism as the transport — the framework persona (with its identity, playbook, and rules) is still the agent being dispatched. The model tier is determined by the host's own configuration. This is not routing to a host-native agent; it is routing a framework persona through the host's native dispatch mechanism.
 
 ### Claude Code
 
