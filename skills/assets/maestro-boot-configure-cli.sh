@@ -11,7 +11,7 @@
 # @usage        maestro-boot-configure-cli.sh
 # @output       Summary line with agent count, or nothing if no CLI config found.
 # @requires     bash v4+, yq v4+, jq v1.6+, ps
-# @version      0.5.1
+# @version      0.5.2
 # @updated      2026-04-25
 set -euo pipefail
 
@@ -90,8 +90,14 @@ readProvidersYamlBlock() {
 }
 
 resolveSupportedCliProviderName() {
+  local hostModelId="${1:-}"
   local supportedCliProviderKey
-  supportedCliProviderKey=$(readProvidersYamlBlock | yq '.providers | to_entries[] | select(.value.cli == "opencode") | .key // ""' 2>/dev/null | head -1 || true)
+  if [ -n "$hostModelId" ]; then
+    supportedCliProviderKey=$(readProvidersYamlBlock | yq ".providers | to_entries[] | select(.value | has(\"tier-1\", \"tier-2\", \"tier-3\") and (.value.\"tier-1\" == \"$hostModelId\" or .value.\"tier-2\" == \"$hostModelId\" or .value.\"tier-3\" == \"$hostModelId\")) | .key // \"\"" 2>/dev/null | head -1 || true)
+  fi
+  if [ -z "$supportedCliProviderKey" ]; then
+    supportedCliProviderKey=$(readProvidersYamlBlock | yq '.providers | to_entries[] | select(.value.cli == "opencode") | .key // ""' 2>/dev/null | head -1 || true)
+  fi
   echo "$supportedCliProviderKey"
   return 0
 }
@@ -108,12 +114,13 @@ isProviderOnSupportedCli() {
 }
 
 resolveHostProviderName() {
+  local hostModelId="${1:-$hostModelId}"
   if [ "${resolveHostProviderNameEnvOverride+set}" = "set" ]; then
     echo "$resolveHostProviderNameEnvOverride"
     return 0
   fi
 
-  resolveSupportedCliProviderName
+  resolveSupportedCliProviderName "$hostModelId"
 }
 
 resolveProviderModelId() {
@@ -677,6 +684,8 @@ configPath="${configLine%% *}"
 configStatus="${configLine##* }"
 
 checkRequiredDependencies yq jq
+
+hostModelId="${1:-}"
 
 personasDir=".agents/personas"
 if [ ! -d "$personasDir" ]; then
