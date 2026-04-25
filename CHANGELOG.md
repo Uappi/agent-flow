@@ -1,6 +1,18 @@
 # Changelog
 
 ```log
+0.5.1 - 2026/04/25
+feat(personas): add humor frontmatter field to all personas (architect/extrovert, coder/pragmatic, contextualizer/introvert, maestro/sympathetic, reviewer/pragmatic)
+feat(personas): move parallel dispatch instruction from maestro identity to boot greet
+docs(personas): add humor field schema to personas/README.md
+feat(skills): add maestro-boot-configure-cli.sh — auto-detects OpenCode and writes persona agent bindings to opencode.json
+fix(skills/boot.md): renumber steps (gap from cycle-check removal), add opencode.json to gitignore loop, add CLI configuration step before context, rewrite greet
+feat(skills): add reviewer-architect-adversarial.md — adversarial plan validation with assumption attack and clean-rewrite check
+refactor(skills): delete plan-critique.md — replaced by reviewer-architect-adversarial.md
+docs(skills): update architect-self-review.md reference to adversarial skill
+docs(skills): integrate FEATURE-MAP.md into contextualizer self-review rubric
+docs(skills): update skills README table entry for plan-critique rename
+
 0.5.0 - 2026/04/24
 feat(personas): wire self-review gates into all four personas (coder/GRASP, architect/DRAFT, contextualizer/TRACE, reviewer/SHIELD)
 feat(personas): wire agent-decision.md into maestro parse step and dispatch skill for ambiguity escalation
