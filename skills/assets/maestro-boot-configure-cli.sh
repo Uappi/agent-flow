@@ -11,7 +11,7 @@
 # @usage        maestro-boot-configure-cli.sh
 # @output       Summary line with agent count, or nothing if no CLI config found.
 # @requires     bash v4+, yq v4+, jq v1.6+, ps
-# @version      0.5.0
+# @version      0.5.1
 # @updated      2026-04-25
 set -euo pipefail
 
@@ -678,7 +678,7 @@ configStatus="${configLine##* }"
 
 checkRequiredDependencies yq jq
 
-personasDir="personas"
+personasDir=".agents/personas"
 if [ ! -d "$personasDir" ]; then
   echo "PersonasDirectoryNotFound" >&2
   exit 0
