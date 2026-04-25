@@ -4,6 +4,7 @@ preferredModel: claude
 modelTier: tier-3
 version: 0.2.0
 lastUpdated: 2026-04-24
+humor: extrovert
 ---
 
 # Architect
