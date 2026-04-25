@@ -11,7 +11,7 @@
 # @usage        maestro-boot-configure-cli.sh
 # @output       Summary line with agent count, or nothing if no CLI config found.
 # @requires     bash v4+, yq v4+, jq v1.6+, ps
-# @version      0.4.0
+# @version      0.5.0
 # @updated      2026-04-25
 set -euo pipefail
 
@@ -91,9 +91,20 @@ readProvidersYamlBlock() {
 
 resolveSupportedCliProviderName() {
   local supportedCliProviderKey
-  supportedCliProviderKey=$(readProvidersYamlBlock | yq '.providers | to_entries[] | select(.value.cli == "opencode") | .key // ""' 2>/dev/null || true)
+  supportedCliProviderKey=$(readProvidersYamlBlock | yq '.providers | to_entries[] | select(.value.cli == "opencode") | .key // ""' 2>/dev/null | head -1 || true)
   echo "$supportedCliProviderKey"
   return 0
+}
+
+isProviderOnSupportedCli() {
+  local providerName="$1"
+  local providerCli
+  providerCli=$(readProvidersYamlBlock | yq ".providers[\"$providerName\"].cli // \"\"" 2>/dev/null || true)
+  if [ "$providerCli" = "opencode" ]; then
+    echo "true"
+    return 0
+  fi
+  echo "false"
 }
 
 resolveHostProviderName() {
@@ -124,7 +135,7 @@ resolveProviderModelId() {
 resolvePersonaModelId() {
   local personaPath="$1"
 
-  local frontmatterYaml preferredModelValue modelTierValue providerName resolvedModelString supportedCliProviderKey
+  local frontmatterYaml preferredModelValue modelTierValue providerName resolvedModelString
   frontmatterYaml=$(readPersonaFrontmatter "$personaPath")
   preferredModelValue=$(echo "$frontmatterYaml" | yq '.preferredModel // ""')
 
@@ -146,8 +157,7 @@ resolvePersonaModelId() {
     return 0
   fi
 
-  supportedCliProviderKey=$(resolveSupportedCliProviderName)
-  if [ "$preferredModelValue" != "$supportedCliProviderKey" ]; then
+  if [ "$(isProviderOnSupportedCli "$preferredModelValue")" != "true" ]; then
     echo ""
     return 0
   fi

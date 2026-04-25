@@ -4,7 +4,7 @@
 # @usage        maestro-boot-configure-cli_test.sh
 # @output       PASS/FAIL per test case, summary at end.
 # @requires     bash v4+, yq v4+, jq v1.6+
-# @version      0.0.22
+# @version      0.0.23
 # @updated      2026-04-25
 set -euo pipefail
 
