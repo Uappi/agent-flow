@@ -16,7 +16,7 @@ Skills are collected intelligence on how to operate a specific tool — whether 
 - `contextualizer-self-review` — TRACE self-review rubric — context generation quality gate
 - `dispatch` — Assembles sub-agent prompts with task brief
 - `loop-recovery` — Structured recovery and escalation for retry loops
-- `plan-critique` — Adversarial plan validation — structural checks and assumption attack before implementation
+- `reviewer-architect-adversarial` — Adversarial plan validation — structural checks and assumption attack before implementation
 - `reviewer-handoff` — Structured review summary format with verdict logic and deterministic coverage scoring
 - `reviewer-scoring` — Deterministic checklist-based review scoring — replaces subjective confidence
 - `review-loop` — LOC-based review tier selection with shapeshifter dispatch for the unified reviewer
