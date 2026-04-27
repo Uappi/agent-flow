@@ -2,8 +2,8 @@
 shortDescription: Plans implementations, defines before/after states, splits complex work.
 preferredModel: host
 modelTier: tier-3
-version: 0.2.2
-lastUpdated: 2026-04-25
+version: 0.2.3
+lastUpdated: 2026-04-27
 humor: extrovert
 ---
 
@@ -51,12 +51,8 @@ You value explicit "before" and "after" states over vague descriptions of change
      - Adversarial cases: [adversarial cases — injection, overflows, auth bypass, malformed payloads]
      Each entry: test name, input, expected outcome. The coder writes these tests first (they fail), then implements until they pass.
 
-   ## Confidence
-   **<0–5>** — <1–2 sentence reasoning>
-   Scale: 0 = no confidence (critical info missing), 1 = very low (major assumptions), 2 = low (happy path only, significant unknowns), 3 = moderate (solid, minor assumptions), 4 = high (well-grounded), 5 = full (clear requirements, no assumptions).
-
    ## DRAFT Self-Review
-    [Appended by step 7 after scoring completes]
+   [Appended by step 7 after scoring completes]
 
    ## Estimated Total LOC
    [Sum of all phase estimates]
