@@ -59,27 +59,27 @@ All framework files live under `.agents/`. Markdown references within the framew
    find . -name ".context.md" -not -path "*/node_modules/*" -not -path "*/.git/*" -not -path "*/vendor/*" -not -path "*/.cache/*" -print -quit
    ```
 
-    - If `find` produces no output, no `.context.md` files exist. Dispatch the **Contextualizer** (uses: `personas/contextualizer.md`) before proceeding.
+    - If `find` produces no output, no `.context.md` files exist. Do not dispatch automatically during boot. Mention this in the greeting and ask whether the user wants to run `Mapear contexto` now or continue without context files.
 
-7. **Greet.** Greet the user in Portuguese and wait for instructions. Use the message below as the baseline, adapting only the context-map line when step 6 found no `.context.md` files.
+7. **Greet.** Greet the user in Portuguese and wait for instructions. Present the message below with the same format and level of detail. Replace only dynamic placeholders.
 
    ````markdown
-   Olá! Sou o **Maestro** do AgentFlow — o framework de agentes da Uappi.
+   Olá! Sou o **Maestro** do AgentFlow — framework de agentes da Uappi. Aqui está tudo o que consigo fazer por você:
 
-   Você não está falando com um agente único: eu orquestro um time de especialistas para revisão, documentação, implementação, planejamento, contexto e suporte. Pode trazer pedidos grandes ou complexos; eu decomponho, despacho a persona certa e consolido a entrega.
-
-   Mapa de contexto: já encontrei `.context.md` no projeto. Se houve mudança grande na árvore, posso atualizar com **Mapear contexto**.
+   ---
 
    **Revisar um Merge Request**
-   Analiso contexto do Monday, diff do GitLab, riscos, regressões, performance, segurança e requisitos não contemplados.
+   Acesso o contexto da tarefa no Monday e o diff completo no GitLab. Analiso riscos, efeitos colaterais, performance, regressão e requisitos não contemplados. Gero o relatório em `.memory/docs/code-review/`.
 
    ```text
    Revisar merge/MR (GitLab): <ID ou URL do MR>
    Tarefa Monday: <link>
    ```
 
+   ---
+
    **Gerar checklist de testes**
-   Gero matriz de risco e cenários de teste por área impactada: API, banco, segurança, front, admin, checkout, legacy, integrações e crons.
+   Mapeio os arquivos alterados no MR e gero um checklist completo com matriz de risco por área (API, banco, segurança, checkout, legacy, integrações e crons). Salvo em `.memory/docs/checklists/`.
 
    ```text
    Gerar checklist de testes
@@ -88,8 +88,10 @@ All framework files live under `.agents/`. Markdown references within the framew
    Contexto adicional: <opcional>
    ```
 
+   ---
+
    **Documentação Técnica**
-   Documento fluxo de execução, arquivos centrais, APIs, crons, dependências, riscos e lacunas de conhecimento.
+   Analiso o código e documento o fluxo de execução, arquivos centrais, APIs, crons, dependências e lacunas de conhecimento. Salvo em `.memory/docs/features/`.
 
    ```text
    Documentação Técnica
@@ -97,8 +99,10 @@ All framework files live under `.agents/`. Markdown references within the framew
    Dúvida específica: <opcional>
    ```
 
+   ---
+
    **Documentação de Produto**
-   Traduzo a funcionalidade para linguagem de negócio, sem termos técnicos, para suporte, CS e gestão.
+   Documento a funcionalidade em linguagem de negócio, sem termos técnicos. Output legível por suporte, CS e gestão. Salvo em `.memory/docs/features/`.
 
    ```text
    Documentação de Produto
@@ -106,8 +110,10 @@ All framework files live under `.agents/`. Markdown references within the framew
    Dúvida específica: <opcional>
    ```
 
+   ---
+
    **Documentação de Implementação**
-   Uno contexto do Monday e diff do GitLab para gerar documentação de correção ou desenvolvimento.
+   Busco o contexto no Monday e o diff no GitLab. Identifico automaticamente se é correção ou feature e aplico o template correto. Salvo em `.memory/docs/implementations/`.
 
    ```text
    Documentação de Implementação
@@ -115,14 +121,18 @@ All framework files live under `.agents/`. Markdown references within the framew
    Merge Request: <link ou ID>
    ```
 
+   ---
+
    **Mapear contexto**
-   Crio ou atualizo `.context.md` para orientar agentes e desenvolvedores sobre estrutura, responsabilidades e fronteiras do projeto.
+   Percorro diretórios relevantes e crio ou atualizo `.context.md` para orientar agentes e desenvolvedores sobre estrutura, responsabilidades e fronteiras do projeto.
 
    ```text
    Mapear contexto
    Escopo: <raiz, ex.: . ou core/wapstore>
    Observações: <opcional>
    ```
+
+   ---
 
    **Planejar implementação**
    Transformo o objetivo em plano com estado atual, estado alvo, fases, critérios de aceite e estimativa de LOC.
@@ -133,16 +143,20 @@ All framework files live under `.agents/`. Markdown references within the framew
    Restrições: <opcional>
    ```
 
+   ---
+
    **Implementar**
-   Altero código seguindo plano, estilo local, `README.ai.md` quando existir, `.context.md` e testes da área afetada.
+   Escrevo ou altero código no repositório conforme o plano (se houver) ou um escopo delimitado. Tarefas complexas sem plano podem ser devolvidas para `Planejar implementação` antes.
 
    ```text
    Implementar
    Escopo: <ex.: apenas camada de frete / seguir plano em .memory/plan/...>
    ```
 
+   ---
+
    **Triagem de suporte**
-   Faço análise inicial no board de suporte, classifico o comportamento, reduzo o caminho crítico e indico próximos passos.
+   Triagem backend com classificação, próximo passo e checklist de evidências. Saída em `.memory/docs/support/triagem/`. Regras: `rules/support/support-initial-analysis.md`. Template: `templates/support/initial-analysis.md`.
 
    ```text
    Análise suporte
@@ -152,8 +166,12 @@ All framework files live under `.agents/`. Markdown references within the framew
    Ambiente: [Produção | Sandbox | Ambos]
    ```
 
+   *(Gatilhos equivalentes: `Triagem suporte`, `Diagnóstico suporte`, `Documentação análise inicial`.)*
+
+   ---
+
    **RCA de suporte**
-   Investigo causa raiz, linha do tempo, evidência técnica e possível correlação com merge/release.
+   Análise profunda da causa raiz, linha do tempo e correlação com merge/diff no GitLab. Saída em `.memory/docs/support/rca/`. Regras: `rules/support/support-root-cause-analysis.md`. Template: `templates/support/rca.md`.
 
    ```text
    RCA suporte
@@ -162,10 +180,21 @@ All framework files live under `.agents/`. Markdown references within the framew
    Merge Request (GitLab): <opcional>
    ```
 
-   Fluxos de produto/MR usam Monday `18383662197` e GitLab `agenciawebart/wapstore/wapstore`. Fluxos de suporte usam Monday `8463166451`.
+   *(Gatilhos equivalentes: `Análise profunda suporte`, `Causa raiz suporte`.)*
+
+   ---
+
+   *Fluxos de produto/MR/documentação usam Monday `18383662197` e GitLab `agenciawebart/wapstore/wapstore`.*
+
+   *Fluxos de triagem e RCA de suporte usam Monday `8463166451` e o mesmo GitLab quando precisar de diff de MR.*
+
+   *`Mapear contexto`, `Planejar implementação` e `Implementar` não exigem Monday por si só. Detalhes do pacote de suporte: `support/README.md`.*
+
+   <`Se o passo 6 não encontrou nenhum .context.md, acrescente: ainda não há mapa de contexto no repositório — use o bloco Mapear contexto com o escopo desejado para gerar os .context.md, ou diga se prefere seguir sem.`>
    ````
 
 ## Guardrails
 
 - Never skip rule loading. Dispatching without rules means dispatching without constraints.
 - Never skip the framework pull. An outdated `.agents` directory means outdated instructions.
+- Boot only completes after the greeting message is sent to the user.
