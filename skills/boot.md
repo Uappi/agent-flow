@@ -61,24 +61,109 @@ All framework files live under `.agents/`. Markdown references within the framew
 
     - If `find` produces no output, no `.context.md` files exist. Dispatch the **Contextualizer** (uses: `personas/contextualizer.md`) before proceeding.
 
-7. **Greet.** Greet the user in Portuguese and wait for instructions. The first user-visible message after boot MUST be assembled at runtime (do not hardcode the full prompt bodies in this skill).
+7. **Greet.** Greet the user in Portuguese and wait for instructions. Use the message below as the baseline, adapting only the context-map line when step 6 found no `.context.md` files.
 
-   Required behavior for the greeting:
-   - Keep the opening short (`Maestro` intro + context-map line).
-   - Include workflow examples in the same boot message, but load them from the corresponding files in `prompts/` at runtime.
-   - Preserve each prompt text exactly as written in its source file.
-   - If a prompt file is missing, skip only that item and explicitly report which file was not found.
+   ````markdown
+   Olá! Sou o **Maestro** do AgentFlow — o framework de agentes da Uappi.
 
-   Prompt sources:
-   - `prompts/monday-gitlab/code-review.md`
-   - `prompts/monday-gitlab/test-checklist.md`
-   - `prompts/monday-gitlab/tech-doc.md`
-   - `prompts/monday-gitlab/product-doc.md`
-   - `prompts/monday-gitlab/implementation.md`
-   - `prompts/support/initial-analysis.md`
-   - `prompts/support/rca.md`
+   Você não está falando com um agente único: eu orquestro um time de especialistas para revisão, documentação, implementação, planejamento, contexto e suporte. Pode trazer pedidos grandes ou complexos; eu decomponho, despacho a persona certa e consolido a entrega.
 
-   The final greeting must still mention fixed integrations: Monday `18383662197` and GitLab `agenciawebart/wapstore/wapstore` for product/MR flows, and Monday `8463166451` for support flows.
+   Mapa de contexto: já encontrei `.context.md` no projeto. Se houve mudança grande na árvore, posso atualizar com **Mapear contexto**.
+
+   **Revisar um Merge Request**
+   Analiso contexto do Monday, diff do GitLab, riscos, regressões, performance, segurança e requisitos não contemplados.
+
+   ```text
+   Revisar merge/MR (GitLab): <ID ou URL do MR>
+   Tarefa Monday: <link>
+   ```
+
+   **Gerar checklist de testes**
+   Gero matriz de risco e cenários de teste por área impactada: API, banco, segurança, front, admin, checkout, legacy, integrações e crons.
+
+   ```text
+   Gerar checklist de testes
+   Merge Request (GitLab): <ID ou URL do MR>
+   Tarefa Monday: <link>
+   Contexto adicional: <opcional>
+   ```
+
+   **Documentação Técnica**
+   Documento fluxo de execução, arquivos centrais, APIs, crons, dependências, riscos e lacunas de conhecimento.
+
+   ```text
+   Documentação Técnica
+   Funcionalidade: <nome>
+   Dúvida específica: <opcional>
+   ```
+
+   **Documentação de Produto**
+   Traduzo a funcionalidade para linguagem de negócio, sem termos técnicos, para suporte, CS e gestão.
+
+   ```text
+   Documentação de Produto
+   Funcionalidade: <nome>
+   Dúvida específica: <opcional>
+   ```
+
+   **Documentação de Implementação**
+   Uno contexto do Monday e diff do GitLab para gerar documentação de correção ou desenvolvimento.
+
+   ```text
+   Documentação de Implementação
+   Tarefa Monday: <link ou ID>
+   Merge Request: <link ou ID>
+   ```
+
+   **Mapear contexto**
+   Crio ou atualizo `.context.md` para orientar agentes e desenvolvedores sobre estrutura, responsabilidades e fronteiras do projeto.
+
+   ```text
+   Mapear contexto
+   Escopo: <raiz, ex.: . ou core/wapstore>
+   Observações: <opcional>
+   ```
+
+   **Planejar implementação**
+   Transformo o objetivo em plano com estado atual, estado alvo, fases, critérios de aceite e estimativa de LOC.
+
+   ```text
+   Planejar implementação
+   Objetivo: <o que deve existir ao final>
+   Restrições: <opcional>
+   ```
+
+   **Implementar**
+   Altero código seguindo plano, estilo local, `README.ai.md` quando existir, `.context.md` e testes da área afetada.
+
+   ```text
+   Implementar
+   Escopo: <ex.: apenas camada de frete / seguir plano em .memory/plan/...>
+   ```
+
+   **Triagem de suporte**
+   Faço análise inicial no board de suporte, classifico o comportamento, reduzo o caminho crítico e indico próximos passos.
+
+   ```text
+   Análise suporte
+   Tarefa Monday: <link da tarefa no board de suporte>
+   Cliente: <opcional>
+   Fluxo: <opcional>
+   Ambiente: [Produção | Sandbox | Ambos]
+   ```
+
+   **RCA de suporte**
+   Investigo causa raiz, linha do tempo, evidência técnica e possível correlação com merge/release.
+
+   ```text
+   RCA suporte
+   Tarefa Monday: <link no board de suporte>
+   Contexto estruturado: <opcional — seção 9 da triagem>
+   Merge Request (GitLab): <opcional>
+   ```
+
+   Fluxos de produto/MR usam Monday `18383662197` e GitLab `agenciawebart/wapstore/wapstore`. Fluxos de suporte usam Monday `8463166451`.
+   ````
 
 ## Guardrails
 
