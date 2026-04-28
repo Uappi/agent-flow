@@ -1,7 +1,7 @@
 ---
 shortDescription: Session startup — gitignore, auto-update, memory, rules, context, CLI config, and greet.
 usedBy: [maestro]
-version: 0.4.3
+version: 0.4.4
 lastUpdated: 2026-04-28
 ---
 
@@ -59,11 +59,17 @@ All framework files live under `.agents/`. Markdown references within the framew
    find . -name ".context.md" -not -path "*/node_modules/*" -not -path "*/.git/*" -not -path "*/vendor/*" -not -path "*/.cache/*" -print -quit
    ```
 
-    - If `find` produces no output, no `.context.md` files exist. Do not dispatch automatically during boot. Mention this in the greeting and ask whether the user wants to run `Mapear contexto` now or continue without context files.
+   Note the result — it is used in step 7.
 
-7. **Greet.** Greet the user in Portuguese and wait for instructions. Present the message below with the same format and level of detail. Replace only dynamic placeholders.
+7. **Greet.** Send the greeting below to the user now. This is the final and mandatory action of boot — do not add preamble, do not summarize, do not defer. Boot is not complete until this message is sent.
 
-   ````markdown
+   If step 6 produced no output, append this line at the end of the greeting before sending:
+   > Ainda não há mapa de contexto no repositório. Use o bloco **Mapear contexto** com o escopo desejado para gerá-los, ou diga se prefere seguir sem.
+
+   **Greeting starts here:**
+
+   ---
+
    Olá! Sou o **Maestro** do AgentFlow — framework de agentes da Uappi. Aqui está tudo o que consigo fazer por você:
 
    ---
@@ -196,15 +202,11 @@ All framework files live under `.agents/`. Markdown references within the framew
 
    *Fluxos de produto/MR/documentação usam Monday `18383662197` e GitLab `agenciawebart/wapstore/wapstore`.*
 
-   *Fluxos de triagem e RCA de suporte usam Monday `8463166451` e o mesmo GitLab quando precisar de diff de MR.*
+   *Fluxos de suporte usam Monday `8463166451` e o mesmo GitLab quando precisar de diff de MR.*
 
-   *`Mapear contexto`, `Planejar implementação` e `Implementar` não exigem Monday por si só. Detalhes do pacote de suporte: `support/README.md`.*
-
-   <`Se o passo 6 não encontrou nenhum .context.md, acrescente: ainda não há mapa de contexto no repositório — use o bloco Mapear contexto com o escopo desejado para gerar os .context.md, ou diga se prefere seguir sem.`>
-   ````
+   **Greeting ends here.**
 
 ## Guardrails
 
 - Never skip rule loading. Dispatching without rules means dispatching without constraints.
-- Never skip the framework pull. An outdated `.agents` directory means outdated instructions.
-- Boot only completes after the greeting message is sent to the user.
+- Never skip the framework pull. An outdated `.agents` directory means dispatching with stale instructions.
