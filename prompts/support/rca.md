@@ -8,8 +8,3 @@ Contexto adicional (opcional):
 - Merge/MR:
 - Fluxo:
 - Sintoma observado:
-
-Instruções:
-- Aplicar `rules/support/support-root-cause-analysis.md`.
-- Utilizar template `templates/support/rca.md`.
-

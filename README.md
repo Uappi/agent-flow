@@ -112,7 +112,7 @@ Skills codify procedures that personas reference. They answer "how to do X" so p
 - **code-quality-review** — rules-walk procedure for coding standards compliance
 - **code-sec-review** — OWASP-aligned security code review checklist
 - **coder-self-review** — GRASP self-review rubric — implementation quality gate
-- **context-maintenance** — schema and rules for `.context.md` files
+- **context-maintenance** — schema and rules for `.context.md` files and `docs/FEATURE-MAP.md`
 - **contextualizer-self-review** — TRACE self-review rubric — context generation quality gate
 - **dispatch** — how the Maestro assembles and sends work to personas
 - **loop-recovery** — structured recovery and escalation for retry loops

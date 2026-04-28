@@ -21,6 +21,9 @@ Personas are specialized AI roles. Role-playing matters. Different perspectives 
 - `Documentação Técnica` — `engineer`
 - `Documentação de Produto` — `product-owner`
 - `Documentação de Implementação` — `documenter`
+- `Mapear contexto` — `contextualizer` in context-scan mode
+- `Planejar implementação` — `architect`
+- `Implementar` — `coder`
 - `Análise suporte`, `Triagem suporte`, `Diagnóstico suporte`, `Documentação análise inicial` — `support` in triage mode
 - `RCA suporte`, `Análise profunda suporte`, `Causa raiz suporte` — `support` in RCA mode
 

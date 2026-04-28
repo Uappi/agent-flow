@@ -155,29 +155,39 @@ All framework files live under `.agents/`. Markdown references within the framew
 
    ---
 
-   **Triagem de suporte**
-   Triagem backend com classificação, próximo passo e checklist de evidências. Saída em `.memory/docs/support/triagem/`. Regras: `rules/support/support-initial-analysis.md`. Template: `templates/support/initial-analysis.md`.
+   **Análise suporte**
+   Triagem backend com classificação, próximo passo e checklist de evidências. Saída em `.memory/docs/support/triagem/`.
 
    ```text
-   Análise suporte
-   Tarefa Monday: <link da tarefa no board de suporte>
-   Cliente: <opcional>
-   Fluxo: <opcional>
-   Ambiente: [Produção | Sandbox | Ambos]
+   Análise suporte: <link da tarefa do Monday (board de suporte)>
+
+   Contexto adicional (opcional):
+   - Cliente:
+   - Fluxo:
+   - Suspeita:
+   - Observações:
+   - Ambiente: [Produção | Sandbox | Ambos]
+   - Já testado:
    ```
 
    *(Gatilhos equivalentes: `Triagem suporte`, `Diagnóstico suporte`, `Documentação análise inicial`.)*
 
    ---
 
-   **RCA de suporte**
-   Análise profunda da causa raiz, linha do tempo e correlação com merge/diff no GitLab. Saída em `.memory/docs/support/rca/`. Regras: `rules/support/support-root-cause-analysis.md`. Template: `templates/support/rca.md`.
+   **RCA suporte**
+   Análise profunda da causa raiz, linha do tempo e correlação com merge/diff no GitLab. Saída em `.memory/docs/support/rca/`.
 
    ```text
-   RCA suporte
-   Tarefa Monday: <link no board de suporte>
-   Contexto estruturado: <opcional — seção 9 da triagem>
-   Merge Request (GitLab): <opcional>
+   RCA suporte: <link da tarefa do Monday (board de suporte)>
+
+   Contexto estruturado (preferencial: copie a seção 9 do relatório de triagem):
+
+   Contexto adicional (opcional):
+   - Release atual:
+   - Release anterior:
+   - Merge/MR:
+   - Fluxo:
+   - Sintoma observado:
    ```
 
    *(Gatilhos equivalentes: `Análise profunda suporte`, `Causa raiz suporte`.)*

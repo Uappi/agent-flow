@@ -38,3 +38,8 @@ Delivers product documentation saved to the expected path, readable by non-techn
 - Never use technical jargon without translating it for the target reader.
 - Never omit the attention points section. If there are no points, write `Nenhum ponto de atenção identificado`.
 
+## Yield
+
+- The feature's business behavior cannot be inferred from code or provided context alone — business rules are embedded only in external systems or stakeholder knowledge not accessible in this session.
+- A specific question from the user requires a business decision that cannot be answered from technical evidence.
+

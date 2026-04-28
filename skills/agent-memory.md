@@ -74,7 +74,7 @@ The five sections above are the defaults. Maestro may create additional sections
 
 **Size discipline:**
 
-- Target: under 80 entries total across all sections. When approaching this threshold, prune aggressively during distillation (step 8).
+- Target: under 80 entries total across all sections. When approaching this threshold, prune aggressively during distillation (step 6).
 - Every entry must answer: "Will this actually help a future session?" If not, it does not belong.
 - Prefer updating an existing entry over adding a new one when they cover the same concern.
 

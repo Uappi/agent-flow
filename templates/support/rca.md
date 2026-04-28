@@ -38,25 +38,19 @@
 - Escopo afetado:
 - Risco:
 
-## 8. Ação recomendada
-
-- Correção sugerida
-- Ajuste técnico
-
-## 9. Nível de confiança
+## 8. Nível de confiança
 
 - [Alta | Média | Baixa]
 - Justificativa:
 
-## 10. Evidência técnica no código
+## 9. Evidência técnica no código
 
 - Trecho relevante:
 - Comportamento identificado:
 - Problema técnico:
 
-## 11. Mitigação / correção recomendada
+## 10. Mitigação / correção recomendada
 
 - Correção sugerida:
 - Blindagem adicional:
 - Ação imediata possível:
-

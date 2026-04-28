@@ -40,3 +40,8 @@ Delivers the implementation document with the task type identified, the selected
 - Never omit the release number. If it is not found, state that explicitly.
 - Never use a Monday board or GitLab project different from the fixed Uappi IDs above.
 
+## Yield
+
+- The GitLab MR cannot be accessed — missing permissions, invalid link, or unavailable instance. Return with a description of what could not be retrieved.
+- The Monday task cannot be accessed or does not contain enough context to classify the task type. Return and request the missing link or ID.
+

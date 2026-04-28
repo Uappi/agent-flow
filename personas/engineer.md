@@ -38,3 +38,8 @@ Delivers technical documentation saved to the expected path, with evidence-backe
 - Never omit the gaps section. If no gaps were found, write `Nenhuma lacuna identificada`.
 - Never include behavior from other systems without direct evidence in the analyzed code or provided context.
 
+## Yield
+
+- The feature cannot be traced end-to-end from the code alone and no additional context was provided — list what is missing and return.
+- The codebase requires live environment access or runtime data to verify claimed behavior that is not observable from static analysis.
+

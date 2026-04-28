@@ -44,6 +44,12 @@
 
 > Copie esta seção para o Monday se faltarem evidências mínimas para continuar.
 
+**Motivo do bloqueio:**
+**Evidências mínimas necessárias para prosseguir:**
+- [ ]
+- [ ]
+**Pergunta específica para o nível 1:**
+
 ## 8. Direcionamento técnico
 
 - **Fluxo identificado**

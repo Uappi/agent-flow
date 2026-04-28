@@ -2,7 +2,7 @@
 
 Skills are collected intelligence on how to operate a specific tool — whether that is a CLI, an API, or an MCP/ACP server. They codify procedures, protocols, and output formats that personas reference during execution.
 
-### Available Skills
+## Available Skills
 
 - `agent-decision` — Structured ambiguity escalation with 1-3-1 analysis and FRAME self-review rubric
 - `agent-memory` — Long-term and session memory across sessions

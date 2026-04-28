@@ -1,39 +1,30 @@
 ---
 shortDescription: Support RCA with technical root cause, code correlation, merge context, and confidence.
 scope: support
-version: 0.1.0
+version: 0.2.0
 lastUpdated: 2026-04-28
 ---
 
-# RCA de suporte
+## Statement
 
-Use via `personas/support.md` when the main request is `RCA suporte`, `Análise profunda suporte`, or `Causa raiz suporte`.
+The Support persona MUST read Monday context from board `8463166451`. The GitLab project is `agenciawebart/wapstore/wapstore`.
 
-## Context
+The analyst MUST prioritize the `Contexto estruturado para RCA` block from a prior triage report. The full triage text MUST be used as supporting context only — it MUST NOT be copied verbatim into the RCA.
 
-- **Monday support board:** `8463166451`.
-- **GitLab project:** `agenciawebart/wapstore/wapstore`.
-- **Product source of truth:** `README.ai.md` in the work repository when present.
+The RCA MUST confirm or refute the main hypothesis with a technical root cause, failure point, and regression classification.
 
-## Execution Rules
+The analyst MUST build a timeline: when the issue started, current version, previous version, and whether it is a regression, new behavior, or indeterminate.
 
-1. Prioritize the `Contexto estruturado para RCA` block from a triage output. Use additional prompt context next. Use the full triage only as support, not as text to copy.
-2. Confirm or refute the main hypothesis, identify the technical root cause, the failure point, and whether the issue is a regression.
-3. Build a timeline: when it started, current version, previous version, regression/new behavior/indeterminate.
-4. When GitLab merge or release context is available, inspect relevant diffs and classify the relationship with the problem. Do not assert correlation without evidence.
-5. Root cause must be technical, specific, and reproducible when possible.
-6. Confidence must be high, medium, or low with justification.
-7. Provide code evidence or state explicitly when code evidence could not be found.
-8. Recommend at least one concrete mitigation or correction.
+When GitLab merge or release context is available, relevant diffs MUST be inspected. The analyst MUST NOT assert correlation between a merge and the problem without code evidence.
 
-## Quality
+Root cause MUST be technical, specific, and reproducible when possible. Confidence MUST be stated as high, medium, or low with justification.
 
-- Do not hallucinate code.
-- Do not ignore structured RCA context.
-- Do not turn RCA into a copy of the triage report.
-- If information is missing, write `Não identificado no contexto atual`.
+The analyst MUST provide code evidence or explicitly state when code evidence could not be found. At least one concrete mitigation or correction MUST be recommended.
 
-## Output
+Missing information MUST be written as `Não identificado no contexto atual`. The analyst MUST NOT hallucinate code.
 
-Use `templates/support/rca.md` and save to `.memory/docs/support/rca/rca-<MONDAY-ID>-<short-topic>.md`.
+Output MUST use `templates/support/rca.md` and be saved to `.memory/docs/support/rca/rca-<MONDAY-ID>-<short-topic>.md`.
 
+## Rationale
+
+RCA without structured prior context wastes time re-doing triage work. Requiring code evidence and version context prevents speculative root causes that mislead developers. Explicit confidence levels set correct expectations about certainty of findings. Separating triage from RCA ensures each mode produces proportionate depth without overlap.

@@ -7,8 +7,3 @@ Contexto adicional (opcional):
 - Observações:
 - Ambiente: [Produção | Sandbox | Ambos]
 - Já testado:
-
-Instruções:
-- Aplicar `rules/support/support-initial-analysis.md` via persona `support`.
-- Utilizar template `templates/support/initial-analysis.md`.
-
