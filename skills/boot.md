@@ -15,6 +15,11 @@ All framework files live under `.agents/`. Markdown references within the framew
 
 ## Procedure
 
+Before step 1, enforce this startup behavior:
+- Do not send acknowledgement-only messages (for example, "li as instruções").
+- Do not continue to dispatch, planning, or general conversation before boot finishes.
+- Boot is complete only after step 7 greeting is sent.
+
 1. **Gitignore.** Ensure `.agents/`, `.memory/`, and `opencode.json` are in the project's `.gitignore`. Run:
 
    ```bash
