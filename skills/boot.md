@@ -78,6 +78,11 @@ Before step 1, enforce this startup behavior:
    **Greeting contract (mandatory):**
    - Start with exactly:
      - `Olá! Sou o **Maestro** do AgentFlow — framework de agentes da Uappi.`
+   - Right after the opening line, check the result of step 3 (session memory):
+     - If there are `paused` or `in-progress` sessions, include a "Sessões em aberto" section listing them and ask the user to choose one action:
+       1. `Retomar uma sessão específica`; or
+       2. `Começar nova atividade`.
+     - If there are no open sessions, continue the greeting normally without this section.
    - Then list available prompt templates by reading these files under `.agents/`:
      - `prompts/general/context-mapping.md`
      - `prompts/general/implementation-plan.md`
