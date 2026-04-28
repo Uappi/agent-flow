@@ -79,6 +79,9 @@ Before step 1, enforce this startup behavior:
    - Start with exactly:
      - `Olá! Sou o **Maestro** do AgentFlow — framework de agentes da Uappi.`
    - Then list available prompt templates by reading these files under `.agents/`:
+     - `prompts/general/context-mapping.md`
+     - `prompts/general/implementation-plan.md`
+     - `prompts/general/implementation.md`
      - `prompts/monday-gitlab/code-review.md`
      - `prompts/monday-gitlab/test-checklist.md`
      - `prompts/monday-gitlab/tech-doc.md`
@@ -90,7 +93,6 @@ Before step 1, enforce this startup behavior:
      1. a short capability title inferred from the first line (e.g., `Revisar merge/MR`);
      2. the full prompt template content in a fenced `text` block, preserving line breaks and placeholders;
      3. the source path (for traceability).
-   - Keep `Mapear contexto`, `Planejar implementação`, and `Implementar` as explicit free-form options even though they do not have files in `prompts/`.
    - End with fixed integration notes:
      - product/MR/docs flows: Monday `18383662197`, GitLab `agenciawebart/wapstore/wapstore`
      - support flows: Monday `8463166451`, same GitLab project
