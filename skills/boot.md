@@ -68,6 +68,8 @@ All framework files live under `.agents/`. Markdown references within the framew
    - Include workflow examples in the same boot message, but load them from the corresponding files in `prompts/` at runtime.
    - Preserve each prompt text exactly as written in its source file.
    - If a prompt file is missing, skip only that item and explicitly report which file was not found.
+   - Do not send setup/diagnostic status lines before the greeting in the boot-invocation path.
+   - After sending the greeting, wait for the next user message.
 
    Prompt sources:
    - `prompts/monday-gitlab/code-review.md`
