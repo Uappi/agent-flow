@@ -25,7 +25,7 @@ Before step 1, enforce this startup behavior:
    ```bash
    touch .gitignore
    for entry in '.agents/' '.memory/' 'opencode.json'; do
-       grep -qxF "$entry" .gitignore || echo "$entry" >> .gitignore
+       awk -v e="$entry" '$0 == e { found=1 } END { exit(found ? 0 : 1) }' .gitignore || printf '%s\n' "$entry" >> .gitignore
    done
    ```
 
