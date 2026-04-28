@@ -29,6 +29,8 @@ Before step 1, enforce this startup behavior:
    done
    ```
 
+   This step is idempotent: if an entry already exists in `.gitignore`, do not add it again. Never duplicate existing lines.
+
 2. **Framework pull.** Run:
 
    ```bash
