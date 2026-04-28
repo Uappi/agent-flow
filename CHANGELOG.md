@@ -1,6 +1,17 @@
 # Changelog
 
 ```log
+0.6.0.1 - 2026/04/28
+feat(uappi): import AgentFlow overlay while preserving Agent Starter Kit structure
+feat(personas): add engineer, product-owner, documenter, and support personas with Uappi workflow triggers
+feat(templates): add Monday/GitLab documentation, MR review, checklist, support triage, and RCA templates
+feat(prompts): add ready-to-paste prompts for Uappi Monday/GitLab and support workflows
+feat(rules): add support triage/RCA rules and restore clarification counsel
+docs(mcp): add Cursor setup guides for GitLab and Monday MCPs
+docs(readme): document Uappi fixed integrations and workflow outputs
+docs(boot): add Portuguese friendly boot greeting with ready-to-use workflow prompts
+docs(agents): keep AGENTS.md as the canonical framework entrypoint
+
 0.6.0 - 2026/04/27
 fix(personas/coder.md): restore corrupted file — all newlines were stripped into single line, adapted for starter kit (no cognitive-lens, simplified steps)
 fix(personas/maestro.md): break dense Parse step into numbered sub-list for complex prompts, add `skills/dispatch.md` to every dispatch reference

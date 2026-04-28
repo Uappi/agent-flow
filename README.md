@@ -1,6 +1,6 @@
-# Agent Starter Kit
+# AgentFlow — Uappi
 
-> Describe what you need in plain language. The Maestro agent breaks it into tasks and routes each one to a specialized AI model.
+> Uappi fork of Agent Starter Kit. Describe what you need in plain language; the Maestro agent breaks it into tasks and routes each one to a specialized AI model.
 
 Agent Starter Kit is a Natural Language AI Harness (NLAH) — multi-model, pure Markdown, zero dependencies. The smartest model orchestrates while cheaper, faster ones handle the routine work — extending your premium coding plan (such as Claude Code) instead of burning it on everything.
 
@@ -9,7 +9,7 @@ It's model-agnostic: orchestrate on Claude, plan on Kimi, review on Qwen, or any
 ![Boot sequence demo](docs/demo.jpg)
 _Maestro booted on a Clean Architecture Go project — gitignore, auto-update, memory, rules, and 33 context files created automatically._
 
-This is a **foundation**, not a finished product. It ships what an average developer needs out of the box — general-purpose personas, common workflow skills, and unopinionated rules. Anything domain-specific or highly opinionated belongs in your own fork. Clone it, extend it, make it yours — or build one for your entire company.
+This fork keeps the Agent Starter Kit structure so upstream updates remain easy to merge, while adding Uappi-specific personas, prompts, templates, and rules for Monday, GitLab, documentation, and support workflows.
 
 ## How It Works
 
@@ -19,6 +19,10 @@ The **Maestro** is the conductor. It receives user requests, decomposes them, an
 - **Coder** — writes software following the plan
 - **Reviewer** — checks work for correctness and quality
 - **Contextualizer** — documents project structure for orientation
+- **Engineer** — documents features from technical and architectural evidence
+- **Product Owner** — documents features in business language
+- **Documenter** — produces implementation delivery docs from Monday and GitLab
+- **Support** — handles support triage and RCA using the dedicated support board
 
 Each persona has an identity (who they are), a playbook (what they do), a handoff format (what they deliver), and red lines (what they must not do).
 
@@ -26,13 +30,33 @@ Each persona also declares a `humor` style — which controls temperature and th
 
 The framework **learns as it works**. Corrections, preferences, and lessons are captured to long-term memory and carried into every future session. Interrupted work is tracked in session files so the next boot can resume where the last one stopped.
 
+## Uappi Workflows
+
+| Trigger | Persona | Output |
+| --- | --- | --- |
+| `Revisar merge/MR` | Reviewer | `.memory/docs/code-review/review-merge-<ID>-<topic>.md` |
+| `Gerar checklist de testes` | Reviewer | `.memory/docs/checklists/checklist-merge-<ID>-<topic>.md` |
+| `Documentação Técnica` | Engineer | `.memory/docs/features/feat-<name>-tech.md` |
+| `Documentação de Produto` | Product Owner | `.memory/docs/features/feat-<name>-prod.md` |
+| `Documentação de Implementação` | Documenter | `.memory/docs/implementations/implementation-<ID>-<topic>.docx` |
+| `Análise suporte` / `Triagem suporte` | Support | `.memory/docs/support/triagem/triagem-<ID>-<topic>.md` |
+| `RCA suporte` / `Análise profunda suporte` | Support | `.memory/docs/support/rca/rca-<ID>-<topic>.md` |
+
+Fixed integrations:
+
+- Monday product/engineering/docs/MR board: `18383662197`
+- Monday support board: `8463166451`
+- GitLab project: `agenciawebart/wapstore/wapstore`
+
+Ready-to-paste prompts live in `prompts/`. Output templates live in `templates/`. Cursor MCP setup guides live in `docs/mcp/`. Support-specific rules and flow notes are indexed in `support/README.md`.
+
 ## Setup
 
 1. Clone into `.agents/` inside your project:
 
    ```bash
    cd /path/to/your/project
-   git clone git@github.com:ntorga/agent-starter-kit.git .agents
+   git clone git@github.com:Uappi/agent-flow.git .agents
    ```
 
 2. Symlink the entry file to the project root:
@@ -42,7 +66,7 @@ The framework **learns as it works**. Corrections, preferences, and lessons are 
    ```
 
 3. Start the AI agent (e.g., `claude`, or whatever CLI you use).
-4. Say **"Please comply with AGENTS.md."** — this boots the Maestro and loads the framework.
+4. Say **"Por favor, siga as instruções de AGENTS.md."** — this boots the Maestro and loads the framework.
 5. The Maestro orchestrates everything. On first run, it automatically dispatches the Contextualizer to map the codebase.
 6. (Optional) Customize — add personas, rules, skills, and providers to fit your project (see Customization below).
 
@@ -64,6 +88,10 @@ If the tools aren't installed or you're using a different CLI, the script exits 
 personas/    Specialized AI roles (who does the work)
 rules/       Constraints organized by authority level
 skills/      Reusable procedures and protocols
+prompts/     Ready-to-paste workflow prompts
+templates/   Output templates used by Uappi workflows
+docs/mcp/    Cursor MCP setup guides for GitLab and Monday
+support/     Support workflow index
 ```
 
 ## Rules Hierarchy

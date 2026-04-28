@@ -13,6 +13,10 @@ Rules are constraints — short, direct, and non-procedural. A rule that needs m
 - **`commandments/git`** — Conventional commits, branch naming, commit style (coding)
 - **`edicts/code-quality`** — Universal naming, testing, and quality conventions (coding)
 - **`edicts/code-debugging`** — Root cause before fix, three-strike rule, anti-rationalization (coding)
+- **`counsel/clarification`** — Ambiguity taxonomy for when to stop, proceed, or escalate (communication)
+- **`support/support-initial-analysis`** — Initial backend support triage for the support Monday board (support)
+- **`support/support-root-cause-analysis`** — Support RCA with technical root cause and GitLab correlation (support)
+- **`global.mdc`** — Optional Cursor always-apply compatibility rule that points back to `AGENTS.md`
 
 ## File Naming
 

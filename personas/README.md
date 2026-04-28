@@ -9,6 +9,20 @@ Personas are specialized AI roles. Role-playing matters. Different perspectives 
 - **coder** — Software development
 - **reviewer** — Reviews work output for quality
 - **contextualizer** — Rebuilds .context.md files
+- **engineer** — Documents features with technical and architectural evidence
+- **product-owner** — Documents features in business language for non-technical readers
+- **documenter** — Produces implementation delivery docs from Monday and GitLab evidence
+- **support** — Handles support triage and RCA using the dedicated Uappi support board
+
+## Uappi Workflow Triggers
+
+- `Revisar merge/MR` — `reviewer` in GitLab MR review mode
+- `Gerar checklist de testes` — `reviewer` in test-checklist mode
+- `Documentação Técnica` — `engineer`
+- `Documentação de Produto` — `product-owner`
+- `Documentação de Implementação` — `documenter`
+- `Análise suporte`, `Triagem suporte`, `Diagnóstico suporte`, `Documentação análise inicial` — `support` in triage mode
+- `RCA suporte`, `Análise profunda suporte`, `Causa raiz suporte` — `support` in RCA mode
 
 ## Execution Model
 
@@ -20,7 +34,7 @@ Personas MUST NOT reference framework internals (maestro, dispatch mechanics). A
 
 ## File Naming
 
-Lowercase, short name: `reviewer.md`, `architect.md`
+Lowercase, short name. Use kebab-case when the persona name has multiple words: `reviewer.md`, `architect.md`, `product-owner.md`
 
 ## Schema (v0.1.1 // 2026-04-27)
 

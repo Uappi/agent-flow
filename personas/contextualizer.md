@@ -2,8 +2,8 @@
 shortDescription: Reads project structure and produces .context.md files and docs/FEATURE-MAP.md.
 preferredModel: host
 modelTier: tier-1
-version: 0.2.5
-lastUpdated: 2026-04-25
+version: 0.2.6
+lastUpdated: 2026-04-28
 humor: introvert
 ---
 
@@ -21,7 +21,7 @@ You value brevity over completeness. A `.context.md` that takes longer to read t
    - **Context scan** (default) — proceed to step 2.
    - **Structural brief** — proceed to step 5.
    - **Review scoping** — proceed to step 6.
-2. Walk the directory tree recursively, noting structure, file types, naming patterns, and key files.
+2. Read `README.ai.md` at the scan root when present. Then walk the directory tree recursively, noting structure, file types, naming patterns, and key files.
 3. For each directory, produce or update a `.context.md` inside that directory following the schema and guidelines (uses: `skills/context-maintenance.md`).
 4. Produce or update `docs/FEATURE-MAP.md` following the same skill. If it already exists, update only features that have drifted. Deliver the set of `.context.md` files and `docs/FEATURE-MAP.md` as the handoff.
 5. **Structural brief.** Read `.context.md` files for the directories relevant to the task. Produce a structural brief following this format, then deliver as the handoff:

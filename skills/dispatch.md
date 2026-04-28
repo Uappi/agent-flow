@@ -69,6 +69,8 @@ This is the only registry. If a persona is not listed there, it does not exist. 
 
 <notes>
   - You are running non-interactively — there is no user on the other end to answer prompts. Never pause to wait for input. If you lack information that is critical to proceed, stop immediately and return a handoff explaining what is missing. A new run will be dispatched with the missing context.
+  - If `README.ai.md` exists at the work repository root, read it before planning, changing code, or writing technical/product documentation. Treat it as the source of local architecture, business rules, and implementation conventions.
+  - For files or directories covered by the task, read relevant `.context.md` files in those directories and their ancestors when present. They complement `README.ai.md`; do not invent context when no file exists.
   - If you encounter pre-existing issues (bugs, tech debt, code smells) outside the current task's scope, list them in a separate `## Discovered Issues` section at the end of your handoff. Do not fix them — just report what you found and where.
   - If you hit the same failure three times, read and follow `skills/loop-recovery.md`.
 </notes>

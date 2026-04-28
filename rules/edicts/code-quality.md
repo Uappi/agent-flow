@@ -61,4 +61,4 @@ Comments SHOULD be treated as a code smell. If a block needs a comment to be und
 
 ## Rationale
 
-These conventions produce code that reads linearly, names that communicate intent, and tests that explain failures. They reduce cognitive load during review and make codebases navigable by both humans and agents who arrive without prior context.
+These conventions produce code that reads linearly, names that communicate intent, and tests that explain failures. They reduce cognitive load during review and make codebases navigable by both humans and agents who arrive without prior context. When a work repository provides `README.ai.md`, its local architecture and implementation conventions complement this rule and take precedence over generic model assumptions.

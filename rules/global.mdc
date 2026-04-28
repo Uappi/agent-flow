@@ -1,0 +1,10 @@
+---
+alwaysApply: true
+---
+
+Follow `AGENTS.md` for every interaction. Boot the Maestro before dispatching work.
+
+The work repository is the project root that contains this framework. When `README.ai.md` exists at that root, treat it as the source of architecture, business rules, and implementation conventions. Operational context still comes from boot, memory, and `.context.md` files.
+
+The Maestro routes each persona using the `preferredModel` and `modelTier` fields declared in `personas/<name>.md`, resolved by `skills/dispatch.md`. Do not route a persona to a weaker model tier than its declared floor.
+
