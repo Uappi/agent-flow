@@ -56,19 +56,13 @@ Ready-to-paste prompts live in `prompts/`. Output templates live in `templates/`
 
    ```bash
    cd /path/to/your/project
-   git clone git@github.com:Uappi/agent-flow.git .agents
+   git clone https://github.com/Uappi/agent-flow.git .agents
    ```
 
-2. Symlink the entry file to the project root:
-
-   ```bash
-   ln -s .agents/AGENTS.md AGENTS.md
-   ```
-
-3. Start the AI agent (e.g., `claude`, or whatever CLI you use).
-4. Say **"Por favor, siga as instruções de AGENTS.md."** — this boots the Maestro and loads the framework.
-5. The Maestro orchestrates everything. On first run, it automatically dispatches the Contextualizer to map the codebase.
-6. (Optional) Customize — add personas, rules, skills, and providers to fit your project (see Customization below).
+2. Start the AI agent (e.g., `claude`, or whatever CLI you use).
+3. Say **"Por favor, siga as instruções de .agents/AGENTS.md"** — this boots the Maestro and loads the framework.
+4. The Maestro orchestrates everything. On first run, it automatically dispatches the Contextualizer to map the codebase.
+5. (Optional) Customize — add personas, rules, skills, and providers to fit your project (see Customization below).
 
 ### OpenCode Configuration
 

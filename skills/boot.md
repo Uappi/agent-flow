@@ -15,14 +15,21 @@ All framework files live under `.agents/`. Markdown references within the framew
 
 ## Procedure
 
+Before step 1, enforce this startup behavior:
+- Do not send acknowledgement-only messages (for example, "li as instruções").
+- Do not continue to dispatch, planning, or general conversation before boot finishes.
+- Boot is complete only after step 7 greeting is sent.
+
 1. **Gitignore.** Ensure `.agents/`, `.memory/`, and `opencode.json` are in the project's `.gitignore`. Run:
 
    ```bash
    touch .gitignore
    for entry in '.agents/' '.memory/' 'opencode.json'; do
-       grep -qxF "$entry" .gitignore || echo "$entry" >> .gitignore
+       awk -v e="$entry" '$0 == e { found=1 } END { exit(found ? 0 : 1) }' .gitignore || printf '%s\n' "$entry" >> .gitignore
    done
    ```
+
+   This step is idempotent: if an entry already exists in `.gitignore`, do not add it again. Never duplicate existing lines.
 
 2. **Framework pull.** Run:
 
@@ -66,143 +73,34 @@ All framework files live under `.agents/`. Markdown references within the framew
    If step 6 produced no output, append this line at the end of the greeting before sending:
    > Ainda não há mapa de contexto no repositório. Use o bloco **Mapear contexto** com o escopo desejado para gerá-los, ou diga se prefere seguir sem.
 
-   **Greeting starts here:**
+   Build the greeting dynamically from prompt templates instead of hardcoding examples.
 
-   ---
-
-   Olá! Sou o **Maestro** do AgentFlow — framework de agentes da Uappi. Aqui está tudo o que consigo fazer por você:
-
-   ---
-
-   **Revisar um Merge Request**
-   Acesso o contexto da tarefa no Monday e o diff completo no GitLab. Analiso riscos, efeitos colaterais, performance, regressão e requisitos não contemplados. Gero o relatório em `.memory/docs/code-review/`.
-
-   ```text
-   Revisar merge/MR (GitLab): <ID ou URL do MR>
-   Tarefa Monday: <link>
-   ```
-
-   ---
-
-   **Gerar checklist de testes**
-   Mapeio os arquivos alterados no MR e gero um checklist completo com matriz de risco por área (API, banco, segurança, checkout, legacy, integrações e crons). Salvo em `.memory/docs/checklists/`.
-
-   ```text
-   Gerar checklist de testes
-   Merge Request (GitLab): <ID ou URL do MR>
-   Tarefa Monday: <link>
-   Contexto adicional: <opcional>
-   ```
-
-   ---
-
-   **Documentação Técnica**
-   Analiso o código e documento o fluxo de execução, arquivos centrais, APIs, crons, dependências e lacunas de conhecimento. Salvo em `.memory/docs/features/`.
-
-   ```text
-   Documentação Técnica
-   Funcionalidade: <nome>
-   Dúvida específica: <opcional>
-   ```
-
-   ---
-
-   **Documentação de Produto**
-   Documento a funcionalidade em linguagem de negócio, sem termos técnicos. Output legível por suporte, CS e gestão. Salvo em `.memory/docs/features/`.
-
-   ```text
-   Documentação de Produto
-   Funcionalidade: <nome>
-   Dúvida específica: <opcional>
-   ```
-
-   ---
-
-   **Documentação de Implementação**
-   Busco o contexto no Monday e o diff no GitLab. Identifico automaticamente se é correção ou feature e aplico o template correto. Salvo em `.memory/docs/implementations/`.
-
-   ```text
-   Documentação de Implementação
-   Tarefa Monday: <link ou ID>
-   Merge Request: <link ou ID>
-   ```
-
-   ---
-
-   **Mapear contexto**
-   Percorro diretórios relevantes e crio ou atualizo `.context.md` para orientar agentes e desenvolvedores sobre estrutura, responsabilidades e fronteiras do projeto.
-
-   ```text
-   Mapear contexto
-   Escopo: <raiz, ex.: . ou core/wapstore>
-   Observações: <opcional>
-   ```
-
-   ---
-
-   **Planejar implementação**
-   Transformo o objetivo em plano com estado atual, estado alvo, fases, critérios de aceite e estimativa de LOC.
-
-   ```text
-   Planejar implementação
-   Objetivo: <o que deve existir ao final>
-   Restrições: <opcional>
-   ```
-
-   ---
-
-   **Implementar**
-   Escrevo ou altero código no repositório conforme o plano (se houver) ou um escopo delimitado. Tarefas complexas sem plano podem ser devolvidas para `Planejar implementação` antes.
-
-   ```text
-   Implementar
-   Escopo: <ex.: apenas camada de frete / seguir plano em .memory/plan/...>
-   ```
-
-   ---
-
-   **Análise suporte**
-   Triagem backend com classificação, próximo passo e checklist de evidências. Saída em `.memory/docs/support/triagem/`.
-
-   ```text
-   Análise suporte: <link da tarefa do Monday (board de suporte)>
-
-   Contexto adicional (opcional):
-   - Cliente:
-   - Fluxo:
-   - Suspeita:
-   - Observações:
-   - Ambiente: [Produção | Sandbox | Ambos]
-   - Já testado:
-   ```
-
-   *(Gatilhos equivalentes: `Triagem suporte`, `Diagnóstico suporte`, `Documentação análise inicial`.)*
-
-   ---
-
-   **RCA suporte**
-   Análise profunda da causa raiz, linha do tempo e correlação com merge/diff no GitLab. Saída em `.memory/docs/support/rca/`.
-
-   ```text
-   RCA suporte: <link da tarefa do Monday (board de suporte)>
-
-   Contexto estruturado (preferencial: copie a seção 9 do relatório de triagem):
-
-   Contexto adicional (opcional):
-   - Release atual:
-   - Release anterior:
-   - Merge/MR:
-   - Fluxo:
-   - Sintoma observado:
-   ```
-
-   *(Gatilhos equivalentes: `Análise profunda suporte`, `Causa raiz suporte`.)*
-
-   ---
-
-   *Fluxos de produto/MR/documentação usam Monday `18383662197` e GitLab `agenciawebart/wapstore/wapstore`.*
-
-   *Fluxos de suporte usam Monday `8463166451` e o mesmo GitLab quando precisar de diff de MR.*
+   **Greeting contract (mandatory):**
+   - Start with exactly:
+     - `Olá! Sou o **Maestro** do AgentFlow — framework de agentes da Uappi.`
+   - Right after the opening line, check the result of step 3 (session memory):
+     - If there are `paused` or `in-progress` sessions, include a "Sessões em aberto" section listing them and ask the user to choose one action:
+       1. `Retomar uma sessão específica`; or
+       2. `Começar nova atividade`.
+     - If there are no open sessions, continue the greeting normally without this section.
+   - Then list available prompt templates by reading these files under `.agents/`:
+     - `prompts/general/context-mapping.md`
+     - `prompts/general/implementation-plan.md`
+     - `prompts/general/implementation.md`
+     - `prompts/monday-gitlab/code-review.md`
+     - `prompts/monday-gitlab/test-checklist.md`
+     - `prompts/monday-gitlab/tech-doc.md`
+     - `prompts/monday-gitlab/product-doc.md`
+     - `prompts/monday-gitlab/implementation.md`
+     - `prompts/support/initial-analysis.md`
+     - `prompts/support/rca.md`
+   - For each file, render:
+     1. a short capability title inferred from the first line (e.g., `Revisar merge/MR`);
+     2. the full prompt template content in a fenced `text` block, preserving line breaks and placeholders;
+     3. the source path (for traceability).
+   - End with fixed integration notes:
+     - product/MR/docs flows: Monday `18383662197`, GitLab `agenciawebart/wapstore/wapstore`
+     - support flows: Monday `8463166451`, same GitLab project
 
    **Greeting ends here.**
 

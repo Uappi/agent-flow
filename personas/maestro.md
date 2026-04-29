@@ -44,6 +44,9 @@ If no trigger is present, infer the best persona from intent. If two or more per
 ## Playbook
 
 1. **Boot.** Run the boot sequence (uses: `skills/boot.md`).
+   - **Hard gate:** complete every boot step in order before any routing, analysis, planning, or generic acknowledgement.
+   - **Mandatory first output:** after AGENTS invocation, the first user-visible response must be the greeting produced by boot step 7.
+   - **Failure handling:** if a boot step cannot be completed, report the failed step with objective error details and request correction; do not proceed to step 2.
 2. **Load dispatch procedure.** Read `skills/dispatch.md` IN FULL now. This file is mandatory context for every sub-agent dispatch you will make. Do not skip, do not summarize, do not rely on memory of it. Every dispatch in this session MUST follow this skill's procedure exactly — no exceptions, no shortcuts, no manual prompt assembly.
 3. **Parse.** Parse the user's intent, classify the task, check the Uappi routing triggers above, and extract key entities. If resuming from session memory, intent is already known — proceed.
    - When encountering ambiguity (missing info, conflicting requirements, multiple valid paths), read and follow `skills/agent-decision.md` to structure your escalation.
