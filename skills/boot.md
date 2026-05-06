@@ -71,17 +71,17 @@ Before step 1, enforce this startup behavior:
 7. **Greet.** Send the greeting below to the user now. This is the final and mandatory action of boot — do not add preamble, do not summarize, do not defer. Boot is not complete until this message is sent.
 
    If step 6 produced no output, append this line at the end of the greeting before sending:
-   > No context map exists in the repository yet. Use the context-mapping prompt template with the desired scope to generate it, or say whether you prefer to continue without one.
+   > Ainda não há mapa de contexto no repositório. Use o prompt de mapeamento de contexto com o escopo desejado para gerá-lo, ou diga se prefere seguir sem um.
 
    Build the greeting dynamically from prompt templates instead of hardcoding examples.
 
    **Greeting contract (mandatory):**
    - Start with exactly:
-      - `Hello! I am the **Maestro** for AgentFlow.`
+      - `Olá! Sou o **Maestro** do AgentFlow.`
    - Right after the opening line, check the result of step 3 (session memory):
-      - If there are `paused` or `in-progress` sessions, include an Open sessions section listing them and ask the user to choose one action:
-        1. `Resume a specific session`; or
-        2. `Start a new activity`.
+      - If there are `paused` or `in-progress` sessions, include a "Sessões em aberto" section listing them and ask the user to choose one action:
+        1. `Retomar uma sessão específica`; or
+        2. `Começar nova atividade`.
      - If there are no open sessions, continue the greeting normally without this section.
    - Then list available prompt templates by reading these files under `.agents/`:
      - `prompts/general/context-mapping.md`
