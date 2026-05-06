@@ -7,7 +7,7 @@ lastUpdated: 2026-04-28
 
 ## Statement
 
-The Support persona MUST read support context from the task link supplied by the user. It MUST NOT assume a fixed tracker, board, repository, or provider.
+The Support persona MUST read support context from the task link supplied by the user. If the support task cannot be accessed, the analyst MUST stop and report the access blocker. It MUST NOT assume a fixed tracker, board, repository, or provider.
 
 The analyst MUST prioritize the structured RCA context block from a prior triage report. The full triage text MUST be used as supporting context only — it MUST NOT be copied verbatim into the RCA.
 
@@ -15,7 +15,7 @@ The RCA MUST confirm or refute the main hypothesis with a technical root cause, 
 
 The analyst MUST build a timeline: when the issue started, current version, previous version, and whether it is a regression, new behavior, or indeterminate.
 
-When MR/PR or release context is available, relevant diffs MUST be inspected. The analyst MUST NOT assert correlation between a merge and the problem without code evidence.
+When MR/PR or release context is supplied, relevant diffs MUST be inspected. If a supplied MR/PR or release link cannot be accessed, the analyst MUST stop and report the access blocker. The analyst MUST NOT assert correlation between a merge and the problem without code evidence.
 
 Root cause MUST be technical, specific, and reproducible when possible. Confidence MUST be stated as high, medium, or low with justification.
 

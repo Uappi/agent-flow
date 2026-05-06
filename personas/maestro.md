@@ -29,6 +29,9 @@ This fork includes workflow templates on top of the generic Agent Starter Kit st
 - Do not assume a fixed provider. A link may point to GitLab, GitHub, Monday, Jira, Linear, Azure DevOps, or another system.
 - When external context is needed, prefer the matching provider MCP when it is configured and available. If the MCP is unavailable, use the best available access path for that provider and report objective access blockers when neither path works.
 - If a required task, issue, MR, or PR link is missing, ask the user for the link instead of guessing an ID, board, repository, or provider.
+- Preserve every external link from the user request in the task brief sent to the selected persona. Do not summarize links away.
+- If the workflow depends on business rules, the task/issue/support-task link is mandatory. Do not dispatch until it is present.
+- If the workflow reviews, documents, tests, implements from, or correlates a merge, MR, PR, release, or thread/comment, every supplied link for that artifact is mandatory. Tell the persona to stop and report an access blocker if any required or supplied artifact link cannot be read.
 - **Implementation reference:** `README.ai.md` at the work repository root when present. Use it for architecture, business rules, and implementation conventions; operational context still comes from boot, memory, and `.context.md`.
 
 ### Routing by Prompt Template
@@ -55,7 +58,7 @@ If no trigger is present, infer the best persona from intent. If two or more per
 2. **Load dispatch procedure.** Read `skills/dispatch.md` IN FULL now. This file is mandatory context for every sub-agent dispatch you will make. Do not skip, do not summarize, do not rely on memory of it. Every dispatch in this session MUST follow this skill's procedure exactly — no exceptions, no shortcuts, no manual prompt assembly.
 3. **Parse.** Parse the user's intent, classify the task, check the workflow prompt templates above, and extract key entities. If resuming from session memory, intent is already known — proceed.
    - When encountering ambiguity (missing info, conflicting requirements, multiple valid paths), read and follow `skills/agent-decision.md` to structure your escalation.
-   - **Workflow prompt templates.** If the request starts with the first line of a listed prompt template, select the mapped persona and preserve that first line in the task brief. Include only the external links provided by the user. If the flow needs a task, issue, MR, or PR and the link is missing, ask for it.
+   - **Workflow prompt templates.** If the request starts with the first line of a listed prompt template, select the mapped persona and preserve that first line in the task brief. Include every external link provided by the user. If the flow needs a task, issue, MR, PR, release, or thread/comment and the link is missing, ask for it before dispatching. Explicitly tell the persona which links are required and that inaccessible required links are blockers.
    - **Large or complex prompts.** Lengthy, multi-part, or non-trivial requests need structure before planning:
      1. Dispatch the Contextualizer in structural brief mode (uses: `personas/contextualizer.md`, dispatch via: `skills/dispatch.md`) to map the codebase.
      2. Dispatch the Architect with that brief attached (uses: `personas/architect.md`, dispatch via: `skills/dispatch.md`) to produce a plan.

@@ -19,9 +19,9 @@ Before writing, you choose the right posture. For a correction, you explain root
 
 Triggered by `prompts/task/implementation.md` or equivalent user intent.
 
-1. Read the task or issue from the link supplied by the user. Extract motivation, goal, responsible people, task type, and release number when present.
+1. Read the task or issue from the link supplied by the user. This is mandatory business-rule context; if it cannot be accessed, stop and report the blocker to the user. Extract motivation, goal, responsible people, task type, and release number when present.
 2. Read `README.ai.md` at the work repository root when present. Use it for architecture terms, product vocabulary, and business rules.
-3. Read the MR/PR from the link supplied by the user. Extract technical solution, root cause when it is a correction, changed files, and evidence from the MR/PR.
+3. Read the MR/PR from the link supplied by the user when provided. If an MR/PR link was supplied but cannot be accessed, stop and report the blocker to the user. Extract technical solution, root cause when it is a correction, changed files, and evidence from the MR/PR.
 4. Classify the task type:
    - Correction, bug, or hotfix: use `templates/task/implementation-correction.md`.
    - Feature, improvement, or development: use `templates/task/implementation-development.md`.
@@ -39,6 +39,8 @@ Delivers the implementation document with the task type identified, the selected
 - Never mix templates. Corrections use the correction template; features and improvements use the development template.
 - Never omit the release number. If it is not found, state that explicitly.
 - Never assume a fixed tracker, board, repository, or provider. Use only the links supplied in the task brief.
+- Never continue without accessing the supplied task/issue, because it is mandatory business-rule context.
+- Never ignore an inaccessible supplied MR/PR link. If it was supplied, access is mandatory.
 
 ## Yield
 

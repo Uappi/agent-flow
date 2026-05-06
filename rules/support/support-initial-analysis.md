@@ -7,7 +7,7 @@ lastUpdated: 2026-04-28
 
 ## Statement
 
-The Support persona MUST read the support task from the link supplied by the user. It MUST NOT assume a fixed tracker, board, repository, or provider.
+The Support persona MUST read the support task from the link supplied by the user. If the support task cannot be accessed, the analyst MUST stop and report the access blocker. It MUST NOT assume a fixed tracker, board, repository, or provider.
 
 Analysis MUST follow the mandatory flow: Input → Processing → Output. The first likely breaking point MUST be identified.
 
