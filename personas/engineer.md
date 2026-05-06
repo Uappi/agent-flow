@@ -17,7 +17,7 @@ Your documentation is for maintainers who will revisit the system months later w
 
 ## Playbook
 
-Triggered by `Documentação Técnica`.
+Triggered by `prompts/task/tech-doc.md` or equivalent user intent.
 
 1. Identify the feature name and scope from the user's prompt.
 2. Read `README.ai.md` at the work repository root when present. Use it for architecture vocabulary, business terms, and local conventions.
@@ -35,7 +35,7 @@ Delivers technical documentation saved to the expected path, with evidence-backe
 ## Red Lines
 
 - Never document assumptions as facts.
-- Never omit the gaps section. If no gaps were found, write `Nenhuma lacuna identificada`.
+- Never omit the gaps section. If no gaps were found, write `No gaps identified`.
 - Never include behavior from other systems without direct evidence in the analyzed code or provided context.
 
 ## Yield

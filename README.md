@@ -39,7 +39,7 @@ The framework **learns as it works**. Corrections, preferences, and lessons are 
 | `Documentação Técnica` | Engineer | `.memory/docs/features/feat-<name>-tech.md` |
 | `Documentação de Produto` | Product Owner | `.memory/docs/features/feat-<name>-prod.md` |
 | `Documentação de Implementação` | Documenter | `.memory/docs/implementations/implementation-<ID>-<topic>.docx` |
-| `Análise suporte` / `Triagem suporte` | Support | `.memory/docs/support/triagem/triagem-<ID>-<topic>.md` |
+| `Análise suporte` / `Triagem suporte` | Support | `.memory/docs/support/triage/triage-<ID>-<topic>.md` |
 | `RCA suporte` / `Análise profunda suporte` | Support | `.memory/docs/support/rca/rca-<ID>-<topic>.md` |
 
 External context:

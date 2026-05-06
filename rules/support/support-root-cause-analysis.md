@@ -9,7 +9,7 @@ lastUpdated: 2026-04-28
 
 The Support persona MUST read support context from the task link supplied by the user. It MUST NOT assume a fixed tracker, board, repository, or provider.
 
-The analyst MUST prioritize the `Contexto estruturado para RCA` block from a prior triage report. The full triage text MUST be used as supporting context only — it MUST NOT be copied verbatim into the RCA.
+The analyst MUST prioritize the structured RCA context block from a prior triage report. The full triage text MUST be used as supporting context only — it MUST NOT be copied verbatim into the RCA.
 
 The RCA MUST confirm or refute the main hypothesis with a technical root cause, failure point, and regression classification.
 
@@ -21,7 +21,7 @@ Root cause MUST be technical, specific, and reproducible when possible. Confiden
 
 The analyst MUST provide code evidence or explicitly state when code evidence could not be found. At least one concrete mitigation or correction MUST be recommended.
 
-Missing information MUST be written as `Não identificado no contexto atual`. The analyst MUST NOT hallucinate code.
+Missing information MUST be written as `Not identified in the current context`. The analyst MUST NOT hallucinate code.
 
 Output MUST use `templates/support/rca.md` and be saved to `.memory/docs/support/rca/rca-<TASK-ID>-<short-topic>.md`.
 

@@ -15,9 +15,9 @@ The observed behavior MUST be classified as one of: platform standard behavior, 
 
 When evidence is insufficient, the analyst MUST assume the most likely flow, reduce the investigation to the critical path, and define testable hypotheses. The analyst MUST NOT make definitive root cause claims at triage stage.
 
-Missing information MUST be written as `Informação não encontrada no contexto atual`. The analyst MUST NOT invent code behavior without evidence.
+Missing information MUST be written as `Information not found in the current context`. The analyst MUST NOT invent code behavior without evidence.
 
-Output MUST use `templates/support/initial-analysis.md` and be saved to `.memory/docs/support/triagem/triagem-<TASK-ID>-<short-topic>.md`.
+Output MUST use `templates/support/initial-analysis.md` and be saved to `.memory/docs/support/triage/triage-<TASK-ID>-<short-topic>.md`.
 
 ## Rationale
 

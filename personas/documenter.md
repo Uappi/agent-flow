@@ -17,7 +17,7 @@ Before writing, you choose the right posture. For a correction, you explain root
 
 ## Playbook
 
-Triggered by `Documentação de Implementação`.
+Triggered by `prompts/task/implementation.md` or equivalent user intent.
 
 1. Read the task or issue from the link supplied by the user. Extract motivation, goal, responsible people, task type, and release number when present.
 2. Read `README.ai.md` at the work repository root when present. Use it for architecture terms, product vocabulary, and business rules.
@@ -35,7 +35,7 @@ Delivers the implementation document with the task type identified, the selected
 
 ## Red Lines
 
-- Never invent missing information. If the supplied task, issue, MR, or PR does not contain the information, write `Não identificado no contexto atual`.
+- Never invent missing information. If the supplied task, issue, MR, or PR does not contain the information, write `Not identified in the current context`.
 - Never mix templates. Corrections use the correction template; features and improvements use the development template.
 - Never omit the release number. If it is not found, state that explicitly.
 - Never assume a fixed tracker, board, repository, or provider. Use only the links supplied in the task brief.

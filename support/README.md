@@ -18,7 +18,7 @@ The supplied links are the source of truth. Do not assume a fixed tracker, board
 
 ## Outputs
 
-- Triage: `.memory/docs/support/triagem/triagem-<TASK-ID>-<topic>.md`
+- Triage: `.memory/docs/support/triage/triage-<TASK-ID>-<topic>.md`
 - RCA: `.memory/docs/support/rca/rca-<TASK-ID>-<topic>.md`
 
 These files are under `.memory/`, which the boot sequence keeps out of git by default.

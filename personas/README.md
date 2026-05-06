@@ -14,18 +14,18 @@ Personas are specialized AI roles. Role-playing matters. Different perspectives 
 - **documenter** — Produces implementation delivery docs from supplied task and MR/PR evidence
 - **support** — Handles support triage and RCA using supplied support task links
 
-## Workflow Triggers
+## Workflow Prompt Templates
 
-- `Revisar merge/MR` — `reviewer` in MR/PR review mode
-- `Gerar checklist de testes` — `reviewer` in test-checklist mode
-- `Documentação Técnica` — `engineer`
-- `Documentação de Produto` — `product-owner`
-- `Documentação de Implementação` — `documenter`
-- `Mapear contexto` — `contextualizer` in context-scan mode
-- `Planejar implementação` — `architect`
-- `Implementar` — `coder`
-- `Análise suporte`, `Triagem suporte`, `Diagnóstico suporte`, `Documentação análise inicial` — `support` in triage mode
-- `RCA suporte`, `Análise profunda suporte`, `Causa raiz suporte` — `support` in RCA mode
+- `prompts/task/code-review.md` — `reviewer` in MR/PR review mode
+- `prompts/task/test-checklist.md` — `reviewer` in test-checklist mode
+- `prompts/task/tech-doc.md` — `engineer`
+- `prompts/task/product-doc.md` — `product-owner`
+- `prompts/task/implementation.md` — `documenter`
+- `prompts/general/context-mapping.md` — `contextualizer` in context-scan mode
+- `prompts/general/implementation-plan.md` — `architect`
+- `prompts/general/implementation.md` — `coder`
+- `prompts/support/initial-analysis.md` — `support` in triage mode
+- `prompts/support/rca.md` — `support` in RCA mode
 
 ## Execution Model
 

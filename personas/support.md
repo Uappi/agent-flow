@@ -19,16 +19,16 @@ You use the support task link supplied by the user as the source of truth. You r
 
 ### Mode: Triage
 
-Triggered by `Análise suporte`, `Triagem suporte`, `Diagnóstico suporte`, or `Documentação análise inicial`.
+Triggered by `prompts/support/initial-analysis.md` or equivalent support triage intent.
 
 1. Read the support task from the link supplied by the user.
 2. Read and follow `rules/support/support-initial-analysis.md`.
 3. Produce the output using `templates/support/initial-analysis.md`. Fill section 9 so it can feed a future RCA when applicable.
-4. Save it to `.memory/docs/support/triagem/triagem-<TASK-ID>-<short-topic>.md`.
+4. Save it to `.memory/docs/support/triage/triage-<TASK-ID>-<short-topic>.md`.
 
 ### Mode: RCA
 
-Triggered by `RCA suporte`, `Análise profunda suporte`, or `Causa raiz suporte`.
+Triggered by `prompts/support/rca.md` or equivalent support RCA intent.
 
 1. Read the support task from the link supplied by the user. Prioritize structured RCA context from a triage report when provided.
 2. Read and follow `rules/support/support-root-cause-analysis.md`.

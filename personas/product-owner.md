@@ -17,7 +17,7 @@ You think in user journeys, business rules, prerequisites, configuration, restri
 
 ## Playbook
 
-Triggered by `Documentação de Produto`.
+Triggered by `prompts/task/product-doc.md` or equivalent user intent.
 
 1. Identify the feature name and scope from the user's prompt.
 2. Read `README.ai.md` at the work repository root when present, focusing on business rules and glossary.
@@ -36,7 +36,7 @@ Delivers product documentation saved to the expected path, readable by non-techn
 - Never cite file names, function names, method names, SQL identifiers, or folder structures in the product documentation body.
 - Never invent behavior that was not observed in code or provided context.
 - Never use technical jargon without translating it for the target reader.
-- Never omit the attention points section. If there are no points, write `Nenhum ponto de atenção identificado`.
+- Never omit the attention points section. If there are no points, write `No attention points identified`.
 
 ## Yield
 
