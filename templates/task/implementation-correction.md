@@ -50,11 +50,10 @@
 
 - **Merge:**
 - **Documentação:**
-- **Tarefa Monday:**
+- **Tarefa/issue:**
 
 **Release do produto:** #v[Versão]
 
 ## Tags
 
 #tagDocumentoBase [Assuntos relacionados]
-

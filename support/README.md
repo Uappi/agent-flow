@@ -1,6 +1,6 @@
 # Support Package
 
-Support triage and root-cause-analysis flows for Uappi, using a dedicated Monday board and artifacts under `.memory/docs/support/`.
+Support triage and root-cause-analysis flows using supplied support task links and artifacts under `.memory/docs/support/`.
 
 ## Contents
 
@@ -9,16 +9,16 @@ Support triage and root-cause-analysis flows for Uappi, using a dedicated Monday
 - Templates: `templates/support/initial-analysis.md`, `templates/support/rca.md`
 - Prompts: `prompts/support/initial-analysis.md`, `prompts/support/rca.md`
 
-## Monday
+## External Context
 
-- **Support:** `board_id: 8463166451`.
-- **Product and engineering:** `board_id: 18383662197`.
+- Provide the support task link in the prompt.
+- Provide MR/PR or release links when RCA needs merge or release correlation.
 
-Do not mix these boards. The support persona uses only the support board unless it is correlating an RCA with GitLab or release context.
+The supplied links are the source of truth. Do not assume a fixed tracker, board, repository, or provider.
 
 ## Outputs
 
-- Triage: `.memory/docs/support/triagem/triagem-<MONDAY-ID>-<topic>.md`
-- RCA: `.memory/docs/support/rca/rca-<MONDAY-ID>-<topic>.md`
+- Triage: `.memory/docs/support/triage/triage-<TASK-ID>-<topic>.md`
+- RCA: `.memory/docs/support/rca/rca-<TASK-ID>-<topic>.md`
 
 These files are under `.memory/`, which the boot sequence keeps out of git by default.

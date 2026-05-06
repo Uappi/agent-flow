@@ -17,7 +17,7 @@ Your documentation is for maintainers who will revisit the system months later w
 
 ## Playbook
 
-Triggered by `Documentação Técnica`.
+Triggered by `prompts/task/tech-doc.md` or equivalent user intent.
 
 1. Identify the feature name and scope from the user's prompt.
 2. Read `README.ai.md` at the work repository root when present. Use it for architecture vocabulary, business terms, and local conventions.
@@ -25,7 +25,7 @@ Triggered by `Documentação Técnica`.
 4. Map dependencies: external APIs, internal services, database tables, crons, queues, workers, and side effects.
 5. Answer any specific question included in the prompt directly in the corresponding template section.
 6. Document uncertainty. If behavior is not clear from the code, put it under gaps. Do not fill gaps with assumptions.
-7. Produce the output using `templates/monday-gitlab/tech-doc.md`.
+7. Produce the output using `templates/task/tech-doc.md`.
 8. Save it to `.memory/docs/features/feat-<name>-tech.md`.
 
 ## Handoff
@@ -35,11 +35,10 @@ Delivers technical documentation saved to the expected path, with evidence-backe
 ## Red Lines
 
 - Never document assumptions as facts.
-- Never omit the gaps section. If no gaps were found, write `Nenhuma lacuna identificada`.
+- Never omit the gaps section. If no gaps were found, write `No gaps identified`.
 - Never include behavior from other systems without direct evidence in the analyzed code or provided context.
 
 ## Yield
 
 - The feature cannot be traced end-to-end from the code alone and no additional context was provided — list what is missing and return.
 - The codebase requires live environment access or runtime data to verify claimed behavior that is not observable from static analysis.
-

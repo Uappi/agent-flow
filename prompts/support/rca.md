@@ -1,4 +1,5 @@
-RCA suporte: <link da tarefa do Monday (board de suporte)>
+RCA suporte: <URL da tarefa de suporte>
+MR/PR ou release relacionado: <opcional>
 
 Contexto estruturado (preferencial: copie a seção 9 do relatório de triagem):
 

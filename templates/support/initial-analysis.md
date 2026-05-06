@@ -42,7 +42,7 @@
 
 ## 7. Retorno ao nível 1 (somente se bloqueado)
 
-> Copie esta seção para o Monday se faltarem evidências mínimas para continuar.
+> Copie esta seção para a tarefa de suporte se faltarem evidências mínimas para continuar.
 
 **Motivo do bloqueio:**
 **Evidências mínimas necessárias para prosseguir:**
@@ -77,4 +77,3 @@
 - **Possível relação com merge/release:**
 - **Dados relevantes:** (IDs, datas, volume, etc.)
 - **Lacunas de evidência:**
-

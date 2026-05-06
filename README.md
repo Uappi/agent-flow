@@ -9,7 +9,7 @@ It's model-agnostic: orchestrate on Claude, plan on Kimi, review on Qwen, or any
 ![Boot sequence demo](docs/demo.jpg)
 _Maestro booted on a Clean Architecture Go project — gitignore, auto-update, memory, rules, and 33 context files created automatically._
 
-This fork keeps the Agent Starter Kit structure so upstream updates remain easy to merge, while adding Uappi-specific personas, prompts, templates, and rules for Monday, GitLab, documentation, and support workflows.
+This fork keeps the Agent Starter Kit structure so upstream updates remain easy to merge, while adding personas, prompts, templates, and rules for task-link, MR/PR, documentation, and support workflows.
 
 ## How It Works
 
@@ -21,8 +21,8 @@ The **Maestro** is the conductor. It receives user requests, decomposes them, an
 - **Contextualizer** — documents project structure for orientation
 - **Engineer** — documents features from technical and architectural evidence
 - **Product Owner** — documents features in business language
-- **Documenter** — produces implementation delivery docs from Monday and GitLab
-- **Support** — handles support triage and RCA using the dedicated support board
+- **Documenter** — produces implementation delivery docs from supplied task and MR/PR links
+- **Support** — handles support triage and RCA using supplied support task links
 
 Each persona has an identity (who they are), a playbook (what they do), a handoff format (what they deliver), and red lines (what they must not do).
 
@@ -30,7 +30,7 @@ Each persona also declares a `humor` style — which controls temperature and th
 
 The framework **learns as it works**. Corrections, preferences, and lessons are captured to long-term memory and carried into every future session. Interrupted work is tracked in session files so the next boot can resume where the last one stopped.
 
-## Uappi Workflows
+## Workflow Templates
 
 | Trigger | Persona | Output |
 | --- | --- | --- |
@@ -39,14 +39,14 @@ The framework **learns as it works**. Corrections, preferences, and lessons are 
 | `Documentação Técnica` | Engineer | `.memory/docs/features/feat-<name>-tech.md` |
 | `Documentação de Produto` | Product Owner | `.memory/docs/features/feat-<name>-prod.md` |
 | `Documentação de Implementação` | Documenter | `.memory/docs/implementations/implementation-<ID>-<topic>.docx` |
-| `Análise suporte` / `Triagem suporte` | Support | `.memory/docs/support/triagem/triagem-<ID>-<topic>.md` |
+| `Análise suporte` / `Triagem suporte` | Support | `.memory/docs/support/triage/triage-<ID>-<topic>.md` |
 | `RCA suporte` / `Análise profunda suporte` | Support | `.memory/docs/support/rca/rca-<ID>-<topic>.md` |
 
-Fixed integrations:
+External context:
 
-- Monday product/engineering/docs/MR board: `18383662197`
-- Monday support board: `8463166451`
-- GitLab project: `agenciawebart/wapstore/wapstore`
+- Product/MR/docs flows require the task or issue link and the MR/PR link in the prompt.
+- Support flows require the support task link and, when relevant, MR/PR or release links.
+- Links are the source of truth. Do not assume a fixed tracker, board, repository, or provider.
 
 Ready-to-paste prompts live in `prompts/`. Output templates live in `templates/`. Cursor MCP setup guides live in `docs/mcp/`. Support-specific rules and flow notes are indexed in `support/README.md`.
 
@@ -83,7 +83,7 @@ personas/    Specialized AI roles (who does the work)
 rules/       Constraints organized by authority level
 skills/      Reusable procedures and protocols
 prompts/     Ready-to-paste workflow prompts
-templates/   Output templates used by Uappi workflows
+templates/   Output templates used by workflow modes
 docs/mcp/    Cursor MCP setup guides for GitLab and Monday
 support/     Support workflow index
 ```

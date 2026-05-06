@@ -36,4 +36,3 @@ Breve descrição da implementação e o objetivo do código no ecossistema.
 - **Informações não encontradas:** (Liste o que o código não deixou claro)
 - **Perguntas para investigação:** (O que o dev deve validar manualmente?)
 - **Débitos técnicos / side effects:** (Riscos conhecidos ao mexer aqui)
-

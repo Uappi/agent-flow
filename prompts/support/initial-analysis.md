@@ -1,4 +1,4 @@
-Análise suporte: <link da tarefa do Monday (board de suporte)>
+Análise suporte: <URL da tarefa de suporte>
 
 Contexto adicional (opcional):
 - Cliente:
