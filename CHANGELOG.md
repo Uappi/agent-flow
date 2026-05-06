@@ -1,6 +1,13 @@
 # Changelog
 
 ```log
+0.6.2 - 2026/05/01
+fix(skills/boot.md): add `.ignore` to gitignore loop — was missing `.ignore` entry that maestro-boot.sh already handles
+
+0.6.1 - 2026/04/30
+fix(configure-cli): change all personas from edit/bash deny to ask — write tools hidden when deny matches project root; compound commands (pipes, redirects) now prompt instead of silently failing
+feat(boot): add ensureHiddenDirectoriesAreSearchable to maestro-boot-configure-cli.sh — creates .ignore at project root with !.agents/ and !.memory/ entries so AI tooling (glob/grep) can search hidden gitignored directories; ensureGitignoreEntry '.ignore' added to .gitignore
+
 0.6.0.1 - 2026/04/28
 feat(uappi): import AgentFlow overlay while preserving Agent Starter Kit structure
 feat(personas): add engineer, product-owner, documenter, and support personas with Uappi workflow triggers

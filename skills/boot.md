@@ -1,8 +1,8 @@
 ---
 shortDescription: Session startup — gitignore, auto-update, memory, rules, context, CLI config, and greet.
 usedBy: [maestro]
-version: 0.4.4
-lastUpdated: 2026-04-28
+version: 0.4.3
+lastUpdated: 2026-05-01
 ---
 
 ## Purpose
@@ -24,8 +24,8 @@ Before step 1, enforce this startup behavior:
 
    ```bash
    touch .gitignore
-   for entry in '.agents/' '.memory/' 'opencode.json'; do
-       awk -v e="$entry" '$0 == e { found=1 } END { exit(found ? 0 : 1) }' .gitignore || printf '%s\n' "$entry" >> .gitignore
+   for entry in '.agents/' '.memory/' 'opencode.json' '.ignore'; do
+       grep -qxF "$entry" .gitignore || echo "$entry" >> .gitignore
    done
    ```
 

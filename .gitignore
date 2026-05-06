@@ -3,3 +3,4 @@
 .env.example
 opencode.json
 .codex
+.ignore
