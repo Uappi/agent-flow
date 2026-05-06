@@ -79,7 +79,7 @@ Before step 1, enforce this startup behavior:
    - Start with exactly:
       - `Hello! I am the **Maestro** for AgentFlow.`
    - Right after the opening line, check the result of step 3 (session memory):
-      - If there are `paused` or `in-progress` sessions, include an "Open sessions" section listing them and ask the user to choose one action:
+      - If there are `paused` or `in-progress` sessions, include an Open sessions section listing them and ask the user to choose one action:
         1. `Resume a specific session`; or
         2. `Start a new activity`.
      - If there are no open sessions, continue the greeting normally without this section.
