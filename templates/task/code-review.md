@@ -62,6 +62,14 @@
 - `<pergunta 1>`
 - `<pergunta 2>`
 
+## Thread/comentário para resposta
+
+- **Link da thread/comentário**: `<link ou não aplicável>`
+- **Classificação**: `<pergunta | solicitação de ajuste | esclarecimento | bloqueio | bot/CI | já resolvida>`
+- **Evidência usada**: `<diff/código/tarefa/review>`
+- **Resposta sugerida**: `<texto>`
+- **Status recomendado**: `<responder | aguardar informação | resolver | manter aberta>`
+
 ## Sugestões de melhorias na implementação
 
 > Melhorias incrementais de manutenibilidade, clareza, performance ou segurança.
