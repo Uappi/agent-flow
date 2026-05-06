@@ -1,13 +1,13 @@
-# Template — Code Review (Merge/MR)
+# Template — Code Review (MR/PR)
 
-> A revisão deve refletir apenas o diff do MR (merge-base), não o diff bruto entre branches.
+> A revisão deve refletir apenas o diff do MR/PR (merge-base), não o diff bruto entre branches.
 
 ## Identificação
 
-- **MR/Merge**: `<id ou link>`
+- **MR/PR**: `<link>`
 - **Branch origem**: `<nome>`
 - **Branch destino**: `<nome>`
-- **Monday (link)**: `<link>`
+- **Tarefa/issue (link)**: `<link>`
 - **Pessoas envolvidas**: `<nome>`
 - **Data**: `<YYYY-MM-DD>`
 
@@ -18,9 +18,9 @@
 - **Regra esperada**: `<o comportamento correto>`
 - **Escopo**: `<impacto / módulo / fluxo>`
 
-## Escopo do MR (arquivos alterados)
+## Escopo do MR/PR (arquivos alterados)
 
-> Lista gerada a partir do diff do MR.
+> Lista gerada a partir do diff do MR/PR.
 
 - `<arquivo 1>`
 - `<arquivo 2>`
@@ -96,4 +96,3 @@
 ## Observações finais
 
 - `<pendências, follow-ups, decisões>`
-

@@ -31,4 +31,3 @@ Explicação clara sobre o valor da entrega e qual problema do lojista ela resol
 ## Pontos de atenção
 
 - [Listar comportamentos que o código não deixou claros para uma regra de negócio final]
-

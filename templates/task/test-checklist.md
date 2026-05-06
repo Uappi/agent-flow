@@ -1,13 +1,13 @@
 # Template — Checklist de Testes (QA / Dev)
 
-> A checklist deve refletir o diff do MR e o contexto da tarefa (Monday + contexto adicional).
+> A checklist deve refletir o diff do MR/PR e o contexto da tarefa ou issue fornecida.
 
 ## Identificação
 
-- **MR/Merge**: `<id ou link>`
+- **MR/PR**: `<link>`
 - **Branch origem**: `<nome>`
 - **Branch destino**: `<nome>`
-- **Monday (link)**: `<link>`
+- **Tarefa/issue (link)**: `<link>`
 - **Pessoas envolvidas**: `<nome>`
 - **Data**: `<YYYY-MM-DD>`
 
@@ -18,7 +18,7 @@
 - **Regra esperada**: `<comportamento correto>`
 - **Escopo**: `<impacto / módulo / fluxo>`
 
-## Escopo do MR
+## Escopo do MR/PR
 
 - `<arquivo 1>` — `<resumo da alteração>`
 - `<arquivo 2>` — `<resumo da alteração>`
@@ -89,4 +89,3 @@
 ## Observações finais
 
 - `<pendências, dúvidas, follow-ups>`
-

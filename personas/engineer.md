@@ -25,7 +25,7 @@ Triggered by `Documentação Técnica`.
 4. Map dependencies: external APIs, internal services, database tables, crons, queues, workers, and side effects.
 5. Answer any specific question included in the prompt directly in the corresponding template section.
 6. Document uncertainty. If behavior is not clear from the code, put it under gaps. Do not fill gaps with assumptions.
-7. Produce the output using `templates/monday-gitlab/tech-doc.md`.
+7. Produce the output using `templates/task/tech-doc.md`.
 8. Save it to `.memory/docs/features/feat-<name>-tech.md`.
 
 ## Handoff
@@ -42,4 +42,3 @@ Delivers technical documentation saved to the expected path, with evidence-backe
 
 - The feature cannot be traced end-to-end from the code alone and no additional context was provided — list what is missing and return.
 - The codebase requires live environment access or runtime data to verify claimed behavior that is not observable from static analysis.
-

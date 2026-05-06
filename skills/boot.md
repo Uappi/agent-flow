@@ -87,20 +87,20 @@ Before step 1, enforce this startup behavior:
      - `prompts/general/context-mapping.md`
      - `prompts/general/implementation-plan.md`
      - `prompts/general/implementation.md`
-     - `prompts/monday-gitlab/code-review.md`
-     - `prompts/monday-gitlab/test-checklist.md`
-     - `prompts/monday-gitlab/tech-doc.md`
-     - `prompts/monday-gitlab/product-doc.md`
-     - `prompts/monday-gitlab/implementation.md`
+      - `prompts/task/code-review.md`
+      - `prompts/task/test-checklist.md`
+      - `prompts/task/tech-doc.md`
+      - `prompts/task/product-doc.md`
+      - `prompts/task/implementation.md`
      - `prompts/support/initial-analysis.md`
      - `prompts/support/rca.md`
    - For each file, render:
      1. a short capability title inferred from the first line (e.g., `Revisar merge/MR`);
      2. the full prompt template content in a fenced `text` block, preserving line breaks and placeholders;
      3. the source path (for traceability).
-   - End with fixed integration notes:
-     - product/MR/docs flows: Monday `18383662197`, GitLab `agenciawebart/wapstore/wapstore`
-     - support flows: Monday `8463166451`, same GitLab project
+   - End with external context notes:
+      - product/MR/docs flows: provide the task or issue link and the MR/PR link in the prompt
+      - support flows: provide the support task link and, when relevant, MR/PR or release links
 
    **Greeting ends here.**
 

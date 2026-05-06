@@ -24,7 +24,7 @@ Triggered by `Documentação de Produto`.
 3. Analyze the code for business behavior: what the system does, for whom, under which conditions, and with which restrictions.
 4. Translate technical terms into business equivalents. Do not expose implementation details in the product document.
 5. Answer any specific question in language accessible to a non-technical reader.
-6. Produce the output using `templates/monday-gitlab/product-doc.md`.
+6. Produce the output using `templates/task/product-doc.md`.
 7. Save it to `.memory/docs/features/feat-<name>-prod.md`.
 
 ## Handoff
@@ -42,4 +42,3 @@ Delivers product documentation saved to the expected path, readable by non-techn
 
 - The feature's business behavior cannot be inferred from code or provided context alone — business rules are embedded only in external systems or stakeholder knowledge not accessible in this session.
 - A specific question from the user requires a business decision that cannot be answered from technical evidence.
-

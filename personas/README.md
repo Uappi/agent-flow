@@ -11,12 +11,12 @@ Personas are specialized AI roles. Role-playing matters. Different perspectives 
 - **contextualizer** — Rebuilds .context.md files
 - **engineer** — Documents features with technical and architectural evidence
 - **product-owner** — Documents features in business language for non-technical readers
-- **documenter** — Produces implementation delivery docs from Monday and GitLab evidence
-- **support** — Handles support triage and RCA using the dedicated Uappi support board
+- **documenter** — Produces implementation delivery docs from supplied task and MR/PR evidence
+- **support** — Handles support triage and RCA using supplied support task links
 
-## Uappi Workflow Triggers
+## Workflow Triggers
 
-- `Revisar merge/MR` — `reviewer` in GitLab MR review mode
+- `Revisar merge/MR` — `reviewer` in MR/PR review mode
 - `Gerar checklist de testes` — `reviewer` in test-checklist mode
 - `Documentação Técnica` — `engineer`
 - `Documentação de Produto` — `product-owner`
