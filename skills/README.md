@@ -22,6 +22,14 @@ Skills are collected intelligence on how to operate a specific tool — whether 
 - `reviewer-self-review` — SHIELD self-review rubric — unified reviewer quality gate
 - `task-tracking` — File-based to-do tracking for multi-step and multi-session work
 
+## Product Extensions
+
+Scoped skills that apply only to a specific product or stack. Live under `ext/<product>/` and declare a `scope` field in their frontmatter.
+
+### uappi-v2
+
+- `ext/uappi-v2/especifico-diff` — Diffs `especifico/` files against the installed core version via GitLab MCP
+
 ## When to Extract a Skill
 
 Extract a skill when:
@@ -43,6 +51,7 @@ Persona-specific skills are prefixed with the persona name: `coder-linting.md`, 
 
 - **`shortDescription`** (Required) — What the skill does in one sentence. Example: `Cross-session memory retrieval and storage`
 - **`usedBy`** (Required) — Which personas use this skill. `[all]` if injected universally via boot. Example: `[all]` or `[maestro]`
+- **`scope`** (Optional) — Product or stack this skill applies to. Omit for universal skills. Example: `uappi-v2`
 - **`relatedTo`** (Optional) — External tools, CLIs, or APIs this skill wraps or abstracts. Example: `[docker, awk]` or `[anthropic-api]`
 - **`version`** (Required) — Semantic version. Example: `0.1.0`
 - **`lastUpdated`** (Required) — Last modification date. Example: `2026-02-05`

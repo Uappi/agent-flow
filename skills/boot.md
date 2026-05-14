@@ -92,6 +92,7 @@ Before step 1, enforce this startup behavior:
       - `prompts/task/tech-doc.md`
       - `prompts/task/product-doc.md`
       - `prompts/task/implementation.md`
+     - `prompts/task/especifico-diff.md`
      - `prompts/support/initial-analysis.md`
      - `prompts/support/rca.md`
    - For each file, render:
