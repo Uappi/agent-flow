@@ -1,7 +1,7 @@
 ---
 shortDescription: Pre-dispatch requirements gate — verifies links and capabilities before any persona is dispatched.
 usedBy: [maestro]
-version: 0.1.0
+version: 0.2.0
 lastUpdated: 2026-05-14
 ---
 
@@ -26,12 +26,15 @@ Links the user must supply before dispatch. If any is missing, ask for it — do
 
 ### Required capabilities
 
-Capabilities needed for write operations on external providers. Absent capability does not block the flow — but the user must choose how to proceed before dispatch.
+Capabilities needed to read or write on external providers. Two severity levels:
 
-| Flow trigger | Required capability |
-|---|---|
-| `Revisar merge/MR` | Provider MCP — needed to post the review as a comment on the MR/PR |
-| All other flows | — |
+- **Blocking** — the flow cannot proceed without this capability. Repositories are treated as private by default. Dispatch is not allowed until the user resolves it.
+
+| Flow trigger | Required capability | Severity |
+|---|---|---|
+| `Revisar merge/MR` | Provider MCP — needed to read the MR/PR diff and post the review comment | **Blocking** |
+| `Gerar checklist de testes` | Provider MCP — needed to read the MR/PR diff | **Blocking** |
+| All other flows | — | — |
 
 ## Procedure
 
@@ -42,14 +45,13 @@ Capabilities needed for write operations on external providers. Absent capabilit
    a. Identify the provider from the supplied URL — `github.com` → GitHub, `gitlab.com` → GitLab, `monday.com` → Monday, and so on.
    b. Check whether a matching MCP is available in the current session.
    c. If MCP is available: proceed to step 3.
-   d. If MCP is unavailable: inform the user — *"O MCP do [provider] não está configurado. O review será gerado, mas não poderá ser postado automaticamente. Deseja continuar assim ou prefere configurar o MCP primeiro?"*
-      - **Continue without posting:** include `capability-unavailable: [provider]` in the task brief. The persona will generate the output and report the saved file path, skipping the posting attempt.
-      - **Abort:** stop here and guide the user to configure the MCP before retrying.
+   d. If MCP is unavailable — apply severity:
+      - **Blocking:** inform the user — *"O MCP do [provider] não está configurado. Sem ele não é possível acessar o conteúdo do MR/PR. Configure o MCP e tente novamente."* Do not dispatch. Stop here.
 
 3. **Proceed.** All requirements resolved — continue with dispatch.
 
 ## Guardrails
 
 - Never dispatch while a required link is missing. Not even for tasks that seem straightforward.
-- Never skip the capability check for write flows. The user must make an explicit choice when the capability is absent — silent degradation is not acceptable.
-- Never block on capabilities not listed in the Requirements table — only check what is declared here.
+- Never dispatch when a blocking capability is absent. There is no fallback — dispatch would produce an empty run.
+- Never skip the capability check for flows listed in the table — only flows not listed are exempt.
