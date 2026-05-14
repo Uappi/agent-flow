@@ -20,6 +20,8 @@ Skills are collected intelligence on how to operate a specific tool — whether 
 - `reviewer-handoff` — Structured review summary format with verdict logic and deterministic coverage scoring
 - `review-loop` — LOC-based review tier selection with shapeshifter dispatch for the unified reviewer
 - `reviewer-self-review` — SHIELD self-review rubric — unified reviewer quality gate
+- `review-scoping` — Groups a file list into LOC-bounded review blocks respecting module co-location
+- `structural-brief` — Produces a structural brief from .context.md files for codebase orientation
 - `task-tracking` — File-based to-do tracking for multi-step and multi-session work
 
 ## When to Extract a Skill

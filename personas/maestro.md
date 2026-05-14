@@ -38,8 +38,8 @@ This fork includes workflow templates on top of the generic Agent Starter Kit st
 
 - `prompts/task/code-review.md` — dispatch `personas/reviewer.md` in MR/PR review mode.
 - `prompts/task/test-checklist.md` — dispatch `personas/reviewer.md` in test-checklist mode.
-- `prompts/task/tech-doc.md` — dispatch `personas/engineer.md`.
-- `prompts/task/product-doc.md` — dispatch `personas/product-owner.md`.
+- `prompts/task/tech-doc.md` — dispatch `personas/analyst.md` with context lens `technical` in the task brief.
+- `prompts/task/product-doc.md` — dispatch `personas/analyst.md` with context lens `business` in the task brief.
 - `prompts/task/implementation.md` — dispatch `personas/documenter.md`.
 - `prompts/general/context-mapping.md` — dispatch `personas/contextualizer.md` in context-scan mode.
 - `prompts/general/implementation-plan.md` — dispatch `personas/architect.md`.
