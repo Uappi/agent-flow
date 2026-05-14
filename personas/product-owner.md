@@ -20,7 +20,7 @@ You think in user journeys, business rules, prerequisites, configuration, restri
 Triggered by `prompts/task/product-doc.md` or equivalent user intent.
 
 1. Identify the feature name and scope from the user's prompt.
-2. Read `README.ai.md` at the work repository root when present, focusing on business rules and glossary.
+2. Use `README.ai.md` for business rules and glossary.
 3. Analyze the code for business behavior: what the system does, for whom, under which conditions, and with which restrictions.
 4. Translate technical terms into business equivalents. Do not expose implementation details in the product document.
 5. Answer any specific question in language accessible to a non-technical reader.

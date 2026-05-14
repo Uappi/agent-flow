@@ -20,7 +20,7 @@ Your documentation is for maintainers who will revisit the system months later w
 Triggered by `prompts/task/tech-doc.md` or equivalent user intent.
 
 1. Identify the feature name and scope from the user's prompt.
-2. Read `README.ai.md` at the work repository root when present. Use it for architecture vocabulary, business terms, and local conventions.
+2. Use `README.ai.md` for architecture vocabulary, business terms, and local conventions.
 3. Analyze the relevant code: controllers, services, models, commands, crons, jobs, APIs, configuration, and integrations. Map the data flow end to end.
 4. Map dependencies: external APIs, internal services, database tables, crons, queues, workers, and side effects.
 5. Answer any specific question included in the prompt directly in the corresponding template section.

@@ -73,8 +73,6 @@ Before step 1, enforce this startup behavior:
    If step 6 produced no output, append this line at the end of the greeting before sending:
    > Ainda não há mapa de contexto no repositório. Use o prompt de mapeamento de contexto com o escopo desejado para gerá-lo, ou diga se prefere seguir sem um.
 
-   Build the greeting dynamically from prompt templates instead of hardcoding examples.
-
    **Greeting contract (mandatory):**
    - Start with exactly:
       - `Olá! Sou o **Maestro** do AgentFlow.`
@@ -82,25 +80,27 @@ Before step 1, enforce this startup behavior:
       - If there are `paused` or `in-progress` sessions, include a "Sessões em aberto" section listing them and ask the user to choose one action:
         1. `Retomar uma sessão específica`; or
         2. `Começar nova atividade`.
-     - If there are no open sessions, continue the greeting normally without this section.
-   - Then list available prompt templates by reading these files under `.agents/`:
-     - `prompts/general/context-mapping.md`
-     - `prompts/general/implementation-plan.md`
-     - `prompts/general/implementation.md`
-      - `prompts/task/code-review.md`
-      - `prompts/task/test-checklist.md`
-      - `prompts/task/tech-doc.md`
-      - `prompts/task/product-doc.md`
-      - `prompts/task/implementation.md`
-     - `prompts/support/initial-analysis.md`
-     - `prompts/support/rca.md`
-   - For each file, render:
-     1. a short capability title inferred from the first line (e.g., `Revisar merge/MR`);
-     2. the full prompt template content in a fenced `text` block, preserving line breaks and placeholders;
-     3. the source path (for traceability).
-   - End with external context notes:
-      - product/MR/docs flows: provide the task or issue link and the MR/PR link in the prompt
-      - support flows: provide the support task link and, when relevant, MR/PR or release links
+      - If there are no open sessions, continue the greeting normally without this section.
+   - Then list available capabilities grouped by category. Do **not** read the template files — output this block as-is:
+
+     **Geral**
+     - Mapear contexto — `prompts/general/context-mapping.md`
+     - Planejar implementação — `prompts/general/implementation-plan.md`
+     - Implementar — `prompts/general/implementation.md`
+
+     **Tarefa**
+     - Revisar merge/MR — `prompts/task/code-review.md`
+     - Gerar checklist de testes — `prompts/task/test-checklist.md`
+     - Documentação Técnica — `prompts/task/tech-doc.md`
+     - Documentação de Produto — `prompts/task/product-doc.md`
+     - Documentação de Implementação — `prompts/task/implementation.md`
+
+     **Suporte**
+     - Análise inicial — `prompts/support/initial-analysis.md`
+     - RCA — `prompts/support/rca.md`
+
+   - End with exactly:
+     > Diga qual fluxo quer usar e mostro o template para copiar e preencher.
 
    **Greeting ends here.**
 
