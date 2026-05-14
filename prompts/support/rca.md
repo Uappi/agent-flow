@@ -3,7 +3,7 @@ MR/PR ou release relacionado: <opcional>
 
 Contexto estruturado (preferencial: copie a seção 9 do relatório de triagem):
 
-Contexto adicional (opcional):
+Contexto adicional: <opcional>
 - Release atual:
 - Release anterior:
 - Merge/MR:

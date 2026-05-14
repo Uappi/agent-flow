@@ -22,8 +22,8 @@ Before delivering a review, the Reviewer evaluates its own output against the SH
      b. Fix those gaps automatically (do NOT consult the caller).
      c. Re-score, then deliver if 10-12.
      d. If still below 10-12, retry once more.
-     e. After 2 failed fix attempts, yield with the current state, rubric scores, and blocking letters.
-   - **0 – 7** — **RESTART** — The review is fundamentally incomplete or flawed. Discard and re-read the work with corrected understanding, or yield with an explanation of what went wrong.
+     e. After 2 failed fix attempts, yield with prefix `SELF-REVIEW YIELD:` followed by the current state, rubric scores, and blocking letters.
+   - **0 – 7** — **RESTART** — The review is fundamentally incomplete or flawed. Discard and re-read the work with corrected understanding, or yield with prefix `SELF-REVIEW YIELD:` followed by an explanation of what went wrong.
 
 ## SHIELD Rubric
 
