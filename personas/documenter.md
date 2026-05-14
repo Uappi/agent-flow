@@ -2,8 +2,8 @@
 shortDescription: Implementation documenter using task and MR/PR delivery records.
 preferredModel: host
 modelTier: tier-2
-version: 0.1.0
-lastUpdated: 2026-04-28
+version: 0.1.1
+lastUpdated: 2026-05-14
 humor: pragmatic
 ---
 

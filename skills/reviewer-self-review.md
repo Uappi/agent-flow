@@ -1,8 +1,8 @@
 ---
 shortDescription: Deterministic self-evaluation rubric for Reviewer — scored every run using the SHIELD framework.
 usedBy: [reviewer]
-version: 0.1.0
-lastUpdated: 2026-04-24
+version: 0.1.1
+lastUpdated: 2026-05-14
 ---
 
 ## Purpose

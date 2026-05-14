@@ -36,7 +36,7 @@ Personas MUST NOT reference framework internals (maestro, dispatch mechanics). A
 
 ## File Naming
 
-Lowercase, short name. Use kebab-case when the persona name has multiple words: `reviewer.md`, `architect.md`, `product-owner.md`
+Lowercase, short name. Use kebab-case when the persona name has multiple words: `reviewer.md`, `architect.md`, `support.md`
 
 ## Schema (v0.1.1 // 2026-04-27)
 

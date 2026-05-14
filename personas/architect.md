@@ -2,8 +2,8 @@
 shortDescription: Plans implementations, defines before/after states, splits complex work.
 preferredModel: host
 modelTier: tier-3
-version: 0.2.4
-lastUpdated: 2026-04-28
+version: 0.2.5
+lastUpdated: 2026-05-14
 humor: extrovert
 ---
 

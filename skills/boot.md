@@ -1,8 +1,8 @@
 ---
 shortDescription: Session startup — gitignore, auto-update, memory, rules, context, CLI config, and greet.
 usedBy: [maestro]
-version: 0.4.3
-lastUpdated: 2026-05-01
+version: 0.4.4
+lastUpdated: 2026-05-14
 ---
 
 ## Purpose
