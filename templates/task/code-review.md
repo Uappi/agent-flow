@@ -1,6 +1,6 @@
-# Template — Code Review (MR/PR)
+# Code Review — [MR/PR #ID: título ou branch]
 
-> A revisão deve refletir apenas o diff do MR/PR (merge-base), não o diff bruto entre branches.
+> Gerado por IA
 
 ## Identificação
 

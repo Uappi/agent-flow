@@ -1,6 +1,6 @@
-# Template — Checklist de Testes (QA / Dev)
+# Checklist de Testes — [MR/PR #ID: título ou branch]
 
-> A checklist deve refletir o diff do MR/PR e o contexto da tarefa ou issue fornecida.
+> Gerado por IA
 
 ## Identificação
 
