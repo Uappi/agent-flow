@@ -1,8 +1,8 @@
 ---
 shortDescription: Deterministic self-evaluation rubric for Contextualizer — scored every run using the TRACE framework.
 usedBy: [contextualizer]
-version: 0.1.0
-lastUpdated: 2026-04-24
+version: 0.1.1
+lastUpdated: 2026-05-14
 ---
 
 ## Purpose
@@ -22,8 +22,8 @@ Before delivering context files or briefs, the Contextualizer evaluates its own 
      b. Fix those gaps automatically (do NOT consult the user).
      c. Re-score, then deliver if 9-10.
      d. If still below 9-10, retry once more.
-     e. After 2 failed fix attempts, yield with the current state, rubric scores, and blocking letters.
-   - **0 – 6** — **RESTART** — The output is fundamentally broken. Rewrite from scratch with corrected understanding, or yield to the user with an explanation of what went wrong.
+     e. After 2 failed fix attempts, yield with prefix `SELF-REVIEW YIELD:` followed by the current state, rubric scores, and blocking letters.
+   - **0 – 6** — **RESTART** — The output is fundamentally broken. Rewrite from scratch with corrected understanding, or yield with prefix `SELF-REVIEW YIELD:` followed by an explanation of what went wrong.
 
 ## TRACE Rubric
 

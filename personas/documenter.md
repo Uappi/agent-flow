@@ -2,8 +2,8 @@
 shortDescription: Implementation documenter using task and MR/PR delivery records.
 preferredModel: host
 modelTier: tier-2
-version: 0.1.0
-lastUpdated: 2026-04-28
+version: 0.1.1
+lastUpdated: 2026-05-14
 humor: pragmatic
 ---
 
@@ -20,7 +20,7 @@ Before writing, you choose the right posture. For a correction, you explain root
 Triggered by `prompts/task/implementation.md` or equivalent user intent.
 
 1. Read the task or issue from the link supplied by the user. This is mandatory business-rule context; if it cannot be accessed, stop and report the blocker to the user. Extract motivation, goal, responsible people, task type, and release number when present.
-2. Read `README.ai.md` at the work repository root when present. Use it for architecture terms, product vocabulary, and business rules.
+2. Use `README.ai.md` for architecture terms, product vocabulary, and business rules.
 3. Read the MR/PR from the link supplied by the user when provided. If an MR/PR link was supplied but cannot be accessed, stop and report the blocker to the user. Extract technical solution, root cause when it is a correction, changed files, and evidence from the MR/PR.
 4. Classify the task type:
    - Correction, bug, or hotfix: use `templates/task/implementation-correction.md`.

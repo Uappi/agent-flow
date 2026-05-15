@@ -19,8 +19,7 @@ The **Maestro** is the conductor. It receives user requests, decomposes them, an
 - **Coder** — writes software following the plan
 - **Reviewer** — checks work for correctness and quality
 - **Contextualizer** — documents project structure for orientation
-- **Engineer** — documents features from technical and architectural evidence
-- **Product Owner** — documents features in business language
+- **Analyst** — documents features from code evidence, technical depth or business language depending on context lens
 - **Documenter** — produces implementation delivery docs from supplied task and MR/PR links
 - **Support** — handles support triage and RCA using supplied support task links
 
@@ -36,8 +35,8 @@ The framework **learns as it works**. Corrections, preferences, and lessons are 
 | --- | --- | --- |
 | `Revisar merge/MR` | Reviewer | `.memory/docs/code-review/review-merge-<ID>-<topic>.md` |
 | `Gerar checklist de testes` | Reviewer | `.memory/docs/checklists/checklist-merge-<ID>-<topic>.md` |
-| `Documentação Técnica` | Engineer | `.memory/docs/features/feat-<name>-tech.md` |
-| `Documentação de Produto` | Product Owner | `.memory/docs/features/feat-<name>-prod.md` |
+| `Documentação Técnica` | Analyst | `.memory/docs/features/feat-<name>-tech.md` |
+| `Documentação de Produto` | Analyst | `.memory/docs/features/feat-<name>-prod.md` |
 | `Documentação de Implementação` | Documenter | `.memory/docs/implementations/implementation-<ID>-<topic>.docx` |
 | `Análise suporte` / `Triagem suporte` | Support | `.memory/docs/support/triage/triage-<ID>-<topic>.md` |
 | `RCA suporte` / `Análise profunda suporte` | Support | `.memory/docs/support/rca/rca-<ID>-<topic>.md` |
@@ -110,10 +109,13 @@ Skills codify procedures that personas reference. They answer "how to do X" so p
 - **contextualizer-self-review** — TRACE self-review rubric — context generation quality gate
 - **dispatch** — how the Maestro assembles and sends work to personas
 - **loop-recovery** — structured recovery and escalation for retry loops
+- **pre-dispatch-check** — requirements gate that verifies links and access before any persona is dispatched
 - **review-loop** — LOC-based review tier selection with shapeshifter dispatch
+- **review-scoping** — groups a file list into LOC-bounded review blocks respecting module co-location
 - **reviewer-architect-adversarial** — adversarial plan validation and assumption attack
 - **reviewer-handoff** — structured review summary format with verdict logic
 - **reviewer-self-review** — SHIELD self-review rubric — unified reviewer quality gate
+- **structural-brief** — produces a structural brief from `.context.md` files for codebase orientation
 - **task-tracking** — file-based to-do for multi-step work
 
 ## Customization

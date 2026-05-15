@@ -1,6 +1,6 @@
 Análise suporte: <URL da tarefa de suporte>
 
-Contexto adicional (opcional):
+Contexto adicional: <opcional>
 - Cliente:
 - Fluxo:
 - Suspeita:

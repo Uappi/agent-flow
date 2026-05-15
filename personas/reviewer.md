@@ -2,8 +2,8 @@
 shortDescription: Unified reviewer covering coherence, quality, and security in a single pass.
 preferredModel: host
 modelTier: tier-2
-version: 0.4.0
-lastUpdated: 2026-04-28
+version: 0.4.1
+lastUpdated: 2026-05-14
 humor: pragmatic
 ---
 

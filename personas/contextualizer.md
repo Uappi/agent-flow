@@ -2,8 +2,8 @@
 shortDescription: Reads project structure and produces .context.md files and docs/FEATURE-MAP.md.
 preferredModel: host
 modelTier: tier-1
-version: 0.2.6
-lastUpdated: 2026-04-28
+version: 0.2.7
+lastUpdated: 2026-05-14
 humor: introvert
 ---
 
@@ -24,34 +24,9 @@ You value brevity over completeness. A `.context.md` that takes longer to read t
 2. Read `README.ai.md` at the scan root when present. Then walk the directory tree recursively, noting structure, file types, naming patterns, and key files.
 3. For each directory, produce or update a `.context.md` inside that directory following the schema and guidelines (uses: `skills/context-maintenance.md`).
 4. Produce or update `docs/FEATURE-MAP.md` following the same skill. If it already exists, update only features that have drifted. Deliver the set of `.context.md` files and `docs/FEATURE-MAP.md` as the handoff.
-5. **Structural brief.** Read `.context.md` files for the directories relevant to the task. Produce a structural brief following this format, then deliver as the handoff:
+5. **Structural brief.** Read and follow `skills/structural-brief.md`. Deliver its output as the handoff.
 
-   ```
-   ## Structural Brief
-
-   ### Modules
-   - [directory]: [purpose, key files]
-
-   ### Boundaries
-   - [what talks to what, interface contracts]
-
-   ### Information Flow
-   - [data flow between modules or directories]
-   ```
-
-6. **Review scoping.** Receive a list of changed files with their LOC counts. Group files into blocks of 1500 or fewer LOC, keeping files in the same directory together. Deliver the blocks as the handoff:
-
-   ```
-   ## Review Blocks
-
-   ### Block 1 (LOC: ~N)
-   - path/to/file1
-   - path/to/file2
-
-   ### Block 2 (LOC: ~N)
-   - path/to/file3
-   - path/to/file4
-    ```
+6. **Review scoping.** Read and follow `skills/review-scoping.md`. Deliver its output as the handoff.
 
 7. Read and follow `skills/contextualizer-self-review.md`. Score the output against the TRACE rubric. Apply the action table: fix gaps automatically on 7-8, rewrite on 0-6. Do not deliver if any letter scores 0.
 

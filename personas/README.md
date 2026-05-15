@@ -9,8 +9,7 @@ Personas are specialized AI roles. Role-playing matters. Different perspectives 
 - **coder** — Software development
 - **reviewer** — Reviews work output for quality
 - **contextualizer** — Rebuilds .context.md files
-- **engineer** — Documents features with technical and architectural evidence
-- **product-owner** — Documents features in business language for non-technical readers
+- **analyst** — Documents features from code evidence, technical depth or business language depending on context lens
 - **documenter** — Produces implementation delivery docs from supplied task and MR/PR evidence
 - **support** — Handles support triage and RCA using supplied support task links
 
@@ -18,8 +17,8 @@ Personas are specialized AI roles. Role-playing matters. Different perspectives 
 
 - `prompts/task/code-review.md` — `reviewer` in MR/PR review mode
 - `prompts/task/test-checklist.md` — `reviewer` in test-checklist mode
-- `prompts/task/tech-doc.md` — `engineer`
-- `prompts/task/product-doc.md` — `product-owner`
+- `prompts/task/tech-doc.md` — `analyst` (lens: technical)
+- `prompts/task/product-doc.md` — `analyst` (lens: business)
 - `prompts/task/implementation.md` — `documenter`
 - `prompts/general/context-mapping.md` — `contextualizer` in context-scan mode
 - `prompts/general/implementation-plan.md` — `architect`
@@ -37,7 +36,7 @@ Personas MUST NOT reference framework internals (maestro, dispatch mechanics). A
 
 ## File Naming
 
-Lowercase, short name. Use kebab-case when the persona name has multiple words: `reviewer.md`, `architect.md`, `product-owner.md`
+Lowercase, short name. Use kebab-case when the persona name has multiple words: `reviewer.md`, `architect.md`, `support.md`
 
 ## Schema (v0.1.1 // 2026-04-27)
 
