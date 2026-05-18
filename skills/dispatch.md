@@ -1,7 +1,7 @@
 ---
 shortDescription: Assembles sub-agent prompts with task brief and routes to the correct provider.
 usedBy: [maestro]
-version: 0.2.11
+version: 0.2.12
 lastUpdated: 2026-05-18
 ---
 
@@ -35,8 +35,8 @@ This is the only registry. If a persona is not listed there, it does not exist. 
 
 4. **Decide how to dispatch.** Mandatory — step 9 must use the path chosen here. Compare **host CLI** (from step 1) with **target CLI** (from the persona's `preferredModel` in the Providers table; for `host`, target CLI is the host CLI). Then:
     - **Native dispatch** — `preferredModel` is `host`, or target CLI equals host CLI. Use the host's built-in subagent mechanism only (e.g., OpenCode `task`, Claude Code `Task`, Cursor subagent flow).
-    - **CLI dispatch** — target CLI differs from host CLI. Run `command -v <target_cli>`; if it succeeds, shell out per CLI Dispatch — **do not** use the host's native Task/subagent for this persona.
-    - **Fallback** — target CLI differs from host CLI but `command -v <target_cli>` fails. Fall back to native dispatch and record the reason in session memory.
+    - **CLI dispatch** — target CLI differs from host CLI. Run `command -v <target_cli>`; if it succeeds, shell out per CLI Dispatch with that provider's flags — **do not** use the host's native Task/subagent for this persona.
+    - **Fallback** — CLI dispatch is not possible: `command -v` failed, or the CLI exited with a runtime blocker (e.g. `cursor-agent` trust gate). Fall back to native dispatch and record the exact error in session memory.
 
 5. **Strip the frontmatter.** Run the `sed` command below to remove YAML frontmatter from the persona file. Take the complete, unmodified `sed` output and wrap it in `<identity>` tags — do not summarize, paraphrase, or shorten the persona file. The full text must arrive exactly as written. Each dispatch targets exactly one persona — never multiple in a single prompt.
 
@@ -139,7 +139,7 @@ Provider-specific flags (add entries as you integrate providers):
 
 - **`claude`**: `--model [model]` (accepts `haiku`, `sonnet`, `opus`). Do **not** use `--print` (`-p`) — it bypasses permission checks.
 - **`codex`**: `exec - --model [model] --sandbox workspace-write --skip-git-repo-check -C [workspace]`. Add `--full-auto` only when safety boundaries are already enforced by the environment.
-- **`cursor-agent`**: `--model [model]`. Add `--workspace [workspace]` only when explicitly provided. Add `--trust` only under externally enforced safety controls.
+- **`cursor-agent`**: `--model [model] --workspace [workspace] --trust`. Framework dispatches are non-interactive; without `--trust`, the CLI blocks waiting for workspace approval. Set `[workspace]` to the work repository root. Always include both flags for Maestro CLI dispatch.
 - **`opencode`**: `OPENCODE_EXPERIMENTAL_BASH_DEFAULT_TIMEOUT_MS=600000 opencode run --model [provider/model] --variant [effort] --thinking`. The env var raises the bash timeout from 120s to 600s. The `--variant` flag maps to the model's effort level (`high` or `max`).
 - **`gemini`**: `gemini --model [model]`. Pipe the assembled prompt via stdin — do not use `--prompt` as it overrides stdin input.
 
