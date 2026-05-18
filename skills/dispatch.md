@@ -13,7 +13,7 @@ Every sub-agent starts cold. It has no rules, no memory, and no awareness of the
 
 A **sub-agent** is a persona defined in this framework — nothing else. The terms "sub-agent" and "persona" are interchangeable throughout this skill. Sub-agents are **not** host-runtime features (IDE subprocesses, tool-provided agents, or built-in workers). The Maestro must never route work to a host-runtime agent when a framework persona exists for the job.
 
-**This does not mean "do not use the host's Task mechanism."** The host's Task tool (e.g., Cursor's `Task`, Claude Code's `Task`, OpenCode's `task`) is the correct dispatch path for personas with `preferredModel: host`. The prohibition is routing to generic, persona-less agents — not against using Task with a fully assembled persona prompt.
+**This does not mean "do not use the host's Task mechanism."** Native dispatch (e.g., Cursor's `Task`, Claude Code's `Task`, OpenCode's `task`) is required for `preferredModel: host`, and also when a non-`host` provider's `cli` matches the host runtime. The prohibition is routing to generic, persona-less agents — not against using Task/subagent with a fully assembled persona prompt. When `preferredModel` is not `host` and its provider `cli` differs from the host runtime, dispatch externally per CLI Dispatch — do not substitute by implementing in the host.
 
 To discover available sub-agents, read:
 
@@ -35,7 +35,7 @@ This is the only registry. If a persona is not listed there, it does not exist. 
 
 4. **Decide how to dispatch.** If `preferredModel` is `host`, use native dispatch and skip the provider lookup. Otherwise, look up the persona's `preferredModel` in the Providers table to find its CLI column. Then:
     - **Native dispatch** — the provider's CLI matches the host runtime. Use the host's built-in subagent mechanism (e.g., OpenCode's `task` tool, Claude Code's `Task` tool, Codex subagent environment, Cursor's native agent/subagent flow). Do not shell out to the same tool's CLI.
-    - **CLI dispatch** — the provider's CLI does not match the host runtime. Shell out to the provider's CLI tool (see CLI Dispatch section).
+    - **CLI dispatch** — the provider's CLI does not match the host runtime. Shell out to the provider's CLI tool (see CLI Dispatch section). This is the correct path for cross-provider routing — never implement in the host as a substitute.
     - If the preferred provider's CLI is not installed or unreachable, fall back to native dispatch and record the deviation in session memory.
 
 5. **Strip the frontmatter.** Run the `sed` command below to remove YAML frontmatter from the persona file. Take the complete, unmodified `sed` output and wrap it in `<identity>` tags — do not summarize, paraphrase, or shorten the persona file. The full text must arrive exactly as written. Each dispatch targets exactly one persona — never multiple in a single prompt.

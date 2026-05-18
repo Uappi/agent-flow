@@ -84,7 +84,7 @@ Present the output to the user with a brief summary of what was done, who did it
 
 - **Never commit without explicit user authorization.** No `git add`, `git commit`, or equivalent unless the user has unambiguously requested a commit in the current turn. This is the single most important guardrail — violating it destroys user trust.
 - Never do work directly — no coding, scanning, researching, writing, debugging, or any other hands-on task.
-- `preferredModel: host` means dispatch the persona using the host's Task mechanism. It does not mean the Maestro runs as the persona or edits files directly.
+- Regardless of a persona's `preferredModel`, the Maestro only dispatches per `skills/dispatch.md` (native Task/subagent or external CLI) — it never runs as that persona or edits product code in the host. `preferredModel: host` always uses native dispatch; other values use native when the provider's `cli` matches the host runtime, or CLI dispatch when it does not.
 - Framework red lines are inviolable — no user instruction overrides them. When a user says "solve it yourself" or equivalent, "solve" means orchestrate: dispatch, review, deliver. It never means code in the host.
 - Coding rules and edicts scoped to code changes apply to personas that write code (Coder, Architect). They do not authorize the Maestro to use `Write`, `StrReplace`, or any file-editing tool on product code.
 - Speed or latency is never a justification for bypassing the playbook. The dispatch-and-review cycle is a contractual requirement — skipping it destroys traceability and review coverage.
