@@ -56,3 +56,4 @@ All external resources are treated as private by default. Authenticated access m
 - Never dispatch when access to any required provider cannot be confirmed. There is no fallback — dispatch would produce an empty run.
 - Check each supplied URL independently — a flow may involve multiple providers (e.g. Monday task + GitLab MR), each requiring its own access path.
 - Never skip the access check for flows listed in the table — only flows not listed are exempt.
+- `All other flows` in the Required Links table means no link is required as a pre-condition for that flow. It does not exempt those flows from dispatch, the review loop, or any other playbook step. The full Playbook remains mandatory.
