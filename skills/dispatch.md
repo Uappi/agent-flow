@@ -13,6 +13,8 @@ Every sub-agent starts cold. It has no rules, no memory, and no awareness of the
 
 A **sub-agent** is a persona defined in this framework — nothing else. The terms "sub-agent" and "persona" are interchangeable throughout this skill. Sub-agents are **not** host-runtime features (IDE subprocesses, tool-provided agents, or built-in workers). The Maestro must never route work to a host-runtime agent when a framework persona exists for the job.
 
+**This does not mean "do not use the host's Task mechanism."** The host's Task tool (e.g., Cursor's `Task`, Claude Code's `Task`, OpenCode's `task`) is the correct dispatch path for personas with `preferredModel: host`. The prohibition is routing to generic, persona-less agents — not against using Task with a fully assembled persona prompt.
+
 To discover available sub-agents, read:
 
 - **`personas/README.md`** — lists every persona and its purpose.
