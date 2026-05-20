@@ -2,13 +2,13 @@
 
 Templates define the standard output format for each AgentFlow workflow. When a persona delivers a review, an implementation document, or a support analysis, the output fills one of these templates — no free-form substitutions, no omitted sections.
 
-The filled template is the artifact. It is the same document posted to GitLab as a comment and saved to `.memory/docs/`.
+The filled template is the artifact. It is saved to `.memory/docs/`. It may be posted externally only after the user has reviewed it and clearly authorized publication, including whether to publish the full document or only specific sections/parts.
 
 ## Flow → Template → Destination
 
 | Flow | Persona | Template | Destination |
 |---|---|---|---|
-| `Revisar merge/MR` | Reviewer | `task/code-review.md` | Top-level MR/PR comment + `.memory/docs/code-review/` |
+| `Revisar merge/MR` | Reviewer | `task/code-review.md` | `.memory/docs/code-review/`; optional top-level MR/PR comment only after explicit user authorization and scope selection |
 | `Gerar checklist de testes` | Reviewer | `task/test-checklist.md` | `.memory/docs/checklists/` |
 | `Documentação Técnica` | Analyst | `task/tech-doc.md` | `.memory/docs/features/feat-<name>-tech.md` |
 | `Documentação de Produto` | Analyst | `task/product-doc.md` | `.memory/docs/features/feat-<name>-prod.md` |
@@ -19,7 +19,7 @@ The filled template is the artifact. It is the same document posted to GitLab as
 
 ## Task Templates (`task/`)
 
-- **`code-review.md`** — MR/PR review output. Posted as a top-level comment on GitLab/GitHub and saved locally. Sections: identification, context, scope (changed files), executive summary, risks by severity (high/medium/low), questions for the developer, thread reply (when applicable), improvement suggestions, team standard deviations, test checklist.
+- **`code-review.md`** — MR/PR review output. Saved locally and posted as a top-level comment on GitLab/GitHub only after explicit user authorization and scope selection: full document or specific sections/parts. Sections: identification, context, scope (changed files), executive summary, risks by severity (high/medium/low), questions for the developer, thread reply (when applicable), improvement suggestions, team standard deviations, test checklist.
 
 - **`test-checklist.md`** — Test checklist generated from the diff and task. Used by QA and developers before merge. Sections: identification, context, MR/PR scope, risk matrix by area (API, database, security, front, admin, checkout, legacy, integrations, crons), functional scenarios (happy path, negative, permission), regression, API tests, security, persistence, automated test suggestions, acceptance criteria.
 
