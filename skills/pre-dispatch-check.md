@@ -26,11 +26,11 @@ Links the user must supply before dispatch. If any is missing, ask for it — do
 
 ### Required capabilities
 
-All external resources are treated as private by default. Authenticated access must be available for every external URL the flow will access — via MCP, API token, or any other configured access path. If access to any provider cannot be confirmed, dispatch is **blocked**.
+All external resources are treated as private by default. Authenticated access must be available for every external URL the flow will access — via MCP, API token, or any other configured access path. If the flow writes to an external system, authenticated write access must also be available. If access to any provider cannot be confirmed, dispatch is **blocked**.
 
 | Flow trigger | External URLs accessed |
 |---|---|
-| `Revisar merge/MR` | task/issue URL, MR/PR URL |
+| `Revisar merge/MR` | task/issue URL, MR/PR URL; Monday task write access for `Revisões automáticas` when task/issue is Monday |
 | `Gerar checklist de testes` | task/issue URL, MR/PR URL |
 | `Documentação de Implementação` | task/issue URL, MR/PR URL (if supplied) |
 | `Análise suporte` | support task URL |
