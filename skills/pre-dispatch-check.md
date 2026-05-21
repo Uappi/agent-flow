@@ -30,7 +30,7 @@ All external resources are treated as private by default. Authenticated access m
 
 | Flow trigger | External URLs accessed |
 |---|---|
-| `Revisar merge/MR` | task/issue URL, MR/PR URL; Monday task write access for `Revisões automáticas` when task/issue is Monday |
+| `Revisar merge/MR` | task/issue URL, MR/PR URL; Monday task file upload access for `Revisões automáticas` when task/issue is Monday |
 | `Gerar checklist de testes` | task/issue URL, MR/PR URL |
 | `Documentação de Implementação` | task/issue URL, MR/PR URL (if supplied) |
 | `Análise suporte` | support task URL |
