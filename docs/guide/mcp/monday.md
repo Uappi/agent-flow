@@ -50,4 +50,3 @@ Não é necessário gerar token manual nem editar `mcp.json` para esse fluxo.
 - **MCP monday não aparece em Tools & MCP**: verifique se o plugin **Monday.com** foi instalado.
 - **Falha de autenticação**: saia e entre novamente na conta Monday durante o OAuth.
 - **Permissão negada**: confirme se o usuário possui acesso ao workspace e aos boards necessários no Monday.
-

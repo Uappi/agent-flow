@@ -10,7 +10,7 @@ description: Entrypoint for AI agents. Read this first ALWAYS.
 - `.agents/rules/` — commandments, edicts, counsel
 - `.agents/prompts/` — ready-to-paste workflow prompts
 - `.agents/templates/` — output templates for documentation, MR review, and support
-- `.agents/docs/mcp/` — Cursor MCP setup guides for GitLab and Monday
+- `.agents/docs/guide/mcp/` — Cursor MCP setup guides for GitLab and Monday
 - `.agents/support/README.md` — support package index
 
 ## Boot Sequence
