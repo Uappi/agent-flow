@@ -19,7 +19,7 @@ The filled template is the artifact. It is saved to `.memory/docs/`. Code review
 
 ## Task Templates (`task/`)
 
-- **`code-review.md`** — MR/PR review output. Saved locally, uploaded to the Monday task's `Revisões automáticas` file column when applicable, and posted as a top-level comment on GitLab/GitHub only after explicit user authorization and scope selection: full document or specific sections/parts. Sections: identification, context, scope (changed files), executive summary, risks by severity (high/medium/low), questions for the developer, thread reply (when applicable), improvement suggestions, team standard deviations, test checklist.
+- **`code-review.md`** — MR/PR review output. Saved locally, uploaded to the Monday task's `Revisões automáticas` file column when applicable, and posted as a top-level comment on GitLab/GitHub only after explicit user authorization and scope selection: full document or specific sections/parts. Sections: identification, context, scope (changed files), executive summary, risks by severity (high/medium/low), questions for the developer, thread context with draft reply (when applicable), improvement suggestions, team standard deviations, test checklist.
 
 - **`test-checklist.md`** — Test checklist generated from the diff and task. Used by QA and developers before merge. Sections: identification, context, MR/PR scope, risk matrix by area (API, database, security, front, admin, checkout, legacy, integrations, crons), functional scenarios (happy path, negative, permission), regression, API tests, security, persistence, automated test suggestions, acceptance criteria.
 

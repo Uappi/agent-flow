@@ -33,7 +33,7 @@ The framework **learns as it works**. Corrections, preferences, and lessons are 
 
 | Trigger | Persona | Output |
 | --- | --- | --- |
-| `Revisar merge/MR` | Reviewer | `.memory/docs/code-review/review-merge-<ID>-<topic>.md` |
+| `Revisar merge/MR` | Reviewer | `.memory/docs/code-review/review-merge-<ID>-<topic>.md` + Monday `Revisões automáticas` (when task is Monday); MR/PR comment only after user authorizes |
 | `Gerar checklist de testes` | Reviewer | `.memory/docs/checklists/checklist-merge-<ID>-<topic>.md` |
 | `Documentação Técnica` | Analyst | `.memory/docs/features/feat-<name>-tech.md` |
 | `Documentação de Produto` | Analyst | `.memory/docs/features/feat-<name>-prod.md` |
@@ -109,6 +109,7 @@ Skills codify procedures that personas reference. They answer "how to do X" so p
 - **contextualizer-self-review** — TRACE self-review rubric — context generation quality gate
 - **dispatch** — how the Maestro assembles and sends work to personas
 - **loop-recovery** — structured recovery and escalation for retry loops
+- **monday-review-archive** — uploads MR/PR code review markdown to the Monday task file column
 - **pre-dispatch-check** — requirements gate that verifies links and access before any persona is dispatched
 - **review-loop** — LOC-based review tier selection with shapeshifter dispatch
 - **review-scoping** — groups a file list into LOC-bounded review blocks respecting module co-location

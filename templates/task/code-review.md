@@ -62,13 +62,15 @@
 - `<pergunta 1>`
 - `<pergunta 2>`
 
-## Thread/comentário para resposta
+## Thread/comentário considerado (contexto)
+
+> Contexto para a revisão. O rascunho abaixo não é publicado automaticamente no MR/PR.
 
 - **Link da thread/comentário**: `<link ou não aplicável>`
 - **Classificação**: `<pergunta | solicitação de ajuste | esclarecimento | bloqueio | bot/CI | já resolvida>`
 - **Evidência usada**: `<diff/código/tarefa/review>`
-- **Resposta sugerida**: `<texto>`
-- **Status recomendado**: `<responder | aguardar informação | resolver | manter aberta>`
+- **Rascunho de resposta**: `<texto>`
+- **Próximo passo recomendado**: `<aguardar informação | incluir no review | manter aberta | publicar rascunho no MR/PR se o usuário autorizar>`
 
 ## Sugestões de melhorias na implementação
 
