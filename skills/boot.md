@@ -1,7 +1,7 @@
 ---
 shortDescription: Session startup — gitignore, auto-update, memory, rules, context, CLI config, caveman, and greet.
 usedBy: [maestro]
-version: 0.4.8
+version: 0.4.9
 lastUpdated: 2026-05-22
 ---
 
@@ -68,25 +68,22 @@ Before step 1, enforce this startup behavior:
 
    Note the result — it is used in step 8.
 
-7. **Caveman.** Do not assume a specific IDE. Resolve the caveman skill in this order:
+7. **Caveman.** Activate only when caveman is available **to the current host runtime** — never because it exists on another IDE on the same machine (e.g. caveman in Cursor while running OpenCode).
 
-   1. **Host skills** — if the runtime exposes an available-skills list and `caveman` is listed, read that skill definition.
-   2. **Project copy** — `.agents/skills/caveman/SKILL.md`, then `.agents/skills/caveman.md`.
-   3. **User install** — first existing file among common host paths (probe with `test -f`):
+   1. **Identify host runtime** — same procedure as `skills/dispatch.md` step 1 (`ps -p $PPID -o comm=` → `opencode`, `cursor-agent`, `claude`, `codex`, etc.). Store the host id for this session.
+   2. **Host skills list** — if the runtime exposes an available-skills list, `caveman` must appear **there** to count as available. Do not infer availability from skills installed for other hosts.
+   3. **Resolve on disk (current host only)** — run:
 
       ```bash
-      for f in \
-        "${HOME}/.cursor/skills/caveman/SKILL.md" \
-        "${HOME}/.claude/skills/caveman/SKILL.md" \
-        "${HOME}/.codex/skills/caveman/SKILL.md" \
-        "${HOME}/.config/caveman/SKILL.md"; do
-        [ -f "$f" ] && echo "$f" && break
-      done
+      bash .agents/skills/assets/maestro-boot-caveman-resolve.sh
       ```
 
-   If none resolve, skip silently. Otherwise read that skill file completely and activate **`/caveman ultra`**. Persist until `stop caveman` or `normal mode`. Code, commits, PR bodies, and sub-agent dispatch prompts stay normal.
+      - `caveman: active host=<id> path=...` — skill exists for this host (project copy or host-specific install path).
+      - `caveman: skip host=<id> reason=not_installed_for_host` — no skill for this host; **do not** activate and **do not** append the caveman greeting line.
 
-   **Greeting exception:** step 8 uses the mandatory contract below in `pt-BR` (not caveman). If step 7 activated caveman, append **after** "Greeting ends here." exactly one line:
+   **Activate** when step 2 **or** step 3 reports availability. Otherwise skip silently. When activating, read the resolved skill file and apply **`/caveman ultra`**. Persist until `stop caveman` or `normal mode`. Code, commits, PR bodies, and sub-agent dispatch prompts stay normal.
+
+   **Greeting exception:** step 8 uses the mandatory contract below in `pt-BR` (not caveman). Append the line below **only if** step 7 activated caveman — never on `caveman: skip`:
 
    > Modo **caveman** (`ultra`) ativo nas próximas respostas. Diga **normal mode** ou **stop caveman** para desligar.
 

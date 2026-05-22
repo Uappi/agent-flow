@@ -42,21 +42,20 @@ Matriz completa de agentes: [INSTALL.md do caveman](https://github.com/JuliusBru
 
 ## 2. Onde o AgentFlow procura o skill
 
-Ordem de detecção no boot (host-agnóstico):
+O boot usa o **runtime atual**, não “qualquer caveman na máquina”. Exemplo: caveman em `~/.cursor/skills/` **não** ativa no OpenCode se lá não estiver instalado — a saudação **não** deve anunciar modo caveman.
 
-1. Lista de skills do runtime (`caveman` disponível).
-2. Cópia no projeto: `.agents/skills/caveman/SKILL.md` ou `.agents/skills/caveman.md`.
-3. Instalação do usuário — primeiro arquivo existente:
+Ordem no boot (`skills/boot.md`, passo 7):
 
-   ```bash
-   for f in \
-     "${HOME}/.cursor/skills/caveman/SKILL.md" \
-     "${HOME}/.claude/skills/caveman/SKILL.md" \
-     "${HOME}/.codex/skills/caveman/SKILL.md" \
-     "${HOME}/.config/caveman/SKILL.md"; do
-     [ -f "$f" ] && echo "$f" && break
-   done
-   ```
+1. Identificar o host (`opencode`, `cursor`, `claude`, `codex`, …) — mesmo critério de `skills/dispatch.md`.
+2. Lista de skills do **host atual** — `caveman` precisa aparecer na lista exposta pelo runtime.
+3. Script `maestro-boot-caveman-resolve.sh` — só caminhos do host atual:
+   - Projeto (qualquer host): `.agents/skills/caveman/SKILL.md`
+   - Cursor: `~/.cursor/skills/caveman/SKILL.md`
+   - Claude: `~/.claude/skills/caveman/SKILL.md`
+   - Codex: `~/.codex/skills/caveman/SKILL.md`
+   - OpenCode: `~/.config/opencode/skills/caveman/SKILL.md`, `.opencode/skills/caveman/SKILL.md`
+
+Ativa se (2) **ou** (3) confirmar. Caso contrário: boot ignora caveman e **não** inclui a linha “Modo caveman ativo” na saudação.
 
 **Vendorizar no projeto** (recomendado para times com vários IDEs):
 
@@ -115,9 +114,14 @@ Outros comandos: `/caveman-commit`, `/caveman-review`, `/caveman-compress`.
 
 ### Caveman não ativa no boot
 
-1. Confirme o skill (probe da seção 2).
-2. Reenvie `Por favor, siga as instruções de .agents/AGENTS.md`.
-3. Vendorize em `.agents/skills/caveman/SKILL.md`.
+1. Confirme instalação **no host que você está usando** (OpenCode ≠ Cursor).
+2. Rode `bash .agents/skills/assets/maestro-boot-caveman-resolve.sh` — deve imprimir `caveman: active`, não `skip`.
+3. Vendorize em `.agents/skills/caveman/SKILL.md` para funcionar em qualquer host.
+4. Reenvie `Por favor, siga as instruções de .agents/AGENTS.md`.
+
+### Saudação anuncia caveman mas respostas não estão compactas
+
+Caveman estava só em outro IDE (ex.: Cursor) e o boot antigo lia o path errado. Atualize `.agents/` e confira `caveman: skip` no host atual.
 
 ### Muito seco
 
