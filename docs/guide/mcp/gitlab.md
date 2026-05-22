@@ -112,4 +112,3 @@ Mesmo configurando pela interface, reiniciar o Cursor evita falhas de carregamen
 - **Servidor não inicia**: Node/NPM ausente ou JSON inválido.
 - **Projeto não encontrado**: usuário sem permissão no projeto GitLab.
 - **Não funcionou na primeira tentativa**: em `Settings` > `Tools & MCP`, desative o toggle do **GitLab**, aguarde alguns segundos e ative novamente.
-

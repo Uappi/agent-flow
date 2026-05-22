@@ -47,7 +47,7 @@ External context:
 - Support flows require the support task link and, when relevant, MR/PR or release links.
 - Links are the source of truth. Do not assume a fixed tracker, board, repository, or provider.
 
-Ready-to-paste prompts live in `prompts/`. Output templates live in `templates/`. Cursor MCP setup guides live in `docs/mcp/`. Support-specific rules and flow notes are indexed in `support/README.md`.
+Ready-to-paste prompts live in `prompts/`. Output templates live in `templates/`. Cursor MCP setup guides live in `docs/guide/mcp/`. Support-specific rules and flow notes are indexed in `support/README.md`.
 
 ## Setup
 
@@ -83,7 +83,7 @@ rules/       Constraints organized by authority level
 skills/      Reusable procedures and protocols
 prompts/     Ready-to-paste workflow prompts
 templates/   Output templates used by workflow modes
-docs/mcp/    Cursor MCP setup guides for GitLab and Monday
+docs/guide/mcp/ Cursor MCP setup guides for GitLab and Monday
 support/     Support workflow index
 ```
 
