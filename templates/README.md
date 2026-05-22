@@ -33,7 +33,7 @@ The filled template is the artifact. It is saved to `.memory/docs/`. Code review
 
 ## Support Templates (`support/`)
 
-- **`initial-analysis.md`** — Support triage report produced from a Monday task link. Sections: initial analysis (what happens, expected vs actual, scope), possible causes by priority, next steps, behavior classification (standard/configuration/bug), triage quality, evidence checklist, escalation block, technical direction (files, hypothesis, action), structured context block for RCA input (section 9 — mandatory).
+- **`initial-analysis.md`** — Support triage report produced from a supplied support task link. Sections: initial analysis (what happens, expected vs actual, scope), possible causes by priority, next steps, behavior classification (standard/configuration/bug), triage quality, evidence checklist, escalation block, technical direction (files, hypothesis, action), structured context block for RCA input (section 9 — mandatory).
 
 - **`rca.md`** — Root cause analysis report. Produced from the support task and correlated with an MR/PR or release when supplied. Sections: symptom, timeline (current vs previous version, regression type), merge/code correlation, technical flow (input/processing/persistence), root cause, evidence, impact, confidence level with justification, technical evidence in the code, mitigation and recommended fix.
 

@@ -1,0 +1,22 @@
+# Copie para a raiz do repositório de trabalho como project.config.yaml
+# USO EXCLUSIVO: suporte N2 (triagem + RCA). Outros fluxos do AgentFlow não leem este arquivo.
+
+project:
+  name: meu-projeto
+  type: client # hub | platform | client
+
+integrations:
+  monday:
+    mcp_server: plugin-monday.com-monday
+    boards:
+      support: "" # board de suporte N2
+  gitlab:
+    project: "" # usado na RCA quando houver MR/PR
+
+sources:
+  architecture: README.ai.md
+
+outputs:
+  paths:
+    support_triage: support/triage/triage-{id}-{topic}.md
+    support_rca: support/rca/rca-{id}-{topic}.md

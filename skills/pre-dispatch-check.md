@@ -1,8 +1,8 @@
 ---
 shortDescription: Pre-dispatch requirements gate — verifies links and capabilities before any persona is dispatched.
 usedBy: [maestro]
-version: 0.3.0
-lastUpdated: 2026-05-14
+version: 0.3.1
+lastUpdated: 2026-05-22
 ---
 
 ## Purpose
@@ -20,8 +20,8 @@ Links the user must supply before dispatch. If any is missing, ask for it — do
 | `Revisar merge/MR` | MR/PR URL and task/issue URL |
 | `Gerar checklist de testes` | MR/PR URL and task/issue URL |
 | `Documentação de Implementação` | task/issue URL |
-| `Análise suporte` | support task URL |
-| `RCA suporte` | support task URL |
+| `Análise suporte`, `Triagem suporte`, `Diagnóstico suporte`, `Análise N2`, `Triagem N2`, `Diagnóstico N2`, `Documentação Analise inicial` | support task URL |
+| `RCA suporte`, `RCA N2`, `Análise profunda suporte`, `Análise profunda N2`, `Causa raiz suporte`, `Causa raiz N2` | support task URL |
 | All other flows | — |
 
 ### Required capabilities
@@ -33,8 +33,8 @@ All external resources are treated as private by default. Authenticated access m
 | `Revisar merge/MR` | task/issue URL, MR/PR URL; Monday task file upload access for `Revisões automáticas` when task/issue is Monday |
 | `Gerar checklist de testes` | task/issue URL, MR/PR URL |
 | `Documentação de Implementação` | task/issue URL, MR/PR URL (if supplied) |
-| `Análise suporte` | support task URL |
-| `RCA suporte` | support task URL, MR/PR URL (if supplied), release URL (if supplied) |
+| `Análise suporte`, `Triagem suporte`, `Diagnóstico suporte`, `Análise N2`, `Triagem N2`, `Diagnóstico N2`, `Documentação Analise inicial` | support task URL |
+| `RCA suporte`, `RCA N2`, `Análise profunda suporte`, `Análise profunda N2`, `Causa raiz suporte`, `Causa raiz N2` | support task URL, MR/PR URL (if supplied), release URL (if supplied) |
 | All other flows | — |
 
 ## Procedure

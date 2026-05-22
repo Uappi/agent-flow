@@ -1,4 +1,4 @@
-# Análise de triagem — suporte [ID-MONDAY]
+# Análise de triagem — suporte [ID-TAREFA]
 
 ## 1. Análise inicial
 
@@ -24,7 +24,7 @@
 - **Classificação:** [Padrão | Configuração | Bug | Indeterminado]
 - **Justificativa:**
 
-## 5. Qualidade da triagem
+## 5. Qualidade da triagem (N1)
 
 - **Nível:** [Alta | Média | Baixa]
 - **Impacto na análise:** [Nenhum | Moderado | Alto]
@@ -45,12 +45,15 @@
 > Copie esta seção para a tarefa de suporte se faltarem evidências mínimas para continuar.
 
 **Motivo do bloqueio:**
+
 **Evidências mínimas necessárias para prosseguir:**
+
 - [ ]
 - [ ]
+
 **Pergunta específica para o nível 1:**
 
-## 8. Direcionamento técnico
+## 8. Direcionamento técnico (no código)
 
 - **Fluxo identificado**
   - Entrada:
@@ -66,7 +69,7 @@
 
 ## 9. Contexto estruturado para RCA
 
-> Use este bloco como entrada da etapa `RCA suporte`, `Análise profunda suporte` ou `Causa raiz suporte`.
+> Use este bloco como entrada de `RCA suporte`, `RCA N2`, `Análise profunda suporte` ou `Causa raiz suporte`.
 
 - **Sintoma observado:**
 - **Hipótese principal:**
