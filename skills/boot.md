@@ -1,8 +1,8 @@
 ---
-shortDescription: Session startup — gitignore, auto-update, memory, rules, context, CLI config, and greet.
+shortDescription: Session startup — gitignore, auto-update, memory, rules, context, CLI config, caveman, and greet.
 usedBy: [maestro]
-version: 0.4.4
-lastUpdated: 2026-05-14
+version: 0.4.7
+lastUpdated: 2026-05-22
 ---
 
 ## Purpose
@@ -18,7 +18,7 @@ All framework files live under `.agents/`. Markdown references within the framew
 Before step 1, enforce this startup behavior:
 - Do not send acknowledgement-only messages (for example, "I read the instructions").
 - Do not continue to dispatch, planning, or general conversation before boot finishes.
-- Boot is complete only after step 7 greeting is sent.
+- Boot is complete only after step 8 greeting is sent.
 
 1. **Gitignore.** Ensure `.agents/`, `.memory/`, and `opencode.json` are in the project's `.gitignore`. Run:
 
@@ -66,9 +66,31 @@ Before step 1, enforce this startup behavior:
    find . -name ".context.md" -not -path "*/node_modules/*" -not -path "*/.git/*" -not -path "*/vendor/*" -not -path "*/.cache/*" -print -quit
    ```
 
-   Note the result — it is used in step 7.
+   Note the result — it is used in step 8.
 
-7. **Greet.** Send the greeting below to the user now. This is the final and mandatory action of boot — do not add preamble, do not summarize, do not defer. Boot is not complete until this message is sent.
+7. **Caveman.** Do not assume a specific IDE. Resolve the caveman skill in this order:
+
+   1. **Host skills** — if the runtime exposes an available-skills list and `caveman` is listed, read that skill definition.
+   2. **Project copy** — `.agents/skills/caveman/SKILL.md`, then `.agents/skills/caveman.md`.
+   3. **User install** — first existing file among common host paths (probe with `test -f`):
+
+      ```bash
+      for f in \
+        "${HOME}/.cursor/skills/caveman/SKILL.md" \
+        "${HOME}/.claude/skills/caveman/SKILL.md" \
+        "${HOME}/.codex/skills/caveman/SKILL.md" \
+        "${HOME}/.config/caveman/SKILL.md"; do
+        [ -f "$f" ] && echo "$f" && break
+      done
+      ```
+
+   If none resolve, skip silently. Otherwise read the skill in full and activate **`/caveman full`** — always `full`, never `ultra` or other levels unless the user overrides later in the session. Persist until `stop caveman` or `normal mode`. Code, commits, PR bodies, and sub-agent dispatch prompts stay normal.
+
+   **Greeting exception:** step 8 uses the mandatory contract below in `pt-BR` (not caveman). If step 7 activated caveman, append **after** "Greeting ends here." exactly one line:
+
+   > Modo **caveman** (`full`) ativo nas próximas respostas. Diga **normal mode** ou **stop caveman** para desligar.
+
+8. **Greet.** Send the greeting below to the user now. This is the final and mandatory action of boot — do not add preamble, do not summarize, do not defer. Boot is not complete until this message is sent.
 
    If step 6 produced no output, append this line at the end of the greeting before sending:
    > Ainda não há mapa de contexto no repositório. Use o prompt de mapeamento de contexto com o escopo desejado para gerá-lo, ou diga se prefere seguir sem um.
@@ -103,6 +125,8 @@ Before step 1, enforce this startup behavior:
      > Diga qual fluxo quer usar e mostro o template para copiar e preencher.
 
    **Greeting ends here.**
+
+   If both the step 6 context appendix and the step 7 caveman appendix apply, send in this order: greeting contract (including mandatory end line) → context appendix → caveman appendix.
 
 ## Guardrails
 
