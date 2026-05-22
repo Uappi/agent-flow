@@ -24,9 +24,9 @@ Do **not** apply when the prompt is triage-only (`Análise suporte`, `Análise N
 - Do not rewrite the triage report; extract only what is needed to validate technically.
 - If the user only gave triage intent with regression suspicion, perform triage first and confirm before RCA.
 
-## Monday via MCP (hard rule)
+## External task access (hard rule)
 
-Same rules as `support-initial-analysis.md` when the support task URL is on `monday.com`.
+Same rules as `support-initial-analysis.md` when reading the support task from a supplied URL.
 
 ## Context priority (critical)
 
@@ -108,8 +108,8 @@ Missing information MUST be written as `Não identificado no contexto atual`. Th
 
 Output MUST use `templates/support/rca.md`.
 
-Save using `outputs.paths.support_rca` from `project.config.yaml` when configured; otherwise `.memory/docs/support/rca/rca-<TASK-ID>-<short-topic>.md`.
+Save under `.memory/docs/` using `outputs.paths.support_rca` from `project.config.yaml` when configured; otherwise `.memory/docs/support/rca/rca-<TASK-ID>-<short-topic>.md`.
 
 ## Rationale
 
-RCA without structured prior context wastes time re-doing triage. Requiring code evidence and version context prevents speculative root causes. Explicit confidence levels set correct expectations. Monday MCP and merge-access gates avoid analysis built on inaccessible or wrong context.
+RCA without structured prior context wastes time re-doing triage. Requiring code evidence and version context prevents speculative root causes. Explicit confidence levels set correct expectations. Authenticated access and merge-access gates avoid analysis built on inaccessible or wrong context.

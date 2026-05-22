@@ -21,21 +21,21 @@ You use the support task link supplied by the user as the source of truth. You r
 
 Triggered by `prompts/support/initial-analysis.md` or triage intent (`Análise suporte`, `Análise N2`, `Triagem N2`, `Diagnóstico N2`, `Documentação Analise inicial`, or equivalent).
 
-1. Read the support task from the link supplied by the user. For `monday.com` URLs, use only Monday MCP — never WebFetch/WebSearch.
+1. Read the support task from the link supplied by the user. Identify the provider from the URL; access only via the matching MCP or another configured path — never WebFetch/WebSearch on private task trackers.
 2. Read and follow `rules/support/support-initial-analysis.md`, `rules/support/project-config.md`, and `skills/load-project-config.md`.
 3. Produce the output using `templates/support/initial-analysis.md`. Fill section 9 so it can feed a future RCA when applicable.
-4. Save using the path from `project.config.yaml` when configured; otherwise `.memory/docs/support/triage/triage-<TASK-ID>-<short-topic>.md`.
+4. Save under `.memory/docs/` using `outputs.paths.support_triage` from `project.config.yaml` when configured; otherwise `.memory/docs/support/triage/triage-<TASK-ID>-<short-topic>.md`.
 5. Do not produce RCA in this mode unless the user explicitly requests it.
 
 ### Mode: RCA
 
 Triggered by `prompts/support/rca.md` or RCA intent (`RCA suporte`, `RCA N2`, `Análise profunda suporte`, `Causa raiz suporte`, or equivalent).
 
-1. Read the support task from the link supplied by the user. For `monday.com` URLs, use only Monday MCP. Prioritize structured RCA context from triage section 9 when provided.
+1. Read the support task from the link supplied by the user. Identify the provider from the URL; access only via the matching MCP or another configured path — never WebFetch/WebSearch on private task trackers. Prioritize structured RCA context from triage section 9 when provided.
 2. Read and follow `rules/support/support-root-cause-analysis.md`, `rules/support/project-config.md`, and `skills/load-project-config.md`.
 3. Correlate with MR/PR or release links when supplied. If any supplied link cannot be accessed, stop and report the blocker.
 4. Produce the output using `templates/support/rca.md`. Do not rewrite the triage report verbatim.
-5. Save using the path from `project.config.yaml` when configured; otherwise `.memory/docs/support/rca/rca-<TASK-ID>-<short-topic>.md`.
+5. Save under `.memory/docs/` using `outputs.paths.support_rca` from `project.config.yaml` when configured; otherwise `.memory/docs/support/rca/rca-<TASK-ID>-<short-topic>.md`.
 
 ## Handoff
 

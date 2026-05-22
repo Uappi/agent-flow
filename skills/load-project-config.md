@@ -1,15 +1,15 @@
 ---
 shortDescription: Load project.config.yaml from the work repository root (support outputs and integrations).
 usedBy: [support]
-version: 0.2.0
-lastUpdated: 2026-05-21
+version: 0.3.0
+lastUpdated: 2026-05-22
 ---
 
 ## Purpose
 
 `project.config.yaml` at the work repo root is read **only by the Support persona** (triagem + RCA). Other personas ignore this file.
 
-Each client repository may define the file for Monday/GitLab hints and triage/RCA save paths.
+Each client repository may define the file for optional integration hints and triage/RCA save paths.
 
 ## Location
 
@@ -17,27 +17,22 @@ Each client repository may define the file for Monday/GitLab hints and triage/RC
 - Rule: `rules/support/project-config.md`
 - Active config: `<work-repo-root>/project.config.yaml`
 
-If missing, support saves to `.memory/docs/support/triage/` and `.memory/docs/support/rca/` with no fixed board or GitLab IDs.
+If missing, support saves to `.memory/docs/support/triage/` and `.memory/docs/support/rca/` with no fixed board, repository, or provider IDs.
 
 ## Procedure
 
 1. Read `project.config.yaml` at the work repository root when present.
 2. Apply:
-   - `integrations.monday.boards.support` — hint only; URL in the prompt takes precedence.
-   - `integrations.gitlab.project` — default for RCA when MR path has no project.
+   - `integrations.*` fields documented in `project.config.yaml.example` — hints only; URLs in the prompt take precedence.
    - `sources.architecture` — default `README.ai.md`.
-   - `outputs.mode` — `teste-docs` or `memory`.
    - `outputs.paths.support_triage` and `outputs.paths.support_rca` — replace `{id}` and `{topic}` at save time.
-3. Resolved path:
-   - `teste-docs` → `teste-docs/<path>`
-   - `memory` → `.memory/docs/<path>`
-
-## Monday MCP (support)
-
-For `monday.com` URLs: use MCP only (`plugin-monday.com-monday` or `integrations.monday.mcp_server`). Never WebFetch/WebSearch on Monday cards.
+3. Resolved save path (always under `.memory/docs/`):
+   - With config: `.memory/docs/<outputs.paths.support_triage|support_rca>`
+   - Without config: `.memory/docs/support/triage/triage-<TASK-ID>-<short-topic>.md` or `.memory/docs/support/rca/rca-<TASK-ID>-<short-topic>.md`
 
 ## Guardrails
 
+- Support artifacts MUST be saved only under `.memory/docs/`. Never save triage or RCA reports to `teste-docs/` or other project paths.
 - Support workflows MUST work with explicit URLs even without `project.config.yaml`.
-- Do not invent board or GitLab IDs when config is absent.
+- Do not invent board, repository, or provider IDs when config is absent.
 - Do not commit secrets in `project.config.yaml`.

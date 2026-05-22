@@ -11,10 +11,10 @@ Only the **Support** persona reads `project.config.yaml`. MR review, documentati
 
 When executing support triage or RCA, the Support persona MUST follow `skills/load-project-config.md` and read `<work-repo-root>/project.config.yaml` when it exists.
 
-When config is present, use `integrations.monday.boards.support`, `integrations.gitlab.project` (RCA with MR), `sources.architecture`, and `outputs.paths.support_triage` / `support_rca` only.
+When config is present, use `integrations.monday.boards.support`, `integrations.gitlab.project` (RCA with MR), `sources.architecture`, and `outputs.paths.support_triage` / `support_rca` only. Resolved paths MUST be under `.memory/docs/`.
 
-When absent, use `.memory/docs/support/` defaults and only URLs from the prompt.
+When absent, use `.memory/docs/support/triage/` and `.memory/docs/support/rca/` defaults and only URLs from the prompt.
 
 ## Rationale
 
-N2 needs per-client Monday boards and `teste-docs/` paths without changing the shared AgentFlow package. Scoping config to support avoids implying code-review or doc flows must adopt the same file.
+N2 needs per-client integration defaults and optional subpaths under `.memory/docs/` without changing the shared AgentFlow package. Scoping config to support avoids implying code-review or doc flows must adopt the same file.
