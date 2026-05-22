@@ -13,7 +13,7 @@ Each client repository may define the file for optional integration hints and tr
 
 ## Location
 
-- Template: `project.config.yaml.example` (na raiz do submodule AgentFlow)
+- Template: `.agents/project.config.yaml.example`
 - Rule: `rules/support/project-config.md`
 - Active config: `<work-repo-root>/project.config.yaml`
 

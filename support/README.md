@@ -25,7 +25,7 @@ Triagem e RCA N2 com link da tarefa de suporte. O arquivo `project.config.yaml` 
 
 ```bash
 # Na raiz do repositório de trabalho (ex.: wapstore), não dentro do submodule
-cp .agentFlow/project.config.yaml.example project.config.yaml
+cp .agents/project.config.yaml.example project.config.yaml
 # Editar integrations.* e outputs.* conforme o exemplo e a necessidade do cliente
 ```
 

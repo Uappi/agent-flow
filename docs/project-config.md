@@ -1,6 +1,6 @@
 # `project.config.yaml` — somente suporte N2
 
-Arquivo na **raiz do repositório cliente** (ex.: wapstore). Não fica dentro do submodule AgentFlow.
+Arquivo na **raiz do repositório cliente** (ex.: wapstore). Não fica dentro de `.agents/`.
 
 **Não** é usado por code-review, checklist, documentação técnica/produto nem implementação.
 
@@ -8,10 +8,8 @@ Arquivo na **raiz do repositório cliente** (ex.: wapstore). Não fica dentro do
 
 ```bash
 cd /path/to/repositorio-cliente
-cp .agentFlow/project.config.yaml.example project.config.yaml
+cp .agents/project.config.yaml.example project.config.yaml
 ```
-
-Ajuste o caminho `.agentFlow/` conforme o nome da pasta do framework no projeto (`.agents/`, `agent-flow/`, etc.).
 
 ## Campos (somente suporte)
 
