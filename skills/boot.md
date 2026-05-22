@@ -84,7 +84,7 @@ Before step 1, enforce this startup behavior:
       done
       ```
 
-   If none resolve, skip silently. Otherwise read the skill in full and activate **`/caveman ultra`** — always `ultra`, not `full` or other levels unless the user overrides later in the session. Persist until `stop caveman` or `normal mode`. Code, commits, PR bodies, and sub-agent dispatch prompts stay normal.
+   If none resolve, skip silently. Otherwise read that skill file completely and activate **`/caveman ultra`**. Persist until `stop caveman` or `normal mode`. Code, commits, PR bodies, and sub-agent dispatch prompts stay normal.
 
    **Greeting exception:** step 8 uses the mandatory contract below in `pt-BR` (not caveman). If step 7 activated caveman, append **after** "Greeting ends here." exactly one line:
 

@@ -79,7 +79,7 @@ Confira a URL no repositório oficial se o upstream mover o arquivo.
    Por favor, siga as instruções de .agents/AGENTS.md
    ```
 
-3. Boot passo 7: aplica **`/caveman ultra`** (sempre `ultra`, não `full`).
+3. Boot passo 7: aplica **`/caveman ultra`**.
 4. A saudação pode incluir:
 
    > Modo **caveman** (`ultra`) ativo nas próximas respostas. Diga **normal mode** ou **stop caveman** para desligar.
@@ -121,7 +121,7 @@ Outros comandos: `/caveman-commit`, `/caveman-review`, `/caveman-compress`.
 
 ### Muito seco
 
-Diga `normal mode`. Boot usa só `ultra`; `full` ou `lite` são manuais com `/caveman full` ou `/caveman lite`.
+Diga `normal mode`. Para outro nível na sessão: `/caveman full`, `/caveman lite`, etc.
 
 ### Instalador pede Node
 
