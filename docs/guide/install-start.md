@@ -18,7 +18,7 @@ Opcional para OpenCode:
 Opcional para economia de tokens (recomendado):
 
 - **RTK** — reduz tokens de **entrada** (saída de comandos no terminal); configurar na máquina. Ver [token-reduction/install-rtk.md](./token-reduction/install-rtk.md).
-- **Caveman** — reduz tokens de **saída** (respostas do agente); ativado no boot do AgentFlow com `/caveman full`. Ver [token-reduction/install-caveman.md](./token-reduction/install-caveman.md).
+- **Caveman** — reduz tokens de **saída** (respostas do agente); ativado no boot do AgentFlow com `/caveman ultra`. Ver [token-reduction/install-caveman.md](./token-reduction/install-caveman.md).
 
 ## 1. Clonar o AgentFlow no projeto
 
@@ -83,7 +83,7 @@ Ele deve:
 - Tentar configurar o CLI quando o ambiente suportar, especialmente OpenCode.
 - Carregar o índice de regras.
 - Verificar se já existem arquivos `.context.md` no projeto.
-- Ativar caveman no boot com `/caveman full` quando o skill estiver disponível (ver [token-reduction/install-caveman.md](./token-reduction/install-caveman.md)).
+- Ativar caveman no boot com `/caveman ultra` quando o skill estiver disponível (ver [token-reduction/install-caveman.md](./token-reduction/install-caveman.md)).
 - Exibir a saudação do Maestro com os fluxos disponíveis.
 
 O boot foi concluído quando a resposta começa com:

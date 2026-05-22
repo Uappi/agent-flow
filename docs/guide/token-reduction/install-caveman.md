@@ -2,7 +2,7 @@
 
 O [Caveman](https://github.com/JuliusBrussee/caveman) reduz tokens de **saída**: faz o agente responder de forma ultra-compacta, mantendo precisão técnica (~65–75% menos tokens na resposta).
 
-**No AgentFlow:** após instalar o skill, o **boot da sessão** (passo 7 em `.agents/skills/boot.md`) ativa automaticamente **`/caveman full`**. Não é preciso digitar `/caveman` a cada sessão — só garantir que o skill esteja instalado e detectável.
+**No AgentFlow:** após instalar o skill, o **boot da sessão** (passo 7 em `.agents/skills/boot.md`) ativa automaticamente **`/caveman ultra`**. Não é preciso digitar `/caveman` a cada sessão — só garantir que o skill esteja instalado e detectável.
 
 A saudação do Maestro (passo 8 do boot) continua em português normal; o caveman vale para as respostas seguintes.
 
@@ -79,10 +79,10 @@ Confira a URL no repositório oficial se o upstream mover o arquivo.
    Por favor, siga as instruções de .agents/AGENTS.md
    ```
 
-3. Boot passo 7: aplica **`/caveman full`** (sempre `full`, não `ultra`).
+3. Boot passo 7: aplica **`/caveman ultra`** (sempre `ultra`, não `full`).
 4. A saudação pode incluir:
 
-   > Modo **caveman** (`full`) ativo nas próximas respostas. Diga **normal mode** ou **stop caveman** para desligar.
+   > Modo **caveman** (`ultra`) ativo nas próximas respostas. Diga **normal mode** ou **stop caveman** para desligar.
 
 Código, commits, PRs e prompts para sub-agentes **não** usam caveman.
 
@@ -105,7 +105,7 @@ Outros comandos: `/caveman-commit`, `/caveman-review`, `/caveman-compress`.
 ## 5. Validar
 
 - Skill em um dos caminhos da seção 2.
-- Boot mostra `Modo caveman (full) ativo...` quando encontrado.
+- Boot mostra `Modo caveman (ultra) ativo...` quando encontrado.
 - Respostas do Maestro após a saudação: curtas e diretas.
 - Saudação ainda começa com `Olá! Sou o **Maestro** do AgentFlow.`
 
@@ -121,7 +121,7 @@ Outros comandos: `/caveman-commit`, `/caveman-review`, `/caveman-compress`.
 
 ### Muito seco
 
-Diga `normal mode`. Boot usa só `full`; `ultra` é manual com `/caveman ultra`.
+Diga `normal mode`. Boot usa só `ultra`; `full` ou `lite` são manuais com `/caveman full` ou `/caveman lite`.
 
 ### Instalador pede Node
 

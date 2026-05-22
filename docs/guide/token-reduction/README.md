@@ -5,7 +5,7 @@ Guias para ferramentas que reduzem consumo de tokens em sessões com agentes de 
 | Ferramenta | Camada | Guia |
 |------------|--------|------|
 | **RTK** | Entrada — comprime saída de comandos no terminal antes de ir ao contexto do LLM | [install-rtk.md](./install-rtk.md) |
-| **Caveman** | Saída — compacta respostas do agente; no AgentFlow, ativo no boot (`/caveman full`) | [install-caveman.md](./install-caveman.md) |
+| **Caveman** | Saída — compacta respostas do agente; no AgentFlow, ativo no boot (`/caveman ultra`) | [install-caveman.md](./install-caveman.md) |
 
 ```text
 Terminal → RTK → menos tokens no contexto
