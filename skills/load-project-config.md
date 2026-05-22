@@ -32,7 +32,7 @@ If missing, support saves to `.memory/docs/support/triage/` and `.memory/docs/su
 
 ## Guardrails
 
-- Support artifacts MUST be saved only under `.memory/docs/`. Never save triage or RCA reports to `teste-docs/` or other project paths.
+- Support artifacts MUST be saved only under `.memory/docs/`. Never save triage or RCA reports outside that tree.
 - Support workflows MUST work with explicit URLs even without `project.config.yaml`.
 - Do not invent board, repository, or provider IDs when config is absent.
 - Do not commit secrets in `project.config.yaml`.
