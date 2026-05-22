@@ -30,4 +30,4 @@ Todos os relatórios de suporte MUST ser salvos sob `.memory/docs/` (gitignored 
 - `rules/support/project-config.md`
 - `skills/load-project-config.md`
 
-Documentação do pacote: `support/README.md`.
+Documentação do pacote: `support/README.md`. Guias: `docs/guide/support-triage.md`, `docs/guide/support-rca.md`.

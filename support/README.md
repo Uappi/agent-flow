@@ -12,7 +12,15 @@ Triagem e RCA N2 com link da tarefa de suporte. O arquivo `project.config.yaml` 
 | Exemplo de config | `project.config.yaml.example` → copiar para a raiz do cliente como `project.config.yaml` |
 | Templates | `templates/support/initial-analysis.md`, `templates/support/rca.md` |
 | Prompts | `prompts/support/initial-analysis.md`, `prompts/support/rca.md` |
-| Documentação | `docs/project-config.md` |
+| Documentação | `docs/guide/support-triage.md`, `docs/guide/support-rca.md`, `docs/project-config.md` |
+
+## Guias de utilização
+
+| Etapa | Guia |
+| :--- | :--- |
+| Triagem | `docs/guide/support-triage.md` |
+| RCA | `docs/guide/support-rca.md` |
+| Índice | `docs/guide/support-analysis.md` |
 
 ## Gatilhos
 
