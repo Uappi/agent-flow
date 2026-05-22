@@ -17,7 +17,6 @@ sources:
   architecture: README.ai.md
 
 outputs:
-  mode: teste-docs # ou memory → prefixo .memory/docs/
   paths:
-    support_triage: triagem-n2/triagem-{id}-{topic}.md
-    support_rca: rca-n2/rca-{id}-{topic}.md
+    support_triage: support/triage/triage-{id}-{topic}.md
+    support_rca: support/rca/rca-{id}-{topic}.md

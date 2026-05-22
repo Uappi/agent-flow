@@ -1,6 +1,6 @@
 # Support Package
 
-Triagem e RCA N2 com link de tarefa Monday. O arquivo `project.config.yaml` na raiz do **repositório cliente** é exclusivo deste fluxo (não é lido por code-review, documentação nem MR).
+Triagem e RCA N2 com link da tarefa de suporte. O arquivo `project.config.yaml` na raiz do **repositório cliente** é exclusivo deste fluxo (não é lido por code-review, documentação nem MR).
 
 ## Arquivos deste pacote
 
@@ -25,27 +25,24 @@ Triagem e RCA N2 com link de tarefa Monday. O arquivo `project.config.yaml` na r
 
 ```bash
 # Na raiz do repositório de trabalho (ex.: wapstore), não dentro do submodule
-cp .agentFlow/project.config.yaml.example project.config.yaml
-# Editar: integrations.monday.boards.support, integrations.gitlab.project, outputs.paths.support_*
+cp .agents/project.config.yaml.example project.config.yaml
+# Editar integrations.* e outputs.* conforme o exemplo e a necessidade do cliente
 ```
 
 No wapstore, ver também `AGENTS.md` na raiz do cliente.
 
 ## Saídas
 
-| `outputs.mode` | Triagem | RCA |
+Todos os relatórios são salvos em `.memory/docs/` (gitignored pelo boot).
+
+| Etapa | Com `project.config.yaml` | Sem config |
 | :--- | :--- | :--- |
-| `teste-docs` | `teste-docs/<support_triage>` | `teste-docs/<support_rca>` |
-| `memory` | `.memory/docs/<support_triage>` | `.memory/docs/<support_rca>` |
+| Triagem | `.memory/docs/<outputs.paths.support_triage>` | `.memory/docs/support/triage/triage-<ID>-<topic>.md` |
+| RCA | `.memory/docs/<outputs.paths.support_rca>` | `.memory/docs/support/rca/rca-<ID>-<topic>.md` |
 
-## Monday MCP
+## Contexto externo
 
-URLs `monday.com` → somente MCP `plugin-monday.com-monday`. Ver `docs/mcp/monday.md`.
-
-## Escopo do merge
-
-Altera **somente** os arquivos listados acima (incl. `rules/support/project-config.md`, `skills/load-project-config.md`, `docs/project-config.md`, `project.config.yaml.example`) e aliases N2 em `skills/pre-dispatch-check.md`.
-
-**Atenção no commit:** `project.config.yaml.example`, `rules/support/project-config.md`, `skills/load-project-config.md` e `docs/project-config.md` precisam de `git add` (estão novos, não só modificados).
-
-**Não altera:** `README.md`, `rules/README.md`, `rules/global.mdc`, `skills/boot.md`, personas/prompts/templates de MR ou documentação.
+- Informe o link da tarefa de suporte no prompt.
+- Para RCA, informe links de MR/PR ou release quando houver correlação com merge ou versão.
+- Os links fornecidos são a fonte da verdade. Não assumir tracker, board, repositório ou provider fixos fora do que estiver em `project.config.yaml` e nos links do prompt.
+- Tarefas e merges privados: acessar somente via MCP ou outro caminho autenticado configurado — nunca WebFetch/WebSearch. Ver `skills/pre-dispatch-check.md` e `docs/mcp/` para setup de MCP por provider.

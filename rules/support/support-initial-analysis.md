@@ -23,17 +23,15 @@ Apply this rule when the prompt starts with any of:
 - Suspected regression or versioning alone does **not** trigger RCA automatically.
 - When in doubt, finish triage and ask whether to proceed to RCA.
 
-## Monday via MCP (hard rule)
+## External task access (hard rule)
 
-When the support task URL is on `monday.com`:
+When reading the support task from a supplied URL:
 
-- Access the task **only** via MCP `plugin-monday.com-monday`.
-- Do **not** use `WebFetch` or `WebSearch` to read Monday cards.
-- Minimum sequence:
-  1. Extract `boardId` and `itemId` from the URL.
-  2. Read the item with `get_board_items_page` (`itemIds`).
-  3. Read description and comments with `get_updates` (`objectType: Item`).
-- On auth or permission failure: stop, ask the user to reconnect Monday MCP, and do not continue from HTML placeholders such as "Loading...".
+- Identify the provider from the URL hostname (same approach as `skills/pre-dispatch-check.md`).
+- Access the task **only** through an authenticated path: the matching MCP server when available, or another path declared in `project.config.yaml` when present.
+- Do **not** use `WebFetch` or `WebSearch` to read private task or issue trackers.
+- The URL in the prompt is the source of truth; config integration hints MUST NOT override the linked item.
+- On auth or permission failure: stop, report the blocker, and ask the user to restore access. Do not continue from HTML placeholders such as "Loading...".
 
 ## Execution
 
@@ -83,7 +81,7 @@ Goal: identify the **first likely breaking point**.
 
 The Support persona MUST read the support task from the link supplied by the user. If the support task cannot be accessed, the analyst MUST stop and report the access blocker.
 
-The analyst MUST apply `rules/support/project-config.md` and `skills/load-project-config.md` when `project.config.yaml` exists at the work repo root (board hints, GitLab project, output paths). Without config, it MUST NOT assume a fixed tracker, board, repository, or provider.
+The analyst MUST apply `rules/support/project-config.md` and `skills/load-project-config.md` when `project.config.yaml` exists at the work repo root (integration hints and output paths). Without config, it MUST NOT assume a fixed tracker, board, repository, or provider.
 
 Analysis MUST follow the mandatory flow: Input → Processing → Output. The first likely breaking point MUST be identified.
 
@@ -95,8 +93,8 @@ Missing information MUST be written as `Informação não encontrada no contexto
 
 Output MUST use `templates/support/initial-analysis.md`. Section 9 (structured RCA context) MUST be filled whenever applicable.
 
-Save using `outputs.paths.support_triage` from `project.config.yaml` when configured; otherwise `.memory/docs/support/triage/triage-<TASK-ID>-<short-topic>.md`.
+Save under `.memory/docs/` using `outputs.paths.support_triage` from `project.config.yaml` when configured; otherwise `.memory/docs/support/triage/triage-<TASK-ID>-<short-topic>.md`.
 
 ## Rationale
 
-Support triage uses the supplied task link as the source of truth. Separating triage from RCA avoids wasted effort and misleading definitive causes. Monday MCP enforcement prevents false context from scraped pages. Explicit evidence requirements prevent hallucinated code behavior from reaching the support output.
+Support triage uses the supplied task link as the source of truth. Separating triage from RCA avoids wasted effort and misleading definitive causes. Authenticated access enforcement prevents false context from scraped pages. Explicit evidence requirements prevent hallucinated code behavior from reaching the support output.
