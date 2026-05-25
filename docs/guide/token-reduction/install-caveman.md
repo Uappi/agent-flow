@@ -61,7 +61,7 @@ Ativa se (2) **ou** (3) confirmar. Caso contrário: boot ignora caveman e **não
 
 ```bash
 mkdir -p .agents/skills/caveman
-curl -fsSL https://raw.githubusercontent.com/JuliusBrussee/caveman/main/SKILL.md \
+curl -fsSL https://raw.githubusercontent.com/JuliusBrussee/caveman/refs/heads/main/skills/caveman/SKILL.md \
   -o .agents/skills/caveman/SKILL.md
 ```
 
