@@ -1,6 +1,9 @@
 # Changelog
 
 ```log
+0.7.1 - 2026/05/27
+fix(skills/boot.md): use /usr/bin/find for .context.md check — rtk find alias breaks -not and falsely reports no context map
+
 0.7.0 - 2026/05/27
 feat(ext): add uappi-v2 product extension with specifics-sync comparador
 feat(skills): add product-profile gate for ext/ activation at boot
