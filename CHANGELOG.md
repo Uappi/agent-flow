@@ -1,6 +1,14 @@
 # Changelog
 
 ```log
+0.7.0 - 2026/05/27
+feat(ext): add uappi-v2 product extension with specifics-sync comparador
+feat(skills): add product-profile gate for ext/ activation at boot
+feat(ext/uappi-v2): personas, skills, rules, prompts, templates for especifico/ vs GitLab core
+docs: add product-extensions and specifics-sync guides
+fix(boot): run product-profile after memory; conditional Uappi v2 greeting
+fix(maestro,dispatch): route and inject ext/ assets only when product active
+
 0.6.2 - 2026/05/01
 fix(skills/boot.md): add `.ignore` to gitignore loop — was missing `.ignore` entry that maestro-boot.sh already handles
 

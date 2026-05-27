@@ -18,6 +18,8 @@ Rules are constraints — short, direct, and non-procedural. A rule that needs m
 - **`support/support-root-cause-analysis`** — Support RCA with technical root cause and MR/PR correlation (support)
 - **`global.mdc`** — Optional Cursor always-apply compatibility rule that points back to `AGENTS.md`
 
+Product-scoped rules for extensions live under `ext/<product-id>/rules/` (e.g. `ext/uappi-v2/rules/specifics/`). They are listed at dispatch only when that product is active — see `docs/guide/product-extensions.md`.
+
 ## File Naming
 
 Lowercase, hyphenated. Scoped rules are prefixed with the persona or domain they target: `coder-formatting.md`, not `formatting.md`. Universal rules carry no prefix.
