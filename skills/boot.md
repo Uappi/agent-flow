@@ -1,7 +1,7 @@
 ---
 shortDescription: Session startup — gitignore, auto-update, memory, rules, context, CLI config, caveman, and greet.
 usedBy: [maestro]
-version: 0.5.1
+version: 0.5.0
 lastUpdated: 2026-05-27
 ---
 
@@ -62,15 +62,11 @@ Before step 1, enforce this startup behavior:
 
 6. **Load the rules index.** Read `rules/README.md` to know what rules are available and their scopes. Do not read the individual rule files — sub-agents will read them when dispatched.
 
-7. **Context.** Verify the work repo has `.context.md` files (context map). Use the system `find` — not a shell alias such as `rtk find`, which does not support `-not` and yields a false "no context" result. Run:
+7. **Context.** Verify the project has context files. Run:
 
    ```bash
-   /usr/bin/find . -name ".context.md" \
-     ! -path "*/node_modules/*" ! -path "*/.git/*" ! -path "*/vendor/*" ! -path "*/.cache/*" \
-     -print -quit 2>/dev/null
+   find . -name ".context.md" -not -path "*/node_modules/*" -not -path "*/.git/*" -not -path "*/vendor/*" -not -path "*/.cache/*" -print -quit
    ```
-
-   If `/usr/bin/find` is missing, use `command -v find` and the same predicates only when `find --version` looks like GNU or BSD find.
 
    Note the result — it is used in step 9.
 
@@ -96,7 +92,7 @@ Before step 1, enforce this startup behavior:
 9. **Greet.** Send the greeting below to the user now. This is the final and mandatory action of boot — do not add preamble, do not summarize, do not defer. Boot is not complete until this message is sent.
 
    If step 7 produced no output, append this line at the end of the greeting before sending:
-   > Ainda não há arquivos `.context.md` no repositório de trabalho. Use o prompt de mapeamento de contexto com o escopo desejado para gerá-los, ou diga se prefere seguir sem um.
+   > Ainda não há mapa de contexto no repositório. Use o prompt de mapeamento de contexto com o escopo desejado para gerá-lo, ou diga se prefere seguir sem um.
 
    **Greeting contract (mandatory):**
    - Start with exactly:
