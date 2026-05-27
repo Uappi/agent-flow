@@ -1,7 +1,7 @@
 ---
 shortDescription: Session startup — gitignore, auto-update, memory, rules, context, CLI config, caveman, and greet.
 usedBy: [maestro]
-version: 0.5.0
+version: 0.5.1
 lastUpdated: 2026-05-27
 ---
 
@@ -120,7 +120,10 @@ Before step 1, enforce this startup behavior:
      - Análise inicial — `prompts/support/initial-analysis.md`
      - RCA — `prompts/support/rca.md`
 
-   - If step 4 detected `uappi-v2` in `activeProducts`, append **Uappi v2** — fluxos e templates em `ext/uappi-v2/README.md` (`repoKind` em `## Product Context`).
+   - If step 4 listed `uappi-v2` in `activeProducts`, append this block immediately after **Suporte**, same format as the categories above:
+
+     **Uappi v2**
+     - Comparar específicos — `ext/uappi-v2/prompts/task/specifics-compare.md`
 
    - End with exactly:
      > Diga qual fluxo quer usar e mostro o template para copiar e preencher.
