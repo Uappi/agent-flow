@@ -3,8 +3,8 @@ shortDescription: Compare especifico/ files against Wapstore core at release tag
 usedBy: [specifics-sync]
 product: uappi-v2
 relatedTo: [gitlab-mcp, gitlab-api, glab]
-version: 0.2.0
-lastUpdated: 2026-05-27
+version: 0.2.1
+lastUpdated: 2026-05-28
 ---
 
 ## Purpose
@@ -17,7 +17,7 @@ Follow `ext/uappi-v2/rules/specifics/workflow.md`.
 
 1. **Resolve inputs**
    - **`target_release`** — task brief; if missing, stop.
-   - **`report_mode`** — `por arquivo` | `por tarefa` | `ambos`; if missing, stop.
+   - **`report_mode`** — `por arquivo` | `por tarefa` | `ambos` (brief field **Relatório**); if missing, stop.
    - **`client_branch`** — optional; record in report header when supplied (checkout if cwd is client repo and branch exists).
    - **`installed_release`** — from `.wapstore/build` when present; header only (`path-mapping.md`).
 
@@ -35,7 +35,7 @@ Follow `ext/uappi-v2/rules/specifics/workflow.md`.
    | D | Ephemeral clone |
 
    Validate tag with one anchor file under `core/`. On failure, stop.
-   - If the team uses `branch-{tag}` on core, verify it exists (create only when brief explicitly requests it).
+   - If the team uses `branch-{tag}` on core, verify it exists (create only when the brief explicitly requests it).
    - If `client_branch` is set and the work tree is the client repo, checkout when possible; otherwise record the branch in the report header only.
 
 4. **List files**
@@ -51,28 +51,28 @@ Follow `ext/uappi-v2/rules/specifics/workflow.md`.
 6. **Compare** — fetch core content; diff vs local.
 
 7. **Classify** (`diff-classification.md`, `customization-markers.md`)
-   - Categoria: customização própria | correção do core | implementação customizada | legado | artefato
-   - **Classificação no relatório:** Para remover (igual ao core) | Para modificar (diferente) | Sem alteração
+   - Category: client-only | core fix | custom implementation | legacy | artifact
+   - **Report Classificação:** `Para remover` | `Para modificar` | `Sem alteração` (Portuguese — per template)
 
 8. **Report header** (both outputs when applicable) — include when known:
-   - Tag core / commit se disponível
-   - Branch cliente
-   - Escopo e arquivos ignorados (legado)
+   - Core tag / commit if available
+   - Client branch
+   - Scope and ignored paths (legacy)
 
 9. **`por arquivo` or `ambos`** — fill `templates/specifics/compare-by-file.md` →  
    `.memory/docs/specifics-sync/<YYYY-MM-DD>/01-analise-por-arquivo.md`  
-   - Data no corpo: `DD/MM/YYYY`
-   - Seções por arquivo conforme template (Descrição do ESPECÍFICO, Comportamento do CORE, etc.)
+   - Body date: `DD/MM/YYYY`
+   - Per-file sections per template (Portuguese headings)
 
 10. **`por tarefa` or `ambos`** — after file analysis, group per `task-grouping.md`; fill `templates/specifics/compare-by-task.md` →  
     `.memory/docs/specifics-sync/<YYYY-MM-DD>/02-analise-por-tarefa.md`
 
-11. **Handoff** — paths dos arquivos gerados, contagens (Para remover / Para modificar / Sem alteração), destaques de alto impacto.
+11. **Handoff** — paths to generated files, counts (`Para remover` / `Para modificar` / `Sem alteração`), high-impact highlights.
 
 ## Guardrails
 
 - Never compare `main`/`HEAD`; only `target_release`.
 - Never use `bin/` as comparison source.
-- Never skip IDENTICAL-equivalent files in `01-analise-por-arquivo.md` when mode includes por arquivo.
+- Never skip equal-to-core files in `01-analise-por-arquivo.md` when mode includes `por arquivo`.
 - Never apply patches in this skill.
 - Never dump full report body in chat.

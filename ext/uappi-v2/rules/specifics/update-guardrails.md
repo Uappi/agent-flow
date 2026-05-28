@@ -2,24 +2,24 @@
 shortDescription: Safe update rules when merging core into especifico/.
 scope: specifics-sync
 product: uappi-v2
-version: 0.2.0
-lastUpdated: 2026-05-27
+version: 0.3.0
+lastUpdated: 2026-05-28
 ---
 
 ## Statement
 
-Atualizar o cliente preservando customizações legítimas e comportamento existente.
+Update the client while preserving legitimate customizations and existing behavior.
 
-Antes de sugerir alteração, verificar: marcadores ESPECÍFICO; `especifico/`; `tema/` (se no escopo).
+Before suggesting a change, check: ESPECÍFICO markers; `especifico/`; `tema/` (when in scope).
 
-Durante atualização: ignorar `bin/` como fonte primária; tratar `lista-presente/` como legado e informar quando ignorado.
+During update: MUST NOT use `bin/` as the primary source; treat `lista-presente/` as legacy and state when ignored.
 
-Estratégia: (1) identificar diferenças (2) classificar (3) avaliar impacto (4) sugerir merge incremental.
+Strategy: (1) identify differences (2) classify (3) assess impact (4) suggest incremental merge.
 
-Nunca: sobrescrever direto; remover customização sem análise; alterar comportamento sem avaliação.
+MUST NOT: blind overwrite; remove customization without analysis; change behavior without assessment.
 
-Compare mode é somente leitura — aplicar patches só após confirmação explícita (`specifics-apply-patches.md`).
+Compare mode is read-only — apply patches only after explicit confirmation (`specifics-apply-patches.md`).
 
 ## Rationale
 
-Espelha `prompts/atualizar.mdc` do comparador legado.
+Mirrors the legacy comparador safe-update prompt rules.

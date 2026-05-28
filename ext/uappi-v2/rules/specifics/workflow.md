@@ -2,25 +2,25 @@
 shortDescription: Eight-step workflow for comparing client especifico/ with core.
 scope: specifics-sync
 product: uappi-v2
-version: 0.1.0
-lastUpdated: 2026-05-27
+version: 0.2.0
+lastUpdated: 2026-05-28
 ---
 
 ## Statement
 
-1. **Escopo** — Identificar repo cliente (`especifico/`), tag do core (`target_release`), modo de relatório e branch do cliente quando informada.
-2. **Varredura** — Mapear arquivos em `especifico/` (ignorar `bin/`, legado conforme `ignored-paths.md`).
-3. **Comparação estrutural** — Arquivos só no cliente vs. com equivalente no core (`core/` + path relativo).
-4. **Comparação de conteúdo** — Diff por arquivo na tag do core.
-5. **Customizações** — Aplicar `customization-markers.md` (comentários ESPECÍFICO).
-6. **Classificação** — Aplicar `diff-classification.md` (cinco categorias + classificação de ação no relatório).
-7. **Impacto** — Avaliar impacto funcional, dependências e risco.
-8. **Proposta** — Sugerir atualização incremental; preservar customizações; não sobrescrever sem análise.
+1. **Scope** — Identify client repo (`especifico/`), core tag (`target_release`), report mode, and client branch when supplied.
+2. **Scan** — Map files under `especifico/` (ignore `bin/`, legacy per `ignored-paths.md`).
+3. **Structural comparison** — Client-only files vs. files with a core counterpart (`core/` + relative path).
+4. **Content comparison** — Per-file diff at the core tag.
+5. **Customizations** — Apply `customization-markers.md` (ESPECÍFICO comments).
+6. **Classification** — Apply `diff-classification.md` (five categories + report action classification).
+7. **Impact** — Assess functional impact, dependencies, and risk.
+8. **Proposal** — Suggest incremental update; preserve customizations; MUST NOT overwrite without analysis.
 
-Nunca: sobrescrever customizações diretamente; remover código sem análise; assumir que divergência é erro.
+MUST NOT: overwrite customizations directly; remove code without analysis; assume every divergence is an error.
 
-Sempre: classificar; avaliar impacto; sugerir atualização segura.
+MUST: classify; assess impact; suggest safe updates.
 
 ## Rationale
 
-Espelha o fluxo do comparador legado (`workflow.mdc`) para análises repetíveis entre clientes.
+Mirrors the legacy comparador workflow for repeatable client-vs-core analysis.

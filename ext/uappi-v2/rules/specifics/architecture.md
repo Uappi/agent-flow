@@ -2,38 +2,38 @@
 shortDescription: Uappi platform layout — backend, frontend, main directories.
 scope: specifics-sync
 product: uappi-v2
-version: 0.2.0
-lastUpdated: 2026-05-27
+version: 0.3.0
+lastUpdated: 2026-05-28
 ---
 
 ## Statement
 
-Sistema multi-projeto com core compartilhado; customizações do cliente em `especifico/`.
+Multi-project system with a shared core; client customizations live under `especifico/`.
 
 **Stack**
 
 - Backend: PHP 7.4, Apache, MariaDB
 - Frontend: HTML/CSS, jQuery, Vue, Vue 3, Nuxt
 
-**Diretórios relevantes (core / espelho em especifico)**
+**Relevant directories (core / mirrored under `especifico/`)**
 
-| Diretório | Papel |
-|-----------|--------|
-| checkout | Fluxo final de compra SaaS |
-| classes | Regras de negócio compartilhadas |
-| crons | Serviços periódicos (`crons.cron`) |
-| dbm | Migrações SQL |
-| estrutura | Rotas e redirecionamentos |
-| lista-presente | Legado — ver `ignored-paths.md` |
-| minha-conta | Área do cliente final |
-| pagamento | Meios de pagamento |
-| tema | Camada visual — fora do escopo v1 salvo brief |
-| wapstore | Painel administrativo e classes compartilhadas |
+| Directory | Role |
+|-----------|------|
+| checkout | SaaS checkout flow |
+| classes | Shared business rules |
+| crons | Periodic services (`crons.cron`) |
+| dbm | SQL migrations |
+| estrutura | Routes and redirects |
+| lista-presente | Legacy — see `ignored-paths.md` |
+| minha-conta | End-customer account area |
+| pagamento | Payment methods |
+| tema | Visual layer — out of v1 scope unless the brief includes it |
+| wapstore | Admin panel and shared classes |
 
-Core no GitLab na tag de comparação é fonte de verdade funcional para o diff. `bin/` no cliente é artefato compilado — somente leitura neste fluxo.
+Core on GitLab at the comparison tag is the functional source of truth for the diff. Client `bin/` is a compiled artifact — read-only in this workflow.
 
-O core não deve conter lógica específica de um cliente.
+The core MUST NOT contain client-specific logic.
 
 ## Rationale
 
-Espelha `arquitetura/arquitetura-geral.mdc`. Detalhes de projeto cliente: `architecture-projects.md`.
+Mirrors the legacy comparador general architecture reference. Client project layout: `architecture-projects.md`.

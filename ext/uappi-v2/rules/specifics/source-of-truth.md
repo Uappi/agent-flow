@@ -2,36 +2,36 @@
 shortDescription: Hierarchy and conventions for core vs client specifics sync.
 scope: specifics-sync
 product: uappi-v2
-version: 0.1.0
-lastUpdated: 2026-05-27
+version: 0.2.0
+lastUpdated: 2026-05-28
 ---
 
 ## Statement
 
-**Convenções**
+**Conventions**
 
-- `específico` / `especifico/` — customização do cliente.
-- `bin/` — compilação core + específicos no cliente; não é fonte primária de comparação.
-- `painel` / `Uappi` — área administrativa.
-- `plataforma` — projeto como um todo.
+- `especifico/` — client customization (on-disk folder name is Portuguese).
+- `bin/` — compiled core + specifics on the client; MUST NOT use as the primary comparison source.
+- `painel` / `Uappi` — administrative area.
+- `plataforma` — the project as a whole.
 
-**Hierarquia de decisão**
+**Decision hierarchy**
 
-1. Core no GitLab na tag `target_release`
-2. Regras `ext/uappi-v2/rules/specifics/*`
-3. Arquitetura documentada (`architecture.md`, `architecture-projects.md`)
-4. Projeto cliente (`especifico/`)
-5. Comentários locais ou implementações ad hoc
+1. Core on GitLab at `target_release`
+2. Rules under `ext/uappi-v2/rules/specifics/*`
+3. Documented architecture (`architecture.md`, `architecture-projects.md`)
+4. Client project (`especifico/`)
+5. Local comments or ad hoc implementations
 
-**Conflitos core vs cliente**
+**Core vs. client conflicts**
 
-- Core é referência principal.
-- Cliente deve ser analisado para customização legítima.
-- Nenhuma diferença sobrescrita sem classificação prévia.
-- Em dúvida: atualização incremental, não substituição total.
+- Core is the primary reference.
+- Client MUST be analyzed for legitimate customization.
+- No difference MAY be overwritten without prior classification.
+- When in doubt: incremental update, not full replacement.
 
-Não assumir: toda diferença no cliente é erro; toda divergência deve ser removida; arquivo extra no cliente é obsoleto.
+MUST NOT assume: every client difference is an error; every divergence must be removed; every extra client file is obsolete.
 
 ## Rationale
 
-Espelha `contexto/fontes-de-verdade.mdc`, adaptado para core no GitLab em vez de diretório `CORE/` local.
+Mirrors the legacy comparador source-of-truth reference, adapted for GitLab core instead of a local `CORE/` directory.

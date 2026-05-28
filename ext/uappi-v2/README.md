@@ -15,24 +15,24 @@ Workflows for Wapstore/Uappi client clouds and the shared core repository.
 |-----------------|---------|
 | `prompts/task/specifics-compare.md` | `personas/specifics-sync.md` |
 
-Detalhes de intenção, gates e apply: `ROUTING.md`.
+Intent, gates, and apply: `ROUTING.md`.
 
 ## Prerequisites
 
-- Leitura do core no GitLab na tag (MCP, clone local do `wapstore/wapstore`, `glab`, ou API) — Maestro valida em `skills/pre-dispatch-check.md`; setup MCP opcional: `docs/guide/mcp/gitlab.md`
-- Client compare: `especifico/` at work repo root; **Versão alvo** no prompt (ver `pre-dispatch-check`)
+- Read access to core on GitLab at the tag (MCP, local `wapstore/wapstore` clone, `glab`, or API) — Maestro validates via `skills/pre-dispatch-check.md`; optional MCP setup: `docs/guide/mcp/gitlab.md`
+- Client compare: `especifico/` at work repo root; **Versão alvo** in the prompt (see `pre-dispatch-check`)
 
 ## Output
 
-`.memory/docs/specifics-sync/YYYY-MM-DD/` (same layout as comparador legado `docs/`):
+`.memory/docs/specifics-sync/YYYY-MM-DD/`:
 
-| Relatório | Arquivo | Template |
-|-----------|---------|----------|
-| por arquivo | `01-analise-por-arquivo.md` | `templates/specifics/compare-by-file.md` |
-| por tarefa | `02-analise-por-tarefa.md` | `templates/specifics/compare-by-task.md` |
+| Report mode | File | Template |
+|-------------|------|----------|
+| per file | `01-analise-por-arquivo.md` | `templates/specifics/compare-by-file.md` |
+| per task | `02-analise-por-tarefa.md` | `templates/specifics/compare-by-task.md` |
 
-Brief must include **Relatório:** `por arquivo`, `por tarefa`, or `ambos`.
+Brief MUST include **Relatório:** `por arquivo`, `por tarefa`, or `ambos`. Report body uses Portuguese section labels (legacy comparador format).
 
-## Guia de uso
+## User guide (Portuguese)
 
 [docs/guide/extensions/uappi-v2-specifics-compare.md](../../docs/guide/extensions/uappi-v2-specifics-compare.md)

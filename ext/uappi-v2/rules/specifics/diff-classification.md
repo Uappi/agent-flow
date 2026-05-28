@@ -2,38 +2,38 @@
 shortDescription: Classify core vs client differences before suggesting updates.
 scope: specifics-sync
 product: uappi-v2
-version: 0.2.0
-lastUpdated: 2026-05-27
+version: 0.3.0
+lastUpdated: 2026-05-28
 ---
 
 ## Statement
 
-Toda diferença deve ser classificada (seguir `customization-markers.md`) antes de sugerir alteração.
+Every difference MUST be classified (per `customization-markers.md`) before suggesting a change.
 
-### Categorias de diferença
+### Difference categories
 
-1. **Customização própria** — só no cliente (`especifico/`); não existe no core; preservar; não sobrescrever; reportar se regra do core mudou na área adjacente.
-2. **Correção do core** — cliente corrigiu fluxo do core; preservar salvo incompatibilidade; remover só se o core já corrigiu o mesmo cenário.
-3. **Implementação customizada** — mesmo arquivo no core e cliente, conteúdo divergente; merge incremental; nunca substituição direta sem análise.
-4. **Código legado** — ex.: `lista-presente/`; pode ignorar na análise principal mas informar explicitamente.
-5. **Artefato gerado** — `bin/`; não é fonte primária de comparação.
+1. **Client-only customization** — exists only under client `especifico/`; not in core; preserve; MUST NOT overwrite; report when adjacent core rules changed.
+2. **Core fix** — client patched core behavior; preserve unless incompatible; remove only if core now includes an equivalent fix.
+3. **Custom implementation** — same path in core and client, divergent content; incremental merge only; MUST NOT full-file replace without analysis.
+4. **Legacy code** — e.g. `lista-presente/`; MAY skip main analysis but MUST state when skipped.
+5. **Generated artifact** — `bin/`; MUST NOT use as primary comparison source.
 
-Prioridade em ambiguidade: (1) → (2) → (3) → (4) → (5).
+Priority on ambiguity: (1) → (2) → (3) → (4) → (5).
 
-### Classificação no relatório (por arquivo)
+### Report classification (per file)
 
-No template `compare-by-file.md`, usar **uma** opção em **Classificação**:
+In `templates/specifics/compare-by-file.md`, use exactly one value under **Classificação** (Portuguese labels — report output):
 
-| Situação | Classificação no relatório |
-|----------|---------------------------|
-| Igual ao core na tag | **Para remover** (override desnecessário) |
-| Diferente; precisa merge/atualização | **Para modificar** |
-| Analisado; nenhuma ação agora | **Sem alteração** |
+| Situation | Report value |
+|-----------|----------------|
+| Same as core at tag | **Para remover** (unnecessary override) |
+| Different; needs merge/update | **Para modificar** |
+| Reviewed; no action now | **Sem alteração** |
 
-Antes de sugerir alteração: identificar → classificar (categoria + ação) → avaliar impacto → explicar efeito no fluxo do core → sugerir atualização segura.
+Before suggesting a change: identify → classify (category + report value) → assess impact → explain effect on core flow → suggest safe update.
 
-Nunca: sobrescrever diretamente; remover customização sem análise; assumir que divergência é erro.
+MUST NOT: blind overwrite; remove customization without analysis; assume every divergence is an error.
 
 ## Rationale
 
-Espelha `regras/classificacao-de-diferencas.mdc` e `prompts/comparar.mdc` do comparador legado.
+Mirrors the legacy comparador difference-classification reference. Report labels stay in Portuguese to match the output templates.

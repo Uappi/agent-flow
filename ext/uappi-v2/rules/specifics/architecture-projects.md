@@ -2,34 +2,34 @@
 shortDescription: How client projects diverge from core — especifico, tema, bin.
 scope: specifics-sync
 product: uappi-v2
-version: 0.1.0
-lastUpdated: 2026-05-27
+version: 0.2.0
+lastUpdated: 2026-05-28
 ---
 
 ## Statement
 
-Projetos cliente derivam do core e podem conter customizações de negócio, interface ou comportamento — tratadas como intencionais até análise em contrário.
+Client projects derive from the core and MAY contain business, UI, or behavior customizations — treat them as intentional until analysis proves otherwise.
 
-**Diretórios**
+**Directories**
 
-- **`especifico/`** — customizações do cliente; alterações específicas devem ficar aqui quando possível.
-- **`tema/`** — frontend (MVC ou reativo); fora do escopo v1 do comparador salvo inclusão explícita no brief.
-- **`bin/`** — artefato consolidado core + específicos; não usar como fonte primária de comparação.
+- **`especifico/`** — client customizations; client-specific changes SHOULD live here when possible.
+- **`tema/`** — frontend (MVC or reactive); out of comparador v1 scope unless the brief explicitly includes it.
+- **`bin/`** — consolidated core + specifics artifact; MUST NOT use as the primary comparison source.
 
-**Tipos de customização**
+**Customization types**
 
-1. Sobrescrita de arquivos do core.
-2. Extensão sem alterar o fluxo original.
-3. Modificação parcial preservando parte da estrutura.
+1. File override — client replaces a core file.
+2. Extension — client adds behavior without changing the original core flow.
+3. Partial modification — client changes part of existing behavior while keeping the rest.
 
-**Atualização**
+**Updates**
 
-- Analisar sobrescritas com cautela; classificar antes de alterar.
-- Core não substitui cliente sem avaliação.
-- Customização legítima deve ser preservada.
+- Analyze overrides carefully; classify before changing.
+- Core MUST NOT replace client files without evaluation.
+- Legitimate customizations MUST be preserved.
 
-Toda customização no cliente é intencional até prova em contrário.
+Every client customization is intentional until proven otherwise.
 
 ## Rationale
 
-Espelha `arquitetura/arquitetura-projetos.mdc`.
+Mirrors the legacy comparador client-project architecture reference.

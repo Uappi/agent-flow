@@ -7,11 +7,11 @@ Read this file when `uappi-v2` is in `activeProducts` (session `## Product Conte
 | Trigger | Persona path | Mode |
 |---------|--------------|------|
 | First line of `prompts/task/specifics-compare.md` (`Comparar específicos:`) | `ext/uappi-v2/personas/specifics-sync.md` | compare |
-| Equivalent user intent (e.g. sync específicos com o core) when `repoKind: client` | same | compare |
+| Equivalent user intent (e.g. sync client specifics with core) when `repoKind: client` | same | compare |
 
 ## Gates
 
-- **`repoKind: core`:** Do **not** dispatch `specifics-sync`. Tell the user the comparador needs a **client** repository with `especifico/` and `.wapstore/build`, or an absolute client path + release in the brief.
+- **`repoKind: core`:** Do **not** dispatch `specifics-sync`. Tell the user the comparador requires a **client** repository with `especifico/` and `.wapstore/build`, or an absolute client path and target release in the brief.
 - **`repoKind: client`:** Dispatch `specifics-sync` only after `skills/pre-dispatch-check.md` passes.
 
 ## Apply phase
@@ -26,4 +26,4 @@ Rules: all `ext/uappi-v2/rules/specifics/*.md` with scope `specifics-sync`.
 
 Skills: `ext/uappi-v2/skills/specifics-compare-core.md` (compare); `specifics-apply-patches.md` (apply).
 
-Reports: `01-analise-por-arquivo.md` and/or `02-analise-por-tarefa.md` per **Relatório** in the brief — templates in `templates/specifics/`. Full report body saved to disk only, not in chat.
+Reports: `01-analise-por-arquivo.md` and/or `02-analise-por-tarefa.md` per brief field **Relatório** (`por arquivo` | `por tarefa` | `ambos`) — templates in `templates/specifics/`. Full report body saved to disk only, not in chat.

@@ -2,8 +2,8 @@
 shortDescription: Path mapping from client especifico/ to GitLab core at release tag.
 scope: specifics-sync
 product: uappi-v2
-version: 0.1.0
-lastUpdated: 2026-05-27
+version: 0.1.1
+lastUpdated: 2026-05-28
 ---
 
 ## Statement

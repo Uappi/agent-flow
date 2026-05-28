@@ -2,24 +2,24 @@
 shortDescription: Paths excluded from specifics comparison scans.
 scope: specifics-sync
 product: uappi-v2
-version: 0.2.0
-lastUpdated: 2026-05-27
+version: 0.3.0
+lastUpdated: 2026-05-28
 ---
 
 ## Statement
 
-**Diretórios**
+**Directories**
 
-- **`lista-presente/`** — legado; pode ignorar na comparação e na proposta de atualização; informar explicitamente quando ignorado.
-- **`bin/`** — não usar como fonte primária.
+- **`lista-presente/`** — legacy; MAY skip in comparison and update proposals; MUST state explicitly when skipped.
+- **`bin/`** — MUST NOT use as the primary comparison source.
 
-**Arquivos**
+**Files**
 
-- **`.gitkeep`** — placeholder; não analisar.
-- **`.context.md`** — metadados AgentFlow; não analisar.
+- **`.gitkeep`** — placeholder only; MUST NOT analyze.
+- **`.context.md`** — AgentFlow metadata; MUST NOT analyze.
 
-Comparar apenas `especifico/` (ou subpasta do escopo no brief). Não pular arquivos só por falta de marcador ESPECÍFICO.
+Compare only under `especifico/` (or a scope subdirectory from the brief). MUST NOT skip files solely because they lack ESPECÍFICO markers.
 
 ## Rationale
 
-Espelha `regras/diretorios-e-arquivos-ignoraveis.mdc`.
+Mirrors the legacy comparador ignorable paths reference.

@@ -2,31 +2,31 @@
 shortDescription: Identify and preserve ESPECÍFICO comment markers in client overrides.
 scope: specifics-sync
 product: uappi-v2
-version: 0.2.0
-lastUpdated: 2026-05-27
+version: 0.3.0
+lastUpdated: 2026-05-28
 ---
 
 ## Statement
 
-Customizações são identificadas por comentários no código:
+Customizations are identified by code comments:
 
 - `ESPECÍFICO`
 - `ESPECÍFICO TEMPORÁRIO`
 - `[ESPECÍFICO PERMANENTE]` / `ESPECÍFICO PERMANENTE`
 - `[ESPECÍFICO TEMPORÁRIO]` / `ESPECÍFICO TEMPORÁRIO`
 
-Trechos com esses marcadores são customização legítima — prioridade máxima na preservação.
+Marked blocks are legitimate customization — highest priority for preservation.
 
-Não: sobrescrever ou remover sem análise.
+MUST NOT overwrite or remove without analysis.
 
-Ausência de marcador **não** prova que não é customização — usar também:
+Missing a marker does NOT prove the diff is safe to overwrite — also consider:
 
-- arquivos em `especifico/`;
-- arquivos só no cliente;
-- alterações significativas vs core.
+- files under `especifico/`;
+- client-only files;
+- significant changes vs. core.
 
-Em dúvida: assumir possível customização; sinalizar; evitar sobrescrita automática.
+When in doubt: treat as possible customization; flag for review; avoid automatic overwrite.
 
 ## Rationale
 
-Espelha `regras/identificacao-de-customizacao.mdc`.
+Mirrors the legacy comparador customization identification reference.
