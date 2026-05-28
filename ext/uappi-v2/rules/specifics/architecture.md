@@ -1,19 +1,39 @@
 ---
-shortDescription: Uappi client vs core layout for specifics sync.
+shortDescription: Uappi platform layout — backend, frontend, main directories.
 scope: specifics-sync
 product: uappi-v2
-version: 0.1.0
+version: 0.2.0
 lastUpdated: 2026-05-27
 ---
 
 ## Statement
 
-- **Core** (GitLab `wapstore/wapstore` at the comparison tag) is the functional source of truth for the comparison.
-- **Client `especifico/`** holds overrides that mirror `bin/` layout but are maintained separately before compile.
-- **`bin/`** is the compiled merge of core + especifico — read-only for this workflow.
-- **`tema/`** is out of scope for v1 compare unless the task brief explicitly includes it.
-- Hierarchy for conflicts: core tag content → extension rules → client `especifico/` → ad hoc comments.
+Sistema multi-projeto com core compartilhado; customizações do cliente em `especifico/`.
+
+**Stack**
+
+- Backend: PHP 7.4, Apache, MariaDB
+- Frontend: HTML/CSS, jQuery, Vue, Vue 3, Nuxt
+
+**Diretórios relevantes (core / espelho em especifico)**
+
+| Diretório | Papel |
+|-----------|--------|
+| checkout | Fluxo final de compra SaaS |
+| classes | Regras de negócio compartilhadas |
+| crons | Serviços periódicos (`crons.cron`) |
+| dbm | Migrações SQL |
+| estrutura | Rotas e redirecionamentos |
+| lista-presente | Legado — ver `ignored-paths.md` |
+| minha-conta | Área do cliente final |
+| pagamento | Meios de pagamento |
+| tema | Camada visual — fora do escopo v1 salvo brief |
+| wapstore | Painel administrativo e classes compartilhadas |
+
+Core no GitLab na tag de comparação é fonte de verdade funcional para o diff. `bin/` no cliente é artefato compilado — somente leitura neste fluxo.
+
+O core não deve conter lógica específica de um cliente.
 
 ## Rationale
 
-Agents must understand why comparison targets GitLab core, not the local `bin/` tree, to avoid false positives from generated code.
+Espelha `arquitetura/arquitetura-geral.mdc`. Detalhes de projeto cliente: `architecture-projects.md`.

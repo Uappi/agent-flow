@@ -24,8 +24,14 @@ Detalhes de intenção, gates e apply: `ROUTING.md`.
 
 ## Output
 
-- `.memory/docs/specifics-sync/YYYY-MM-DD/01-analise-por-arquivo.md`
-- Optional: `02-analise-por-tarefa.md` (phase 2)
+`.memory/docs/specifics-sync/YYYY-MM-DD/` (same layout as comparador legado `docs/`):
+
+| Relatório | Arquivo | Template |
+|-----------|---------|----------|
+| por arquivo | `01-analise-por-arquivo.md` | `templates/specifics/compare-by-file.md` |
+| por tarefa | `02-analise-por-tarefa.md` | `templates/specifics/compare-by-task.md` |
+
+Brief must include **Relatório:** `por arquivo`, `por tarefa`, or `ambos`.
 
 ## User guide
 

@@ -3,83 +3,76 @@ shortDescription: Compare especifico/ files against Wapstore core at release tag
 usedBy: [specifics-sync]
 product: uappi-v2
 relatedTo: [gitlab-mcp, gitlab-api, glab]
-version: 0.1.1
+version: 0.2.0
 lastUpdated: 2026-05-27
 ---
 
 ## Purpose
 
-Compare each file under `especifico/` to its core counterpart on GitLab at the release tag from the task brief. Classify differences and suggest merges; do not apply changes.
+Compare `especifico/` to core on GitLab at `target_release`, classify per `rules/specifics/*`, write reports from templates. Do not apply changes. Do not paste full reports in chat — only paths and summary counts in handoff.
 
 ## Procedure
 
-1. **Resolve paths** (follows: `ext/uappi-v2/rules/specifics/path-mapping.md`).
-   - Client overrides live under `especifico/` (fixed).
-   - `core_gitlab_project` = `agenciawebart/wapstore/wapstore` unless the task brief overrides.
-   - `core_path_prefix` = `core/` (validate on first run via MCP).
+Follow `ext/uappi-v2/rules/specifics/workflow.md`.
 
-2. **Resolve releases** (follows: `ext/uappi-v2/rules/specifics/path-mapping.md`):
-   - **`target_release`** — from task brief; if missing, stop with blocker.
-   - **`installed_release`** — from `.wapstore/build` when present; report header only.
+1. **Resolve inputs**
+   - **`target_release`** — task brief; if missing, stop.
+   - **`report_mode`** — `por arquivo` | `por tarefa` | `ambos`; if missing, stop.
+   - **`client_branch`** — optional; record in report header when supplied (checkout if cwd is client repo and branch exists).
+   - **`installed_release`** — from `.wapstore/build` when present; header only (`path-mapping.md`).
 
-3. **Resolve core access** at **`target_release`** (prefer first available; Maestro validates via `skills/pre-dispatch-check.md`):
+2. **Resolve paths** (`path-mapping.md`)
+   - Overrides: `especifico/`
+   - Core: `agenciawebart/wapstore/wapstore` @ `target_release`, prefix `core/`
 
-   | Priority | Path | Use when |
-   |----------|------|----------|
-   | A | **GitLab MCP** | `get_file_contents` works for project + tag |
-   | B | **Local core clone** | Work tree or path in brief is `wapstore/wapstore` (or core repo) with tag checked out |
-   | C | **`glab` / GitLab API** | Token in env; fetch file API at ref |
-   | D | **Ephemeral clone** | `git clone` + `git checkout <tag>` to temp dir (last resort; document path in handoff) |
+3. **Core access** at `target_release` (Maestro validated via `pre-dispatch-check.md`):
 
-   Validate tag: read one anchor file under `core/` at that ref. On failure, stop with blocker.
+   | Priority | Path |
+   |----------|------|
+   | A | GitLab MCP |
+   | B | Local core clone with tag |
+   | C | `glab` / API |
+   | D | Ephemeral clone |
 
-4. **List client files:**
+   Validate tag with one anchor file under `core/`. On failure, stop.
+   - If the team uses `branch-{tag}` on core, verify it exists (create only when brief explicitly requests it).
+   - If `client_branch` is set and the work tree is the client repo, checkout when possible; otherwise record the branch in the report header only.
+
+4. **List files**
 
    ```bash
    find especifico/ -type f ! -name '.gitkeep' ! -name '.context.md' | sort
    ```
 
-   Honor scope subdirectory from brief if provided.
+   Apply `ignored-paths.md`; honor scope from brief.
 
-5. **For each file**, compute:
+5. **Per file** — `RELATIVE` = path after `especifico/`; `CORE_PATH` = `core/` + `RELATIVE`.
 
-   ```
-   RELATIVE = path without leading "especifico/"
-   CORE_PATH = core_path_prefix + RELATIVE
-   ```
+6. **Compare** — fetch core content; diff vs local.
 
-   Example: `especifico/wapstore/classes/Foo.class.php` → `core/wapstore/classes/Foo.class.php`
+7. **Classify** (`diff-classification.md`, `customization-markers.md`)
+   - Categoria: customização própria | correção do core | implementação customizada | legado | artefato
+   - **Classificação no relatório:** Para remover (igual ao core) | Para modificar (diferente) | Sem alteração
 
-6. **Fetch core content** for `CORE_PATH` at tag using the resolved access path from step 3. Record which path was used in the report header.
+8. **Report header** (both outputs when applicable) — include when known:
+   - Tag core / commit se disponível
+   - Branch cliente
+   - Escopo e arquivos ignorados (legado)
 
-7. **Classify:**
+9. **`por arquivo` or `ambos`** — fill `templates/specifics/compare-by-file.md` →  
+   `.memory/docs/specifics-sync/<YYYY-MM-DD>/01-analise-por-arquivo.md`  
+   - Data no corpo: `DD/MM/YYYY`
+   - Seções por arquivo conforme template (Descrição do ESPECÍFICO, Comportamento do CORE, etc.)
 
-   | Core fetch result | Classification |
-   |-------------------|----------------|
-   | Not found at tag | **ADDITION** — client-only file |
-   | Same as local | **IDENTICAL** — override has no effect |
-   | Different | **MODIFIED** — produce diff |
+10. **`por tarefa` or `ambos`** — after file analysis, group per `task-grouping.md`; fill `templates/specifics/compare-by-task.md` →  
+    `.memory/docs/specifics-sync/<YYYY-MM-DD>/02-analise-por-tarefa.md`
 
-8. **Sub-classify MODIFIED** (follows: `ext/uappi-v2/rules/specifics/diff-classification.md`, `customization-markers.md`):
-   - Scan for `[ESPECÍFICO PERMANENTE]`, `[ESPECÍFICO TEMPORÁRIO]`, `ESPECÍFICO`
-   - Apply priority: customização própria → correção do core → implementação customizada → legado → artefato
-
-9. **Merge suggestion** for MODIFIED:
-   - Port structural changes from core (new methods, properties, signatures)
-   - Preserve marked client blocks
-   - Never recommend blind full-file replace
-
-10. **Write report** using `ext/uappi-v2/templates/specifics/compare-by-file.md` to:
-
-    `.memory/docs/specifics-sync/<YYYY-MM-DD>/01-analise-por-arquivo.md`
-
-11. **Summary** in handoff: counts, high-impact MODIFIED paths, IDENTICAL removal candidates.
+11. **Handoff** — paths dos arquivos gerados, contagens (Para remover / Para modificar / Sem alteração), destaques de alto impacto.
 
 ## Guardrails
 
-- Never compare against `main`, `master`, or `HEAD` of core.
-- Never treat `bin/` as primary truth — only `especifico/` vs GitLab core at tag.
-- Never omit IDENTICAL files from the report.
-- Never apply patches in this skill — compare only.
-- MCP is preferred when available; local clone or API is equally valid when pre-dispatch confirmed access.
-- If no path can read core at tag, stop — do not guess file contents.
+- Never compare `main`/`HEAD`; only `target_release`.
+- Never use `bin/` as comparison source.
+- Never skip IDENTICAL-equivalent files in `01-analise-por-arquivo.md` when mode includes por arquivo.
+- Never apply patches in this skill.
+- Never dump full report body in chat.

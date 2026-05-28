@@ -2,19 +2,24 @@
 shortDescription: Safe update rules when merging core into especifico/.
 scope: specifics-sync
 product: uappi-v2
-version: 0.1.0
+version: 0.2.0
 lastUpdated: 2026-05-27
 ---
 
 ## Statement
 
-- MUST classify before suggesting any change.
-- MUST NOT replace entire files from core without analysis.
-- MUST NOT remove customization without documenting impact.
-- MUST suggest incremental merge for MODIFIED files.
-- MUST ask the user before applying patches to disk (compare mode is read-only).
-- MUST treat all client differences as intentional until classified otherwise.
+Atualizar o cliente preservando customizações legítimas e comportamento existente.
+
+Antes de sugerir alteração, verificar: marcadores ESPECÍFICO; `especifico/`; `tema/` (se no escopo).
+
+Durante atualização: ignorar `bin/` como fonte primária; tratar `lista-presente/` como legado e informar quando ignorado.
+
+Estratégia: (1) identificar diferenças (2) classificar (3) avaliar impacto (4) sugerir merge incremental.
+
+Nunca: sobrescrever direto; remover customização sem análise; alterar comportamento sem avaliação.
+
+Compare mode é somente leitura — aplicar patches só após confirmação explícita (`specifics-apply-patches.md`).
 
 ## Rationale
 
-Overrides extend or patch core classes; destructive sync breaks client clouds in production.
+Espelha `prompts/atualizar.mdc` do comparador legado.

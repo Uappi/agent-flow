@@ -25,3 +25,5 @@ Use `ext/uappi-v2/personas/specifics-sync.md` (not `personas/specifics-sync.md`)
 Rules: all `ext/uappi-v2/rules/specifics/*.md` with scope `specifics-sync`.
 
 Skills: `ext/uappi-v2/skills/specifics-compare-core.md` (compare); `specifics-apply-patches.md` (apply).
+
+Reports: `01-analise-por-arquivo.md` and/or `02-analise-por-tarefa.md` per **Relatório** in the brief — templates in `templates/specifics/`. Full report body saved to disk only, not in chat.

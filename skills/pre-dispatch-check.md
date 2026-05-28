@@ -1,7 +1,7 @@
 ---
 shortDescription: Pre-dispatch requirements gate — verifies links and capabilities before any persona is dispatched.
 usedBy: [maestro]
-version: 0.3.3
+version: 0.3.4
 lastUpdated: 2026-05-27
 ---
 
@@ -31,7 +31,7 @@ Fields the user must supply in the message before dispatch. If any is missing or
 
 | Flow trigger | Required inputs |
 |---|---|
-| `Comparar específicos` | **Versão alvo do core (tag)** |
+| `Comparar específicos` | **Versão alvo do core (tag)**; **Relatório:** `por arquivo`, `por tarefa`, ou `ambos` |
 | All other flows | — |
 
 ### Required capabilities

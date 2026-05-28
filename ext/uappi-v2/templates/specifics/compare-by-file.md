@@ -1,10 +1,8 @@
-# Análise por arquivo — specifics sync
+# Análise por Arquivo
 
-Data da análise: {YYYY-MM-DD}
-Projeto:
-Versão instalada:
-Versão alvo:
-Quantidade de arquivos em especifico/:
+data da análise: {DD/MM/YYYY}
+nome do projeto:
+quantidade de arquivos: {quantidade total de arquivos de ESPECÍFICOS}
 
 ---
 
@@ -12,58 +10,38 @@ Quantidade de arquivos em especifico/:
 
 Caminho:
 
-### Descrição do específico
+### Descrição do ESPECÍFICO
 
-O que o override do cliente faz.
+O que o específico faz.
 
-### Comportamento do core
+### Comportamento do CORE
 
-Comportamento no core na tag informada.
+Descrição do comportamento atual do CORE.
 
 ### Diferença
 
-Resumo objetivo da divergência.
+Diferença entre CORE e ESPECÍFICO.
 
-### Classificação MCP
+### Classificação
 
-- ADDITION | IDENTICAL | MODIFIED
-
-### Sub-classificação
-
-- Customização própria | Correção do core | Implementação customizada | Código legado | Artefato gerado | NEEDS CLASSIFICATION
-
-Marcadores: [ESPECÍFICO PERMANENTE] | [ESPECÍFICO TEMPORÁRIO] | nenhum
+- Sem alteração
+- Para modificar
+- Para remover
 
 ### Impacto
 
-- Baixo | Médio | Alto
+- Baixo
+- Médio
+- Alto
 
 ### Justificativa
 
-Por que esta classificação.
+Explicação da classificação.
 
 ### Sugestão de alteração
 
-Patch ou merge sugerido (preservar blocos específicos). Omitir se IDENTICAL ou ADDITION sem ação.
-
-```diff
-(sugestão opcional)
-```
+Sugestão técnica de atualização.
 
 ---
 
-(repetir seção **Arquivo** para cada arquivo analisado)
-
-## Resumo
-
-| Métrica | Contagem |
-|---------|----------|
-| Total | |
-| IDENTICAL | |
-| ADDITION | |
-| MODIFIED | |
-
-## Ações recomendadas
-
-- IDENTICAL: candidatos a remoção de `especifico/` se override não for necessário
-- MODIFIED: revisar merge sugerido antes de aplicar
+(repetir a sessão de "Arquivo" para cada arquivo analisado)
