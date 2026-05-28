@@ -19,7 +19,7 @@ Intent, gates, and apply: `ROUTING.md`.
 
 ## Prerequisites
 
-- Read access to core on GitLab at the tag (MCP, local `wapstore/wapstore` clone, `glab`, or API) — Maestro validates via `skills/pre-dispatch-check.md`; optional MCP setup: `docs/guide/mcp/gitlab.md`
+- Read access to core on GitLab at the tag (MCP, existing local checkout, `glab`, or API) — Maestro validates via `skills/pre-dispatch-check.md`; no `git clone` in the flow; optional MCP setup: `docs/guide/mcp/gitlab.md`
 - Client compare: `especifico/` at work repo root; **Versão alvo** in the prompt (see `pre-dispatch-check`)
 
 ## Output

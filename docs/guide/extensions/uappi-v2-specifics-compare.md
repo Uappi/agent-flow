@@ -19,7 +19,7 @@ Compara os overrides do cliente em `especifico/` com o core Wapstore no GitLab n
 1. AgentFlow em `.agents/` no projeto (ou workspace apontando para o repo cliente).
 2. Boot: `Por favor, siga as instruções de .agents/AGENTS.md` — o perfil deve listar `uappi-v2` com `repoKind: client`.
 3. **Versão alvo do core (tag)** e **Relatório** no prompt (obrigatórios).
-4. Leitura do core na tag: MCP GitLab ([gitlab.md](../mcp/gitlab.md)), clone local do `wapstore/wapstore`, `glab` ou API — validado em `skills/pre-dispatch-check.md`.
+4. Leitura do core na tag: MCP GitLab ([gitlab.md](../mcp/gitlab.md)), checkout local **já existente** do `wapstore/wapstore`, `glab` ou API — validado em `skills/pre-dispatch-check.md`.
 
 ## Primeira linha aceita
 

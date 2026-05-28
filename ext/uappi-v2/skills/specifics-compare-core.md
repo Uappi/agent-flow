@@ -3,7 +3,7 @@ shortDescription: Compare especifico/ files against Wapstore core at release tag
 usedBy: [specifics-sync]
 product: uappi-v2
 relatedTo: [gitlab-mcp, gitlab-api, glab]
-version: 0.2.1
+version: 0.2.2
 lastUpdated: 2026-05-28
 ---
 
@@ -25,18 +25,17 @@ Follow `ext/uappi-v2/rules/specifics/workflow.md`.
    - Overrides: `especifico/`
    - Core: `agenciawebart/wapstore/wapstore` @ `target_release`, prefix `core/`
 
-3. **Core access** at `target_release` (Maestro validated via `pre-dispatch-check.md`):
+3. **Core access** at `target_release` (Maestro validated via `pre-dispatch-check.md`). Use **only** these paths, in order:
 
    | Priority | Path |
    |----------|------|
-   | A | GitLab MCP |
-   | B | Local core clone with tag |
-   | C | `glab` / API |
-   | D | Ephemeral clone |
+   | A | GitLab MCP (`get_file_contents` or equivalent) |
+   | B | Read from an **existing** local checkout of `wapstore/wapstore` already at `target_release` (path in brief or known workspace — read-only) |
+   | C | `glab` or GitLab HTTP API with configured token |
 
-   Validate tag with one anchor file under `core/`. On failure, stop.
-   - If the team uses `branch-{tag}` on core, verify it exists (create only when the brief explicitly requests it).
-   - If `client_branch` is set and the work tree is the client repo, checkout when possible; otherwise record the branch in the report header only.
+   Validate by reading one anchor file under `core/` at that ref. If A–C all fail, **stop** — report blocker: user must configure MCP, local checkout, `glab`, or API. Do not proceed.
+
+   - If `client_branch` is set and the work tree is the client repo, `git checkout` on the **client** repo is allowed when needed; record the branch in the report header.
 
 4. **List files**
 
@@ -71,6 +70,7 @@ Follow `ext/uappi-v2/rules/specifics/workflow.md`.
 
 ## Guardrails
 
+- Never run `git clone`, `git fetch` against a new remote, or other shell commands to materialize the core repo. Core content MUST come from A–C above.
 - Never compare `main`/`HEAD`; only `target_release`.
 - Never use `bin/` as comparison source.
 - Never skip equal-to-core files in `01-analise-por-arquivo.md` when mode includes `por arquivo`.
