@@ -1,13 +1,13 @@
-# Product extensions (`ext/`)
+# Extensões de produto (`ext/`)
 
-Optional overlays for product-specific workflows. The AgentFlow **core** (`personas/`, `skills/`, `rules/` at `.agents/` root) stays generic.
+Camadas opcionais para fluxos específicos de produto. O **núcleo** do AgentFlow (`personas/`, `skills/`, `rules/` na raiz de `.agents/`) permanece genérico.
 
-## Layout
+## Estrutura
 
-```
+```text
 ext/<product-id>/
 ├── README.md
-├── ROUTING.md          # Maestro reads when product is active
+├── ROUTING.md          # Maestro lê quando o produto está ativo
 ├── personas/
 ├── skills/
 ├── rules/
@@ -15,23 +15,27 @@ ext/<product-id>/
 └── templates/
 ```
 
-## Activation
+## Ativação
 
-At boot, `skills/product-profile.md` detects signals in the **work repository** (not in `.agents/`) and writes `activeProducts` to session memory.
+No boot, `skills/product-profile.md` detecta sinais no **repositório de trabalho** (não em `.agents/`) e grava `activeProducts` na sessão.
 
-Maestro and `skills/dispatch.md` load `ext/<product-id>/` assets **only** when that id is in `activeProducts` or the task brief names the product.
+Maestro e `skills/dispatch.md` carregam assets de `ext/<product-id>/` **somente** quando esse id está em `activeProducts` ou no brief da tarefa.
 
-## Frontmatter on extension files
+## Frontmatter nos arquivos da extensão
 
 ```yaml
 product: uappi-v2
-scope: specifics-sync   # dispatch rule/skill filter
+scope: specifics-sync   # filtro de regras/skills no dispatch
 ```
 
-## Available extensions
+## Extensões disponíveis
 
-| Product | Folder | Signals (summary) |
-|---------|--------|-------------------|
-| Uappi v2 | `ext/uappi-v2/` | Client: `especifico/` + `.wapstore/build` — Core: `wapstore/wapstore` remote or `core/wapstore/` |
+| Produto | Pasta | Sinais (resumo) |
+|---------|-------|-----------------|
+| Uappi v2 | `ext/uappi-v2/` | Cliente: `especifico/` + `.wapstore/build` — Core: remote `wapstore/wapstore` ou `core/wapstore/` |
 
-See `docs/guide/product-extensions.md` to add a new product.
+## Guias
+
+- Índice: [docs/guide/extensions/README.md](../docs/guide/extensions/README.md)
+- Criar extensão: [create-extension.md](../docs/guide/extensions/create-extension.md)
+- Comparar específicos (Uappi v2): [uappi-v2-specifics-compare.md](../docs/guide/extensions/uappi-v2-specifics-compare.md)

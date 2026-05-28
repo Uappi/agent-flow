@@ -33,6 +33,6 @@ Detalhes de intenção, gates e apply: `ROUTING.md`.
 
 Brief must include **Relatório:** `por arquivo`, `por tarefa`, or `ambos`.
 
-## User guide
+## Guia de uso
 
-`docs/guide/specifics-sync.md`
+[docs/guide/extensions/uappi-v2-specifics-compare.md](../../docs/guide/extensions/uappi-v2-specifics-compare.md)

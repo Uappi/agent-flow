@@ -29,7 +29,7 @@ Skills are collected intelligence on how to operate a specific tool — whether 
 
 ## Product extensions
 
-Skills under `ext/<product-id>/skills/` follow the same schema plus optional **`product`** (e.g. `uappi-v2`). They are injected at dispatch only when `skills/product-profile.md` activated that product. See `ext/README.md` and `docs/guide/product-extensions.md`.
+Skills under `ext/<product-id>/skills/` follow the same schema plus optional **`product`** (e.g. `uappi-v2`). They are injected at dispatch only when `skills/product-profile.md` activated that product. See `ext/README.md` and `docs/guide/extensions/create-extension.md`.
 
 ## When to Extract a Skill
 
