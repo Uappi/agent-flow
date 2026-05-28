@@ -31,7 +31,7 @@ Fields the user must supply in the message before dispatch. If any is missing or
 
 | Flow trigger | Required inputs |
 |---|---|
-| `Comparar específicos` | **Versão alvo do core (tag)** — the core release to compare/update toward. MUST NOT be inferred from `.wapstore/build` (that file is the client's **installed** version only). |
+| `Comparar específicos` | **Versão alvo do core (tag)** |
 | All other flows | — |
 
 ### Required capabilities
@@ -53,8 +53,7 @@ All external resources are treated as private by default. Authenticated access m
 1. **Check required links.** For the matched flow, verify every required link is present in the user's message.
    - If any link is missing: tell the user exactly which link is needed. Do not proceed to step 2. Wait for the user to supply it, then re-run this check.
 
-2. **Check required inputs.** For the matched flow, verify every required input from the table above is present and non-empty in the user's message (e.g. `Versão alvo do core (tag): v2.8.13.0`).
-   - For `Comparar específicos`, reject dispatch if only `.wapstore/build` exists on disk but the user did not state the target tag in the prompt.
+2. **Check required inputs.** For the matched flow, verify every required input from the table above is present and non-empty in the user's message.
    - If any input is missing: tell the user exactly which field is needed. Do not proceed to step 3.
 
 3. **Check required access.** For the matched flow, collect every external URL that will be accessed (required and optionally supplied). For flows that need a provider without a user URL (e.g. `Comparar específicos` → GitLab core at tag), treat the provider as **GitLab** and run the same access check.

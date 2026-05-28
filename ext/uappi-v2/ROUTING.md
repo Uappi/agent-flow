@@ -12,7 +12,7 @@ Read this file when `uappi-v2` is in `activeProducts` (session `## Product Conte
 ## Gates
 
 - **`repoKind: core`:** Do **not** dispatch `specifics-sync`. Tell the user the comparador needs a **client** repository with `especifico/` and `.wapstore/build`, or an absolute client path + release in the brief.
-- **`repoKind: client`:** Dispatch `specifics-sync` only after `skills/pre-dispatch-check.md` passes — requires **Versão alvo do core (tag)** in the prompt (not `.wapstore/build`) and GitLab read at that tag.
+- **`repoKind: client`:** Dispatch `specifics-sync` only after `skills/pre-dispatch-check.md` passes.
 
 ## Apply phase
 

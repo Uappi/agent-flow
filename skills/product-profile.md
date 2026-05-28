@@ -30,7 +30,7 @@ Product-specific personas, skills, and rules live under `ext/<product-id>/`. The
      ```yaml
      uappi-v2:
        repoKind: client
-       installed_release: <from .wapstore/build — current client only, not comparison tag>
+       installed_release: <parsed>
      ```
 
    **Core repo** (`repoKind: core`) — evaluate only if client did not match. **Any one** signal suffices:
@@ -71,7 +71,7 @@ Product-specific personas, skills, and rules live under `ext/<product-id>/`. The
 
 - Maestro routes Uappi extension workflows via `ext/uappi-v2/ROUTING.md` when `uappi-v2` is active — read `## Product Context` for `repoKind`.
 - If `uappi-v2.repoKind` is `core`, do **not** dispatch — explain the flow requires a **client** repo with `especifico/` and `.wapstore/build`, or an absolute client path + release in the task brief.
-- If `uappi-v2` is absent but the user triggers the comparador prompt, dispatch only after `especifico/` exists at the work root (or supplied path) and release is in the brief or `.wapstore/build`.
+- If `uappi-v2` is absent but the user triggers the comparador prompt, dispatch only after `especifico/` exists at the work root (or supplied path) and **Versão alvo** is in the brief.
 
 ## Guardrails
 

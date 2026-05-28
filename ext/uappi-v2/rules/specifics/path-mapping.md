@@ -11,8 +11,8 @@ lastUpdated: 2026-05-27
 - The client overrides directory on disk MUST be named `especifico/` — do not expect `specifics/` on the client.
 - Core counterparts MUST be read from GitLab project `agenciawebart/wapstore/wapstore` at the resolved release tag unless the task brief supplies another project path.
 - `CORE_PATH` MUST be `core/` + relative path after stripping the `especifico/` prefix (example: `especifico/wapstore/classes/Foo.class.php` → `core/wapstore/classes/Foo.class.php`).
-- **`installed_release`** on client repos MAY be read from `.wapstore/build` field `release` for the report only.
-- **`target_release`** MUST come from the user prompt (`Versão alvo do core (tag)`). MUST NOT default to `.wapstore/build`. Without `target_release`, the flow MUST NOT run.
+- **`target_release`** MUST come from the task brief (`Versão alvo do core (tag)`). Without it, stop.
+- **`installed_release`** MAY be read from `.wapstore/build` for the report header only.
 - Reports MUST be saved under `.memory/docs/specifics-sync/YYYY-MM-DD/`.
 
 ## Rationale

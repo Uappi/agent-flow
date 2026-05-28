@@ -9,7 +9,7 @@ lastUpdated: 2026-05-27
 
 ## Purpose
 
-Client repositories keep overrides in `especifico/` that must stay aligned with the compiled core. This skill compares each override file to its counterpart in the core GitLab repository at the **target** release tag supplied in the task brief (the version the client should be updated toward). The **installed** release from `.wapstore/build` is recorded in the report for context only — never used as the comparison tag unless the user explicitly sets the same value in "Versão alvo".
+Compare each file under `especifico/` to its core counterpart on GitLab at the release tag from the task brief. Classify differences and suggest merges; do not apply changes.
 
 ## Procedure
 
@@ -18,11 +18,11 @@ Client repositories keep overrides in `especifico/` that must stay aligned with 
    - `core_gitlab_project` = `agenciawebart/wapstore/wapstore` unless the task brief overrides.
    - `core_path_prefix` = `core/` (validate on first run via MCP).
 
-2. **Resolve releases** (two distinct values):
-   - **`target_release`** (required) — tag in task brief under `Versão alvo do core (tag)` (or equivalent). If missing or empty, stop with blocker: *informe a versão alvo do core no prompt; `.wapstore/build` é só a versão instalada atual.*
-   - **`installed_release`** (informational) — read `.wapstore/build` field `release` when present; include both tags in the report header. Do not compare against `installed_release` unless it equals `target_release` because the user chose that tag.
+2. **Resolve releases** (follows: `ext/uappi-v2/rules/specifics/path-mapping.md`):
+   - **`target_release`** — from task brief; if missing, stop with blocker.
+   - **`installed_release`** — from `.wapstore/build` when present; report header only.
 
-3. **Resolve core access** — all fetches use **`target_release`** only: (prefer first available; Maestro validates via `skills/pre-dispatch-check.md`):
+3. **Resolve core access** at **`target_release`** (prefer first available; Maestro validates via `skills/pre-dispatch-check.md`):
 
    | Priority | Path | Use when |
    |----------|------|----------|
@@ -78,7 +78,6 @@ Client repositories keep overrides in `especifico/` that must stay aligned with 
 ## Guardrails
 
 - Never compare against `main`, `master`, or `HEAD` of core.
-- Never use `.wapstore/build` as `target_release` without the user stating that tag under "Versão alvo" in the prompt.
 - Never treat `bin/` as primary truth — only `especifico/` vs GitLab core at tag.
 - Never omit IDENTICAL files from the report.
 - Never apply patches in this skill — compare only.

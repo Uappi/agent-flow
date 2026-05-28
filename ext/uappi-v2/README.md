@@ -20,7 +20,7 @@ Detalhes de intenção, gates e apply: `ROUTING.md`.
 ## Prerequisites
 
 - Leitura do core no GitLab na tag (MCP, clone local do `wapstore/wapstore`, `glab`, ou API) — Maestro valida em `skills/pre-dispatch-check.md`; setup MCP opcional: `docs/guide/mcp/gitlab.md`
-- Client compare: `especifico/` at work repo root, `.wapstore/build` = installed version (report only), **Versão alvo** in prompt = mandatory comparison tag
+- Client compare: `especifico/` at work repo root; **Versão alvo** no prompt (ver `pre-dispatch-check`)
 
 ## Output
 

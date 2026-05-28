@@ -2,8 +2,8 @@
 
 Data da análise: {YYYY-MM-DD}
 Projeto:
-Versão instalada no cliente (.wapstore/build):
-Versão alvo do core (comparação):
+Versão instalada:
+Versão alvo:
 Quantidade de arquivos em especifico/:
 
 ---
