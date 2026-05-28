@@ -1,8 +1,8 @@
 ---
 shortDescription: Session startup — gitignore, auto-update, memory, rules, context, CLI config, caveman, and greet.
 usedBy: [maestro]
-version: 0.5.1
-lastUpdated: 2026-05-27
+version: 0.5.2
+lastUpdated: 2026-05-28
 ---
 
 ## Purpose
@@ -45,7 +45,7 @@ Before step 1, enforce this startup behavior:
 
 3. **Memory.** Load memory (uses: `skills/agent-memory.md`).
 
-4. **Product profile.** Read and follow `skills/product-profile.md`. Store `activeProducts` and per-product `repoKind` in the current session file under `## Product Context`. Note values for step 8 — do not load `ext/` file contents yet.
+4. **Product profile.** Read and follow `skills/product-profile.md`. Store `activeProducts` and per-product `repoKind` in the current session file under `## Product Context`. Note `activeProducts` for step 8 — no other `ext/` reads until the greeting block.
 
 5. **CLI configuration.** Run:
 
@@ -120,10 +120,11 @@ Before step 1, enforce this startup behavior:
      - Análise inicial — `prompts/support/initial-analysis.md`
      - RCA — `prompts/support/rca.md`
 
-   - If step 4 listed `uappi-v2` in `activeProducts`, append this block immediately after **Suporte**, same format as the categories above:
-
-     **Uappi v2**
-     - Comparar específicos — `ext/uappi-v2/prompts/task/specifics-compare.md`
+   - If step 4 left `activeProducts` non-empty, append one category per id immediately after **Suporte** (same bullet format as above). For each `<product-id>` in `activeProducts`:
+     - **Heading:** title from the first `# ` line in `ext/<product-id>/README.md`, or `<product-id>` if missing.
+     - **Bullets:** one per `ext/<product-id>/prompts/**/*.md` file — path `ext/<product-id>/<relative-path>`.
+     - **Label:** first non-empty line of that prompt (strip a trailing `:`); if missing, use the filename without `.md`.
+     - Read only those README first lines and prompt first lines — not prompt bodies, `ROUTING.md`, skills, or rules.
 
    - End with exactly:
      > Diga qual fluxo quer usar e mostro o template para copiar e preencher.

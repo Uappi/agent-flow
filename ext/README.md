@@ -19,6 +19,8 @@ ext/<product-id>/
 
 No boot, `skills/product-profile.md` detecta sinais no **repositório de trabalho** (não em `.agents/`) e grava `activeProducts` na sessão.
 
+No greeting do boot (`skills/boot.md`), cada id em `activeProducts` ganha uma categoria na saudação: título do `README.md` da extensão e um bullet por arquivo em `prompts/` (rótulo = primeira linha do prompt).
+
 Maestro e `skills/dispatch.md` carregam assets de `ext/<product-id>/` **somente** quando esse id está em `activeProducts` ou no brief da tarefa.
 
 ## Frontmatter nos arquivos da extensão
