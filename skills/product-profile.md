@@ -1,7 +1,7 @@
 ---
 shortDescription: Detect active product extensions from the work repository and persist repoKind for dispatch.
 usedBy: [maestro]
-version: 0.1.1
+version: 0.1.2
 lastUpdated: 2026-05-28
 ---
 
@@ -46,14 +46,11 @@ Product-specific personas, skills, and rules live under `ext/<product-id>/`. The
 
    When matched:
    - Append `uappi-v2` to `activeProducts`
-   - Optional ref: `git describe --tags --exact-match 2>/dev/null` or current branch name
-   - Write context:
+   - Write context (only `repoKind` — comparador and gates read nothing else from session for core):
 
      ```yaml
      uappi-v2:
        repoKind: core
-       core_gitlab_project: agenciawebart/wapstore/wapstore
-       ref: <tag-or-branch-if-resolved>
      ```
 
 3. **Persist** under `## Product Context` in the current session file:
