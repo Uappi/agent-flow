@@ -19,7 +19,7 @@ Compara os overrides do cliente em `especifico/` com o core Wapstore no GitLab n
 1. AgentFlow em `.agents/` no projeto (ou workspace apontando para o repo cliente).
 2. Boot: `Por favor, siga as instruções de .agents/AGENTS.md` — o perfil deve listar `uappi-v2` com `repoKind: client`.
 3. **Versão alvo do core (tag)** e **Relatório** no prompt (obrigatórios).
-4. Leitura do core na tag: MCP GitLab ([gitlab.md](../mcp/gitlab.md)), checkout local **já existente** do `wapstore/wapstore`, `glab` ou API — validado em `skills/pre-dispatch-check.md`.
+4. Leitura do core na tag: MCP GitLab ([gitlab.md](../mcp/gitlab.md)), checkout local **já existente** do `wapstore/wapstore`, `glab` ou API — acesso e **existência da tag** validados em `skills/pre-dispatch-check.md` (passos 3–4) antes do dispatch.
 
 ## Primeira linha aceita
 
@@ -59,7 +59,7 @@ Contexto opcional:
 
 ## O que acontece no fluxo
 
-1. Maestro valida links/campos (`pre-dispatch-check`) e acesso ao GitLab na tag.
+1. Maestro valida links/campos (`pre-dispatch-check`), acesso ao GitLab e existência da tag alvo (sem `git clone`).
 2. Dispatch da persona `ext/uappi-v2/personas/specifics-sync.md`.
 3. Comparação arquivo a arquivo; classificação (customização própria, correção do core, etc.).
 4. Relatório(s) gravados em `.memory/docs/specifics-sync/YYYY-MM-DD/`.

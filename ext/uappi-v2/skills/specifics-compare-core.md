@@ -3,7 +3,7 @@ shortDescription: Compare especifico/ files against Wapstore core at release tag
 usedBy: [specifics-sync]
 product: uappi-v2
 relatedTo: [gitlab-mcp, gitlab-api, glab]
-version: 0.2.2
+version: 0.2.3
 lastUpdated: 2026-05-28
 ---
 
@@ -25,7 +25,7 @@ Follow `ext/uappi-v2/rules/specifics/workflow.md`.
    - Overrides: `especifico/`
    - Core: `agenciawebart/wapstore/wapstore` @ `target_release`, prefix `core/`
 
-3. **Core access** at `target_release` (Maestro validated via `pre-dispatch-check.md`). Use **only** these paths, in order:
+3. **Core access** at `target_release` (`pre-dispatch-check.md` already confirmed tag existence in step 4). Use **only** these paths, in order:
 
    | Priority | Path |
    |----------|------|
@@ -33,7 +33,7 @@ Follow `ext/uappi-v2/rules/specifics/workflow.md`.
    | B | Read from an **existing** local checkout of `wapstore/wapstore` already at `target_release` (path in brief or known workspace — read-only) |
    | C | `glab` or GitLab HTTP API with configured token |
 
-   Validate by reading one anchor file under `core/` at that ref. If A–C all fail, **stop** — report blocker: user must configure MCP, local checkout, `glab`, or API. Do not proceed.
+   Read one anchor file under `core/` at that ref to confirm content is readable. If A–C all fail, **stop** — report blocker: user must configure MCP, local checkout, `glab`, or API. Do not proceed.
 
    - If `client_branch` is set and the work tree is the client repo, `git checkout` on the **client** repo is allowed when needed; record the branch in the report header.
 
