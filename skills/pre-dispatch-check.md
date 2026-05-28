@@ -1,7 +1,7 @@
 ---
 shortDescription: Pre-dispatch requirements gate — verifies links and capabilities before any persona is dispatched.
 usedBy: [maestro]
-version: 0.3.2
+version: 0.3.3
 lastUpdated: 2026-05-27
 ---
 
@@ -22,7 +22,16 @@ Links the user must supply before dispatch. If any is missing, ask for it — do
 | `Documentação de Implementação` | task/issue URL |
 | `Análise suporte`, `Triagem suporte`, `Diagnóstico suporte`, `Análise N2`, `Triagem N2`, `Diagnóstico N2`, `Documentação Analise inicial` | support task URL |
 | `RCA suporte`, `RCA N2`, `Análise profunda suporte`, `Análise profunda N2`, `Causa raiz suporte`, `Causa raiz N2` | support task URL |
-| `Comparar específicos` (Uappi v2; see `ext/uappi-v2/ROUTING.md`) | — (release from `.wapstore/build` or prompt; optional core GitLab project override) |
+| `Comparar específicos` (Uappi v2; see `ext/uappi-v2/ROUTING.md`) | — |
+| All other flows | — |
+
+### Required inputs (non-URL)
+
+Fields the user must supply in the message before dispatch. If any is missing or empty, ask for it — do not dispatch.
+
+| Flow trigger | Required inputs |
+|---|---|
+| `Comparar específicos` | **Versão alvo do core (tag)** — the core release to compare/update toward. MUST NOT be inferred from `.wapstore/build` (that file is the client's **installed** version only). |
 | All other flows | — |
 
 ### Required capabilities
@@ -36,7 +45,7 @@ All external resources are treated as private by default. Authenticated access m
 | `Documentação de Implementação` | task/issue URL, MR/PR URL (if supplied) |
 | `Análise suporte`, `Triagem suporte`, `Diagnóstico suporte`, `Análise N2`, `Triagem N2`, `Diagnóstico N2`, `Documentação Analise inicial` | support task URL |
 | `RCA suporte`, `RCA N2`, `Análise profunda suporte`, `Análise profunda N2`, `Causa raiz suporte`, `Causa raiz N2` | support task URL, MR/PR URL (if supplied), release URL (if supplied) |
-| `Comparar específicos` | GitLab read access to core project `agenciawebart/wapstore/wapstore` (or brief override) at resolved release tag — not a user URL; verify provider access per step 2 |
+| `Comparar específicos` | GitLab read access to core project `agenciawebart/wapstore/wapstore` (or brief override) at **target** release tag from required inputs — verify provider access per step 2 |
 | All other flows | — |
 
 ## Procedure
@@ -44,15 +53,19 @@ All external resources are treated as private by default. Authenticated access m
 1. **Check required links.** For the matched flow, verify every required link is present in the user's message.
    - If any link is missing: tell the user exactly which link is needed. Do not proceed to step 2. Wait for the user to supply it, then re-run this check.
 
-2. **Check required access.** For the matched flow, collect every external URL that will be accessed (required and optionally supplied). For flows that need a provider without a user URL (e.g. `Comparar específicos` → GitLab core at tag), treat the provider as **GitLab** and run the same access check.
+2. **Check required inputs.** For the matched flow, verify every required input from the table above is present and non-empty in the user's message (e.g. `Versão alvo do core (tag): v2.8.13.0`).
+   - For `Comparar específicos`, reject dispatch if only `.wapstore/build` exists on disk but the user did not state the target tag in the prompt.
+   - If any input is missing: tell the user exactly which field is needed. Do not proceed to step 3.
+
+3. **Check required access.** For the matched flow, collect every external URL that will be accessed (required and optionally supplied). For flows that need a provider without a user URL (e.g. `Comparar específicos` → GitLab core at tag), treat the provider as **GitLab** and run the same access check.
 
    For each URL or required provider:
    a. Identify the provider — `github.com` → GitHub, `gitlab.com` → GitLab, `monday.com` → Monday, and so on.
    b. Confirm **any** authenticated read path works — not only MCP. Valid examples: GitLab MCP, `glab` CLI with token, local clone of the core repo with `git fetch` / checkout tag, `GITLAB_TOKEN` + API, or host tooling that can read `gitlab.com` private content.
-   c. If access is confirmed for all providers: proceed to step 3.
+   c. If access is confirmed for all providers: proceed to step 4.
    d. If access to any provider cannot be confirmed: inform the user — *"Não há acesso autenticado configurado para [provider]. Configure MCP, token, clone local, ou equivalente e tente novamente."* Do not dispatch. Stop here.
 
-3. **Proceed.** All requirements resolved — continue with dispatch.
+4. **Proceed.** All requirements resolved — continue with dispatch.
 
 ## Guardrails
 

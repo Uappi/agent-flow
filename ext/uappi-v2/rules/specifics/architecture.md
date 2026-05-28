@@ -8,7 +8,8 @@ lastUpdated: 2026-05-27
 
 ## Statement
 
-- **Core** (GitLab `wapstore/wapstore` at tag) is the functional source of truth for shared behavior.
+- **Core** (GitLab `wapstore/wapstore` at **target** tag from the prompt) is the functional source of truth for the comparison.
+- **`.wapstore/build`** on the client records the **installed** release — context for the report, not the default comparison tag.
 - **Client `especifico/`** holds overrides that mirror `bin/` layout but are maintained separately before compile.
 - **`bin/`** is the compiled merge of core + especifico — read-only for this workflow.
 - **`tema/`** is out of scope for v1 compare unless the task brief explicitly includes it.

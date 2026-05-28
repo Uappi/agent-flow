@@ -30,8 +30,7 @@ Product-specific personas, skills, and rules live under `ext/<product-id>/`. The
      ```yaml
      uappi-v2:
        repoKind: client
-       client_overrides_dir: especifico
-       release: <parsed or unknown>
+       installed_release: <from .wapstore/build — current client only, not comparison tag>
      ```
 
    **Core repo** (`repoKind: core`) — evaluate only if client did not match. **Any one** signal suffices:

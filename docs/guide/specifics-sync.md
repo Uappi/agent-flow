@@ -1,6 +1,6 @@
 # Comparar específicos (specifics sync)
 
-Sincroniza overrides do cliente (`especifico/`) com o core Wapstore no GitLab na tag de release instalada.
+Sincroniza overrides do cliente (`especifico/`) com o core Wapstore na **versão alvo** que você informar no prompt.
 
 ## Quando usar
 
@@ -21,9 +21,12 @@ Copie de `ext/uappi-v2/prompts/task/specifics-compare.md`:
 ```text
 Comparar específicos:
 
-Release do core (tag): <opcional — padrão .wapstore/build>
-Escopo: <opcional — subpasta de especifico/>
+Versão alvo do core: <tag>
+
+Escopo: <opcional>
 ```
+
+Sem **Versão alvo**, o Maestro não despacha.
 
 Roteamento e gates: `ext/uappi-v2/ROUTING.md` (Maestro lê quando `uappi-v2` está ativo).
 
