@@ -1,8 +1,8 @@
 ---
 shortDescription: Session startup — gitignore, auto-update, memory, rules, context, CLI config, caveman, and greet.
 usedBy: [maestro]
-version: 0.4.9
-lastUpdated: 2026-05-22
+version: 0.5.2
+lastUpdated: 2026-05-28
 ---
 
 ## Purpose
@@ -18,7 +18,7 @@ All framework files live under `.agents/`. Markdown references within the framew
 Before step 1, enforce this startup behavior:
 - Do not send acknowledgement-only messages (for example, "I read the instructions").
 - Do not continue to dispatch, planning, or general conversation before boot finishes.
-- Boot is complete only after step 8 greeting is sent.
+- Boot is complete only after step 9 greeting is sent.
 
 1. **Gitignore.** Ensure `.agents/`, `.memory/`, and `opencode.json` are in the project's `.gitignore`. Run:
 
@@ -45,7 +45,9 @@ Before step 1, enforce this startup behavior:
 
 3. **Memory.** Load memory (uses: `skills/agent-memory.md`).
 
-4. **CLI configuration.** Run:
+4. **Product profile.** Read and follow `skills/product-profile.md`. Store `activeProducts` and per-product `repoKind` in the current session file under `## Product Context`. Note `activeProducts` for step 8 — no other `ext/` reads until the greeting block.
+
+5. **CLI configuration.** Run:
 
    ```bash
    bash .agents/skills/assets/maestro-boot-configure-cli.sh <your-model-id>
@@ -58,17 +60,17 @@ Before step 1, enforce this startup behavior:
     - If `yq` or `jq` is not installed, the script prints a skip message — no action needed.
     - If no supported CLI config file is found, the script exits silently — no action needed.
 
-5. **Load the rules index.** Read `rules/README.md` to know what rules are available and their scopes. Do not read the individual rule files — sub-agents will read them when dispatched.
+6. **Load the rules index.** Read `rules/README.md` to know what rules are available and their scopes. Do not read the individual rule files — sub-agents will read them when dispatched.
 
-6. **Context.** Verify the project has context files. Run:
+7. **Context.** Verify the project has context files. Run:
 
    ```bash
    find . -name ".context.md" -not -path "*/node_modules/*" -not -path "*/.git/*" -not -path "*/vendor/*" -not -path "*/.cache/*" -print -quit
    ```
 
-   Note the result — it is used in step 8.
+   Note the result — it is used in step 9.
 
-7. **Caveman.** Activate only when caveman is available **to the current host runtime** — never because it exists on another IDE on the same machine (e.g. caveman in Cursor while running OpenCode).
+8. **Caveman.** Activate only when caveman is available **to the current host runtime** — never because it exists on another IDE on the same machine (e.g. caveman in Cursor while running OpenCode).
 
    1. **Identify host runtime** — same procedure as `skills/dispatch.md` step 1 (`ps -p $PPID -o comm=` → `opencode`, `cursor-agent`, `claude`, `codex`, etc.). Store the host id for this session.
    2. **Host skills list** — if the runtime exposes an available-skills list, `caveman` must appear **there** to count as available. Do not infer availability from skills installed for other hosts.
@@ -83,13 +85,13 @@ Before step 1, enforce this startup behavior:
 
    **Activate** when step 2 **or** step 3 reports availability. Otherwise skip silently. When activating, read the resolved skill file and apply **`/caveman ultra`**. Persist until `stop caveman` or `normal mode`. Code, commits, PR bodies, and sub-agent dispatch prompts stay normal.
 
-   **Greeting exception:** step 8 uses the mandatory contract below in `pt-BR` (not caveman). Append the line below **only if** step 7 activated caveman — never on `caveman: skip`:
+   **Greeting exception:** step 9 uses the mandatory contract below in `pt-BR` (not caveman). Append the line below **only if** step 8 activated caveman — never on `caveman: skip`:
 
    > Modo **caveman** (`ultra`) ativo nas próximas respostas. Diga **normal mode** ou **stop caveman** para desligar.
 
-8. **Greet.** Send the greeting below to the user now. This is the final and mandatory action of boot — do not add preamble, do not summarize, do not defer. Boot is not complete until this message is sent.
+9. **Greet.** Send the greeting below to the user now. This is the final and mandatory action of boot — do not add preamble, do not summarize, do not defer. Boot is not complete until this message is sent.
 
-   If step 6 produced no output, append this line at the end of the greeting before sending:
+   If step 7 produced no output, append this line at the end of the greeting before sending:
    > Ainda não há mapa de contexto no repositório. Use o prompt de mapeamento de contexto com o escopo desejado para gerá-lo, ou diga se prefere seguir sem um.
 
    **Greeting contract (mandatory):**
@@ -118,12 +120,18 @@ Before step 1, enforce this startup behavior:
      - Análise inicial — `prompts/support/initial-analysis.md`
      - RCA — `prompts/support/rca.md`
 
+   - If step 4 left `activeProducts` non-empty, append one category per id immediately after **Suporte** (same bullet format as above). For each `<product-id>` in `activeProducts`:
+     - **Heading:** title from the first `# ` line in `ext/<product-id>/README.md`, or `<product-id>` if missing.
+     - **Bullets:** one per `ext/<product-id>/prompts/**/*.md` file — path `ext/<product-id>/<relative-path>`.
+     - **Label:** first non-empty line of that prompt (strip a trailing `:`); if missing, use the filename without `.md`.
+     - Read only those README first lines and prompt first lines — not prompt bodies, `ROUTING.md`, skills, or rules.
+
    - End with exactly:
      > Diga qual fluxo quer usar e mostro o template para copiar e preencher.
 
    **Greeting ends here.**
 
-   If both the step 6 context appendix and the step 7 caveman appendix apply, send in this order: greeting contract (including mandatory end line) → context appendix → caveman appendix.
+   If both the step 7 context appendix and the step 8 caveman appendix apply, send in this order: greeting contract (including mandatory end line) → context appendix → caveman appendix.
 
 ## Guardrails
 

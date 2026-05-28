@@ -40,6 +40,7 @@ The framework **learns as it works**. Corrections, preferences, and lessons are 
 | `Documentação de Implementação` | Documenter | `.memory/docs/implementations/implementation-<ID>-<topic>.docx` |
 | `Análise suporte` / `Triagem suporte` | Support | `.memory/docs/support/triage/triage-<ID>-<topic>.md` |
 | `RCA suporte` / `Análise profunda suporte` | Support | `.memory/docs/support/rca/rca-<ID>-<topic>.md` |
+| `Comparar específicos` (Uappi v2 client) | specifics-sync (`ext/uappi-v2/`) | `.memory/docs/specifics-sync/<date>/` — [guia](docs/guide/extensions/uappi-v2-specifics-compare.md) |
 
 External context:
 

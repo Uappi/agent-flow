@@ -1,8 +1,8 @@
 ---
 shortDescription: Pre-dispatch requirements gate — verifies links and capabilities before any persona is dispatched.
 usedBy: [maestro]
-version: 0.3.1
-lastUpdated: 2026-05-22
+version: 0.3.6
+lastUpdated: 2026-05-28
 ---
 
 ## Purpose
@@ -22,6 +22,16 @@ Links the user must supply before dispatch. If any is missing, ask for it — do
 | `Documentação de Implementação` | task/issue URL |
 | `Análise suporte`, `Triagem suporte`, `Diagnóstico suporte`, `Análise N2`, `Triagem N2`, `Diagnóstico N2`, `Documentação Analise inicial` | support task URL |
 | `RCA suporte`, `RCA N2`, `Análise profunda suporte`, `Análise profunda N2`, `Causa raiz suporte`, `Causa raiz N2` | support task URL |
+| `Comparar específicos` (Uappi v2; see `ext/uappi-v2/ROUTING.md`) | — |
+| All other flows | — |
+
+### Required inputs (non-URL)
+
+Fields the user must supply in the message before dispatch. If any is missing or empty, ask for it — do not dispatch.
+
+| Flow trigger | Required inputs |
+|---|---|
+| `Comparar específicos` | **Versão alvo do core (tag)**; **Relatório:** `por arquivo`, `por tarefa`, ou `ambos` |
 | All other flows | — |
 
 ### Required capabilities
@@ -35,6 +45,7 @@ All external resources are treated as private by default. Authenticated access m
 | `Documentação de Implementação` | task/issue URL, MR/PR URL (if supplied) |
 | `Análise suporte`, `Triagem suporte`, `Diagnóstico suporte`, `Análise N2`, `Triagem N2`, `Diagnóstico N2`, `Documentação Analise inicial` | support task URL |
 | `RCA suporte`, `RCA N2`, `Análise profunda suporte`, `Análise profunda N2`, `Causa raiz suporte`, `Causa raiz N2` | support task URL, MR/PR URL (if supplied), release URL (if supplied) |
+| `Comparar específicos` | GitLab read access to core project `agenciawebart/wapstore/wapstore` (or brief override) at **target** release tag — verify provider in step 3, tag existence in step 4 |
 | All other flows | — |
 
 ## Procedure
@@ -42,13 +53,34 @@ All external resources are treated as private by default. Authenticated access m
 1. **Check required links.** For the matched flow, verify every required link is present in the user's message.
    - If any link is missing: tell the user exactly which link is needed. Do not proceed to step 2. Wait for the user to supply it, then re-run this check.
 
-2. **Check required access.** For the matched flow, collect every external URL that will be accessed (required and optionally supplied). For each URL:
-   a. Identify the provider from the URL — `github.com` → GitHub, `gitlab.com` → GitLab, `monday.com` → Monday, and so on.
-   b. Check whether authenticated access to that provider is available in the current session — MCP configured, API token set, or any other active access path.
-   c. If access is confirmed for all providers: proceed to step 3.
-   d. If access to any provider cannot be confirmed: inform the user — *"Não há acesso autenticado configurado para [provider]. Sem ele não é possível acessar [URL]. Configure um meio de acesso (MCP, token, ou equivalente) e tente novamente."* Do not dispatch. Stop here.
+2. **Check required inputs.** For the matched flow, verify every required input from the table above is present and non-empty in the user's message.
+   - If any input is missing: tell the user exactly which field is needed. Do not proceed to step 3.
 
-3. **Proceed.** All requirements resolved — continue with dispatch.
+3. **Check required access.** For the matched flow, collect every external URL that will be accessed (required and optionally supplied). For flows that need a provider without a user URL (e.g. `Comparar específicos` → GitLab core at tag), treat the provider as **GitLab** and run the same access check.
+
+   For each URL or required provider:
+   a. Identify the provider — `github.com` → GitHub, `gitlab.com` → GitLab, `monday.com` → Monday, and so on.
+   b. Confirm **any** authenticated read path works — not only MCP. Valid examples: GitLab MCP, `glab` CLI with token, existing local checkout of the core repo, `GITLAB_TOKEN` + API, or host tooling that can read `gitlab.com` private content.
+   c. For `Comparar específicos`, when GitLab access succeeds: **record which path worked** (e.g. MCP, `glab`, local checkout, API) — step 4 uses **only** that path.
+   d. If access is confirmed for all providers: proceed to step 4 (or step 5 when step 4 does not apply).
+   e. If access to any provider cannot be confirmed: inform the user — *"Não há acesso autenticado configurado para [provider]. Configure MCP, token, clone local, ou equivalente e tente novamente."* Do not dispatch. Stop here.
+
+4. **Validate core tag** (only `Comparar específicos`). Using **Versão alvo do core (tag)** from step 2 as `target_release` (strip a leading `refs/tags/` if present) and GitLab project `agenciawebart/wapstore/wapstore` unless the brief names another core project path.
+
+   Confirm the tag **exists** using **only** the GitLab path recorded in step 3c — **one** read-only check, **no** fallback to another tool. MUST NOT run `git clone`.
+
+   Examples (use the path that worked in step 3, not all of them):
+   - **MCP** — read any file under `core/` at ref `target_release`.
+   - **`glab`** — tag lookup on the core project (e.g. `repository/tags/<target_release>`).
+   - **Local checkout** — `git rev-parse` / `git cat-file` for `refs/tags/<target_release>` in that repo.
+   - **API** — equivalent tag/ref existence call with the same token as step 3.
+
+   Outcomes:
+   - **Tag reachable** — proceed to step 5.
+   - **Repo reachable but tag/ref missing** (404, empty `ls-remote`, unknown ref, etc.) — tell the user — *"A tag `<target_release>` não foi encontrada no projeto core. Verifique a Versão alvo (typo ou tag inexistente)."* Do not dispatch. **Do not** retry with MCP, `glab`, `git ls-remote`, or any other access path.
+   - **Cannot run the check on the recorded path** — treat as step 3 failure (access not actually usable for this flow); do not probe other tools in step 4.
+
+5. **Proceed.** All requirements resolved — continue with dispatch.
 
 ## Guardrails
 
@@ -56,4 +88,6 @@ All external resources are treated as private by default. Authenticated access m
 - Never dispatch when access to any required provider cannot be confirmed. There is no fallback — dispatch would produce an empty run.
 - Check each supplied URL independently — a flow may involve multiple providers (e.g. Monday task + GitLab MR), each requiring its own access path.
 - Never skip the access check for flows listed in the table — only flows not listed are exempt.
+- For `Comparar específicos`, never skip step 4 — a typo or missing tag must block dispatch before the persona runs.
+- For `Comparar específicos`, step 4 uses a single GitLab path from step 3 — if the repo is reachable but the tag is missing, never fall back to another tool.
 - `All other flows` in the Required Links table means no link is required as a pre-condition for that flow. It does not exempt those flows from dispatch, the review loop, or any other playbook step. The full Playbook remains mandatory.

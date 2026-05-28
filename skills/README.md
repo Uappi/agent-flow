@@ -25,6 +25,11 @@ Skills are collected intelligence on how to operate a specific tool — whether 
 - `review-scoping` — Groups a file list into LOC-bounded review blocks respecting module co-location
 - `structural-brief` — Produces a structural brief from .context.md files for codebase orientation
 - `task-tracking` — File-based to-do tracking for multi-step and multi-session work
+- `product-profile` — Detect active product extensions from the work repo (`ext/`) at boot
+
+## Product extensions
+
+Skills under `ext/<product-id>/skills/` follow the same schema plus optional **`product`** (e.g. `uappi-v2`). They are injected at dispatch only when `skills/product-profile.md` activated that product — see `ext/README.md` and `skills/dispatch.md`.
 
 ## When to Extract a Skill
 
@@ -50,6 +55,7 @@ Persona-specific skills are prefixed with the persona name: `coder-linting.md`, 
 - **`relatedTo`** (Optional) — External tools, CLIs, or APIs this skill wraps or abstracts. Example: `[docker, awk]` or `[anthropic-api]`
 - **`version`** (Required) — Semantic version. Example: `0.1.0`
 - **`lastUpdated`** (Required) — Last modification date. Example: `2026-02-05`
+- **`product`** (Optional) — Product extension id when the skill lives under `ext/<product>/`. Example: `uappi-v2`
 
 ### Body
 
