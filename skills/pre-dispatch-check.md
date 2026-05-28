@@ -1,7 +1,7 @@
 ---
 shortDescription: Pre-dispatch requirements gate — verifies links and capabilities before any persona is dispatched.
 usedBy: [maestro]
-version: 0.3.5
+version: 0.3.6
 lastUpdated: 2026-05-28
 ---
 
@@ -60,22 +60,25 @@ All external resources are treated as private by default. Authenticated access m
 
    For each URL or required provider:
    a. Identify the provider — `github.com` → GitHub, `gitlab.com` → GitLab, `monday.com` → Monday, and so on.
-   b. Confirm **any** authenticated read path works — not only MCP. Valid examples: GitLab MCP, `glab` CLI with token, existing local checkout of the core repo at the tag, `GITLAB_TOKEN` + API, or host tooling that can read `gitlab.com` private content.
-   c. If access is confirmed for all providers: proceed to step 4 (or step 5 when step 4 does not apply).
-   d. If access to any provider cannot be confirmed: inform the user — *"Não há acesso autenticado configurado para [provider]. Configure MCP, token, clone local, ou equivalente e tente novamente."* Do not dispatch. Stop here.
+   b. Confirm **any** authenticated read path works — not only MCP. Valid examples: GitLab MCP, `glab` CLI with token, existing local checkout of the core repo, `GITLAB_TOKEN` + API, or host tooling that can read `gitlab.com` private content.
+   c. For `Comparar específicos`, when GitLab access succeeds: **record which path worked** (e.g. MCP, `glab`, local checkout, API) — step 4 uses **only** that path.
+   d. If access is confirmed for all providers: proceed to step 4 (or step 5 when step 4 does not apply).
+   e. If access to any provider cannot be confirmed: inform the user — *"Não há acesso autenticado configurado para [provider]. Configure MCP, token, clone local, ou equivalente e tente novamente."* Do not dispatch. Stop here.
 
 4. **Validate core tag** (only `Comparar específicos`). Using **Versão alvo do core (tag)** from step 2 as `target_release` (strip a leading `refs/tags/` if present) and GitLab project `agenciawebart/wapstore/wapstore` unless the brief names another core project path.
 
-   Confirm the tag **exists** on that project before dispatch. Read-only checks only — MUST NOT run `git clone`.
+   Confirm the tag **exists** using **only** the GitLab path recorded in step 3c — **one** read-only check, **no** fallback to another tool. MUST NOT run `git clone`.
 
-   Try in order; stop when one succeeds:
-   a. **GitLab MCP** — read any file under `core/` at ref `target_release` (e.g. `core/wapstore/.gitkeep` or another path known to exist on typical releases). Success means the tag is reachable.
-   b. **`glab`** (when authenticated) — e.g. `glab api projects/agenciawebart%2Fwapstore%2Fwapstore/repository/tags/<target_release>` or equivalent tag lookup.
-   c. **`git ls-remote`** (when remote credentials work) — e.g. `git ls-remote git@gitlab.com:agenciawebart/wapstore/wapstore.git refs/tags/<target_release>` and verify the ref is listed.
+   Examples (use the path that worked in step 3, not all of them):
+   - **MCP** — read any file under `core/` at ref `target_release`.
+   - **`glab`** — tag lookup on the core project (e.g. `repository/tags/<target_release>`).
+   - **Local checkout** — `git rev-parse` / `git cat-file` for `refs/tags/<target_release>` in that repo.
+   - **API** — equivalent tag/ref existence call with the same token as step 3.
 
-   If the tag cannot be confirmed: tell the user — *"A tag `<target_release>` não foi encontrada no projeto core (ou não há acesso de leitura a ela). Corrija a Versão alvo ou configure MCP/glab/remote."* Do not dispatch. Stop here.
-
-   If step 3 confirmed access but no tool in (a–c) can run the check, still attempt (a) using the same path confirmed in step 3; if that fails, apply the blocker above.
+   Outcomes:
+   - **Tag reachable** — proceed to step 5.
+   - **Repo reachable but tag/ref missing** (404, empty `ls-remote`, unknown ref, etc.) — tell the user — *"A tag `<target_release>` não foi encontrada no projeto core. Verifique a Versão alvo (typo ou tag inexistente)."* Do not dispatch. **Do not** retry with MCP, `glab`, `git ls-remote`, or any other access path.
+   - **Cannot run the check on the recorded path** — treat as step 3 failure (access not actually usable for this flow); do not probe other tools in step 4.
 
 5. **Proceed.** All requirements resolved — continue with dispatch.
 
@@ -86,4 +89,5 @@ All external resources are treated as private by default. Authenticated access m
 - Check each supplied URL independently — a flow may involve multiple providers (e.g. Monday task + GitLab MR), each requiring its own access path.
 - Never skip the access check for flows listed in the table — only flows not listed are exempt.
 - For `Comparar específicos`, never skip step 4 — a typo or missing tag must block dispatch before the persona runs.
+- For `Comparar específicos`, step 4 uses a single GitLab path from step 3 — if the repo is reachable but the tag is missing, never fall back to another tool.
 - `All other flows` in the Required Links table means no link is required as a pre-condition for that flow. It does not exempt those flows from dispatch, the review loop, or any other playbook step. The full Playbook remains mandatory.
