@@ -1,8 +1,8 @@
 ---
 shortDescription: Detect active product extensions from the work repository and persist repoKind for dispatch.
 usedBy: [maestro]
-version: 0.1.0
-lastUpdated: 2026-05-27
+version: 0.1.1
+lastUpdated: 2026-05-28
 ---
 
 ## Purpose
@@ -11,7 +11,7 @@ Product-specific personas, skills, and rules live under `ext/<product-id>/`. The
 
 ## Procedure
 
-1. **Initialize** `activeProducts: []` and clear any prior `## Product Context` block in the current session file (uses: `skills/agent-memory.md`).
+1. **Initialize** `activeProducts: []` and replace only the `## Product Context` block in the current session file (uses: `skills/agent-memory.md`). **Do not** alter `## Status`, `## Last Active`, `## Current Task`, `## Active Todo`, or `## Log`.
 
 2. **Evaluate `uappi-v2`** in order — stop at the first matching kind.
 
@@ -78,3 +78,4 @@ Product-specific personas, skills, and rules live under `ext/<product-id>/`. The
 - Never assume `uappi-v2` on repos without signals unless the user explicitly forces the product in the task brief — still validate `especifico/` for compare mode.
 - Never rename the client folder `especifico/` — detection uses that name on disk.
 - Product context is session-scoped; re-run this skill on boot each session.
+- Never rewrite or truncate `## Log` when updating product context.
