@@ -1,8 +1,8 @@
 ---
 shortDescription: Session startup — gitignore, auto-update, memory, rules, context, CLI config, caveman, and greet.
 usedBy: [maestro]
-version: 0.5.2
-lastUpdated: 2026-05-28
+version: 0.5.3
+lastUpdated: 2026-06-01
 ---
 
 ## Purpose
@@ -65,7 +65,7 @@ Before step 1, enforce this startup behavior:
 7. **Context.** Verify the project has context files. Run:
 
    ```bash
-   find . -name ".context.md" -not -path "*/node_modules/*" -not -path "*/.git/*" -not -path "*/vendor/*" -not -path "*/.cache/*" -print -quit
+   find . -name ".context.md" 2>/dev/null | grep -vE "/(node_modules|\.git|vendor|\.cache)/" | head -1
    ```
 
    Note the result — it is used in step 9.
