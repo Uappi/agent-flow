@@ -1,8 +1,8 @@
 ---
 shortDescription: Pre-dispatch requirements gate — verifies links and capabilities before any persona is dispatched.
 usedBy: [maestro]
-version: 0.3.6
-lastUpdated: 2026-05-28
+version: 0.3.7
+lastUpdated: 2026-06-02
 ---
 
 ## Purpose
@@ -61,13 +61,23 @@ All external resources are treated as private by default. Authenticated access m
    For each URL or required provider:
    a. Identify the provider — `github.com` → GitHub, `gitlab.com` → GitLab, `monday.com` → Monday, and so on.
    b. Confirm **any** authenticated read path works — not only MCP. Valid examples: GitLab MCP, `glab` CLI with token, existing local checkout of the core repo, `GITLAB_TOKEN` + API, or host tooling that can read `gitlab.com` private content.
-   c. For `Comparar específicos`, when GitLab access succeeds: **record which path worked** (e.g. MCP, `glab`, local checkout, API) — step 4 uses **only** that path.
-   d. If access is confirmed for all providers: proceed to step 4 (or step 5 when step 4 does not apply).
-   e. If access to any provider cannot be confirmed: inform the user — *"Não há acesso autenticado configurado para [provider]. Configure MCP, token, clone local, ou equivalente e tente novamente."* Do not dispatch. Stop here.
+   c. **`Revisar merge/MR` + Monday task URL** — read-only on Monday; no upload/mutate in pre-dispatch:
+
+      | Check | Block if fail |
+      |---|---|
+      | Parse `boardId`/`itemId` from URL | *Não foi possível identificar board/item no link da tarefa Monday.* |
+      | Item readable | (step 3f) |
+      | Column `Revisões automáticas` exists, file type (`get_board_info`) | *Coluna `Revisões automáticas` não existe* / *não é coluna de arquivo* |
+      | Write permission via read-only metadata (role, column restrictions, OAuth scope) | *Sem permissão de escrita em `Revisões automáticas`. Detalhe: [motivo].* |
+
+      Forbidden: `get_asset_upload_url`, `finalize_asset_upload`, `change_item_column_values`, any write/mutate call.
+   d. For `Comparar específicos`, when GitLab access succeeds: **record which path worked** (e.g. MCP, `glab`, local checkout, API) — step 4 uses **only** that path.
+   e. If access is confirmed for all providers: proceed to step 4 (or step 5 when step 4 does not apply).
+   f. If access to any provider cannot be confirmed: inform the user — *"Não há acesso autenticado configurado para [provider]. Configure MCP, token, clone local, ou equivalente e tente novamente."* Do not dispatch. Stop here.
 
 4. **Validate core tag** (only `Comparar específicos`). Using **Versão alvo do core (tag)** from step 2 as `target_release` (strip a leading `refs/tags/` if present) and GitLab project `agenciawebart/wapstore/wapstore` unless the brief names another core project path.
 
-   Confirm the tag **exists** using **only** the GitLab path recorded in step 3c — **one** read-only check, **no** fallback to another tool. MUST NOT run `git clone`.
+   Confirm the tag **exists** using **only** the GitLab path recorded in step 3d — **one** read-only check, **no** fallback to another tool. MUST NOT run `git clone`.
 
    Examples (use the path that worked in step 3, not all of them):
    - **MCP** — read any file under `core/` at ref `target_release`.
@@ -88,6 +98,7 @@ All external resources are treated as private by default. Authenticated access m
 - Never dispatch when access to any required provider cannot be confirmed. There is no fallback — dispatch would produce an empty run.
 - Check each supplied URL independently — a flow may involve multiple providers (e.g. Monday task + GitLab MR), each requiring its own access path.
 - Never skip the access check for flows listed in the table — only flows not listed are exempt.
+- `Revisar merge/MR` + Monday: step 3c mandatory; read-only on Monday — no upload/mutate in pre-dispatch.
 - For `Comparar específicos`, never skip step 4 — a typo or missing tag must block dispatch before the persona runs.
 - For `Comparar específicos`, step 4 uses a single GitLab path from step 3 — if the repo is reachable but the tag is missing, never fall back to another tool.
 - `All other flows` in the Required Links table means no link is required as a pre-condition for that flow. It does not exempt those flows from dispatch, the review loop, or any other playbook step. The full Playbook remains mandatory.
