@@ -2,8 +2,8 @@
 shortDescription: Archives MR/PR code review files to the Monday task file column.
 usedBy: [reviewer]
 relatedTo: [monday]
-version: 0.1.0
-lastUpdated: 2026-05-21
+version: 0.1.1
+lastUpdated: 2026-06-02
 ---
 
 ## Purpose
@@ -28,8 +28,10 @@ MR/PR reviews must remain available in the task history, not only in local memor
 
 ## Guardrails
 
+- **Monday authorization scope.** The only Monday write allowed without asking the user is uploading the review `.md` to the `Revisões automáticas` file column (via `get_asset_upload_url` → PUT → `finalize_asset_upload`). Every other Monday write — updates, comments, timeline posts, notifications, column changes — requires explicit user authorization.
 - Uploading to `Revisões automáticas` is part of the review history workflow and does not require per-run user authorization.
 - Uploading to Monday does not authorize posting anything to the MR/PR. MR/PR comments and thread replies still require explicit user authorization after the review is delivered.
+- If file upload to `Revisões automáticas` fails, report the blocker and stop — never fallback to `create_update`, a timeline comment, or any other Monday channel.
 - Never create, rename, or repurpose Monday columns during this workflow. Use only the existing `Revisões automáticas` file column.
 - Never overwrite, replace, or delete existing files in `Revisões automáticas`. The column is a file column and must keep historical review versions.
 - Never upload a review file to Monday merely because a local file changed. Upload only when the MR/PR review flow generated or regenerated that local file.

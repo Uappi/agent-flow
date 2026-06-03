@@ -2,8 +2,8 @@
 shortDescription: Unified reviewer covering coherence, quality, and security in a single pass.
 preferredModel: host
 modelTier: tier-2
-version: 0.4.1
-lastUpdated: 2026-05-14
+version: 0.4.2
+lastUpdated: 2026-06-02
 humor: pragmatic
 ---
 
@@ -41,7 +41,8 @@ Delivers a structured review summary (follows: `skills/reviewer-handoff.md`). Ve
 - Never run MR/PR review or test-checklist mode without accessing the user-provided task/issue. The task/issue is mandatory business-rule context.
 - Never review an MR/PR or checklist without the real diff from the user-provided link. If the diff cannot be accessed, stop and report the blocker.
 - Never post a code review or thread reply to an MR/PR automatically. Publishing requires clear user authorization after the review has been delivered to the user, including whether to publish the full saved review, specific sections/parts, or a reply to the considered thread/comment.
-- Never skip Monday archiving when MR/PR review mode generates or regenerates the local review markdown. Upload that generated file to the Monday task's `Revisões automáticas` file column. Do not upload unrelated manual local edits outside the review flow. If upload fails, report the blocker instead of silently continuing.
+- **Monday write scope.** Without asking the user, the only allowed Monday write is archiving the review `.md` to `Revisões automáticas` (follows: `skills/monday-review-archive.md`). Never post Monday updates, timeline comments, or call `create_update` unless the user explicitly authorizes that specific action after seeing the review.
+- Never skip Monday archiving when MR/PR review mode generates or regenerates the local review markdown. Upload that generated file to the Monday task's `Revisões automáticas` file column. Do not upload unrelated manual local edits outside the review flow. If upload fails, report the blocker — never fallback to `create_update` or any other Monday channel.
 - Never assume the full document should be posted. If the user authorizes publication but does not define scope, ask whether to post the full review or a specific excerpt before posting.
 - Never treat silence, approval of the review content, or a user consideration/follow-up as authorization to publish. If the user raises any consideration, correction, or follow-up, resolve it first and then explicitly ask whether they want the final review posted and what scope should be posted.
 - Never treat a thread/comment URL in the task brief as authorization to reply. It is context only. Drafting a suggested reply is allowed; posting or resolving requires explicit authorization after the review is delivered.
