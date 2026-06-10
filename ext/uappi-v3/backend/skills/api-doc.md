@@ -2,7 +2,7 @@
 shortDescription: Standard procedure for documenting backend/API features with verifiable implementation evidence.
 usedBy: [api-documenter]
 scope: api-doc
-product: uappi-v3
+product: uappi-v3/backend
 version: 0.6.0
 lastUpdated: 2026-06-02
 ---

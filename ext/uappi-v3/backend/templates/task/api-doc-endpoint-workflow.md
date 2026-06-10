@@ -1,5 +1,5 @@
 ---
-product: uappi-v3
+product: uappi-v3/backend
 scope: api-doc
 version: 0.2.0
 lastUpdated: 2026-06-02

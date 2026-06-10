@@ -53,13 +53,13 @@ Product-specific personas, skills, and rules live under `ext/<product-id>/`. The
        repoKind: core
      ```
 
-3. **Evaluate `uappi-v3`** — **any one** signal suffices:
+3. **Evaluate `uappi-v3/backend`** — **any one** signal suffices:
 
    **Core repo** (`repoKind: core`) — stop at the first true signal:
 
    ```bash
    # Signal A — README declares V3
-   grep -q "Uappi V3" README.ai.md 2>/dev/null
+   grep -q "Uappi V3 Backend" README.ai.md 2>/dev/null
 
    # Signal B — microservices directory present (at least one *.uappi service)
    find . -maxdepth 2 -type d -name "*.uappi" 2>/dev/null | grep -q .
@@ -84,7 +84,7 @@ Product-specific personas, skills, and rules live under `ext/<product-id>/`. The
    ```markdown
    ## Product Context
 
-   activeProducts: [uappi-v2, uappi-v3]
+   activeProducts: [uappi-v2, uappi-v3/backend]
    <yaml blocks per matched product>
    ```
 
@@ -95,7 +95,7 @@ Product-specific personas, skills, and rules live under `ext/<product-id>/`. The
 - Maestro routes Uappi extension workflows via `ext/uappi-v2/ROUTING.md` when `uappi-v2` is active — read `## Product Context` for `repoKind`.
 - If `uappi-v2.repoKind` is `core`, do **not** dispatch — explain the flow requires a **client** repo with `especifico/` and `.wapstore/build`, or an absolute client path + release in the task brief.
 - If `uappi-v2` is absent but the user triggers the comparador prompt, dispatch only after `especifico/` exists at the work root (or supplied path) and **Versão alvo** is in the brief.
-- Maestro routes Uappi V3 feature-doc workflows via `ext/uappi-v3/ROUTING.md` when `uappi-v3` is active.
+- Maestro routes Uappi V3 feature-doc workflows via `ext/uappi-v3/backend/ROUTING.md` when `uappi-v3/backend` is active.
 
 ## Guardrails
 

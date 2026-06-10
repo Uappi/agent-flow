@@ -1,7 +1,7 @@
 ---
 shortDescription: Priority order for evidence sources when validating endpoint behavior assertions.
 scope: api-doc
-product: uappi-v3
+product: uappi-v3/backend
 version: 0.1.0
 lastUpdated: 2026-06-02
 ---

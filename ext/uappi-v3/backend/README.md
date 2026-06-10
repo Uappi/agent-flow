@@ -8,7 +8,7 @@ All three signals below are **backend-specific**. A match activates this directo
 
 | `repoKind` | Signal | Condition |
 |------------|--------|-----------|
-| `core` | A — `grep -q "Uappi V3" README.ai.md` | README declares V3 |
+| `core` | A — `grep -q "Uappi V3 Backend" README.ai.md` | README declares V3 Backend |
 | `core` | B — `find . -maxdepth 2 -type d -name "*.uappi"` | At least one microservice directory present |
 | `core` | C — `test -d apis/api.uappi.com.br` | API gateway present (doc-only checkout) |
 
@@ -33,7 +33,7 @@ Copy the prompt template from `prompts/task/api-doc.md`, fill in the three field
 
 ## Prerequisites
 
-- Repository detected as `uappi-v3` — at least one of the three signals in `skills/product-profile.md` must pass (Signal A: `README.ai.md` declares V3; Signal B: `*.uappi` directory present; Signal C: `apis/api.uappi.com.br` directory present).
+- Repository detected as `uappi-v3/backend` — at least one of the three signals in `skills/product-profile.md` must pass (Signal A: `README.ai.md` declares `Uappi V3 Backend`; Signal B: `*.uappi` directory present; Signal C: `apis/api.uappi.com.br` directory present).
 - Source files for the targeted feature accessible in the work repository (routes, controllers, processes, DMCs).
 - For publication flow validation: registry files under `apis/api.uappi.com.br/src/resources/documentation-repositories/` must be readable.
 

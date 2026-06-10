@@ -8,7 +8,7 @@ O núcleo do AgentFlow (`personas/`, `skills/`, `rules/` na raiz de `.agents/`) 
 | :--- | :--- |
 | [create-extension.md](create-extension.md) | Criar e registrar uma nova extensão em `ext/` |
 | [uappi-v2-specifics-compare.md](uappi-v2-specifics-compare.md) | Usar a extensão **uappi-v2** para comparar `especifico/` com o core |
-| [uappi-v3-api-doc.md](uappi-v3-api-doc.md) | Usar a extensão **uappi-v3** para documentar endpoints e módulos de API |
+| [uappi-v3-api-doc.md](uappi-v3-api-doc.md) | Usar a extensão **uappi-v3/backend** para documentar endpoints e módulos de API |
 
 ## Referência rápida
 

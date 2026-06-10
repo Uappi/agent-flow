@@ -8,7 +8,7 @@ Documenta endpoints e páginas de módulo para a plataforma distribuída Uappi V
 
 ## Quando usar
 
-- Repositório detectado como `uappi-v3/backend` (`repoKind: core`) — qualquer um dos três sinais (todos backend): README.ai.md declara `Uappi V3` (Signal A), diretório `*.uappi` presente (Signal B), ou diretório `apis/api.uappi.com.br` presente (Signal C). Esses sinais ativam exclusivamente `ext/uappi-v3/backend/` — o diretório `ext/uappi-v3/frontend/` não é ativado por eles.
+- Repositório detectado como `uappi-v3/backend` (`repoKind: core`) — qualquer um dos três sinais (todos backend): README.ai.md declara `Uappi V3 Backend` (Signal A), diretório `*.uappi` presente (Signal B), ou diretório `apis/api.uappi.com.br` presente (Signal C). Esses sinais ativam exclusivamente `ext/uappi-v3/backend/` — o diretório `ext/uappi-v3/frontend/` não é ativado por eles.
 - Ao documentar novos endpoints ou revisar páginas de API já existentes.
 - Ao criar páginas de visão geral de módulo (`method: DOC`) para famílias de domínio.
 
@@ -17,7 +17,7 @@ Documenta endpoints e páginas de módulo para a plataforma distribuída Uappi V
 ## Pré-requisitos
 
 1. AgentFlow em `.agents/` no projeto (ou workspace apontando para o repo Uappi V3).
-2. Boot: `Por favor, siga as instruções de .agents/AGENTS.md` — o perfil deve detectar `uappi-v3` com `repoKind: core`.
+2. Boot: `Por favor, siga as instruções de .agents/AGENTS.md` — o perfil deve detectar `uappi-v3/backend` com `repoKind: core`.
 3. **Identificadores de página** (route key ou nome de arquivo, um por linha na tabela) e **Ticket / objetivo** são obrigatórios no prompt.
 
 ## Primeira linha aceita
@@ -28,7 +28,7 @@ Documentação de API em lote (endpoints + opcional DOC)
 
 ## Prompt de exemplo
 
-Copie `ext/uappi-v3/prompts/task/api-doc.md` e preencha:
+Copie `ext/uappi-v3/backend/prompts/task/api-doc.md` e preencha:
 
 ```text
 Documentação de API em lote (endpoints + opcional DOC)
@@ -59,7 +59,7 @@ Todas as páginas deste pedido (uma linha por arquivo a produzir ou revisar):
 ## O que acontece no fluxo
 
 1. Maestro verifica que a tabela de páginas contém ao menos um identificador e que o campo Ticket / objetivo está preenchido; em caso contrário, solicita complemento antes de despachar.
-2. Dispatch da persona `ext/uappi-v3/personas/api-documenter.md` (modelo Codex, tier-2).
+2. Dispatch da persona `ext/uappi-v3/backend/personas/api-documenter.md` (modelo Codex, tier-2).
 3. Leitura do `README.ai.md` do workspace para entender arquitetura e convenções.
 4. Validação do fluxo de publicação (menu-map.php, arquivos de registro de API).
 5. Mapeamento de evidências por página (rota → controller → request → processo → DMC).

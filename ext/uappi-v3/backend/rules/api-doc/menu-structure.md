@@ -1,7 +1,7 @@
 ---
 shortDescription: Menu file paths, menu granularity rules, and no-duplication rule for menu keys.
 scope: api-doc
-product: uappi-v3
+product: uappi-v3/backend
 version: 0.1.0
 lastUpdated: 2026-06-02
 ---

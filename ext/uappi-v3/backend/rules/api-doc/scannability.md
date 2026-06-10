@@ -1,7 +1,7 @@
 ---
 shortDescription: Scannability rules for description and body sections — paragraphs, line breaks, bold, headings, lists, and tables.
 scope: api-doc
-product: uappi-v3
+product: uappi-v3/backend
 version: 0.1.0
 lastUpdated: 2026-06-02
 ---

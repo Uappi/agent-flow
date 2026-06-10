@@ -1,7 +1,7 @@
 ---
 shortDescription: Paths to documentation registration files that must be validated and written before the task is complete.
 scope: api-doc
-product: uappi-v3
+product: uappi-v3/backend
 version: 0.2.0
 lastUpdated: 2026-06-02
 ---

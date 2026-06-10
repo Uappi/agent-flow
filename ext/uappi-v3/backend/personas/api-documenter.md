@@ -2,7 +2,7 @@
 shortDescription: Documents backend/API features based on behavior confirmed by code.
 preferredModel: codex
 modelTier: tier-2
-product: uappi-v3
+product: uappi-v3/backend
 version: 0.4.0
 lastUpdated: 2026-03-31
 ---

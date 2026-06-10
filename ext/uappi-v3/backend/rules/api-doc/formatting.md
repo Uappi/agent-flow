@@ -1,7 +1,7 @@
 ---
 shortDescription: camelCase rules, table formatting, line-length, paragraph spacing, and writing style.
 scope: api-doc
-product: uappi-v3
+product: uappi-v3/backend
 version: 0.1.0
 lastUpdated: 2026-06-02
 ---

@@ -12,6 +12,6 @@ Todas as páginas deste pedido (uma linha por arquivo a produzir ou revisar):
 | <identificador-3>              | POST | Cadastro ou Ação |
 |                                |      |       |
 
-Instruções: Aplicar o workflow de documentação de endpoint (`.agents/ext/uappi-v3/templates/task/api-doc-endpoint-workflow.md`, modo Lote) e, para páginas de visão geral, também o workflow de módulo (`.agents/ext/uappi-v3/templates/task/api-doc-module-workflow.md`). Consulte o Playbook da persona `api-documenter` e as diretrizes centrais no `README.ai.md`. 
+Instruções: Aplicar o workflow de documentação de endpoint (`.agents/ext/uappi-v3/backend/templates/task/api-doc-endpoint-workflow.md`, modo Lote) e, para páginas de visão geral, também o workflow de módulo (`.agents/ext/uappi-v3/backend/templates/task/api-doc-module-workflow.md`). Consulte o Playbook da persona `api-documenter` e as diretrizes centrais no `README.ai.md`. 
 
 Saída: Arquivos salvos nos diretórios padrão do projeto + registros atualizados em menus/navegação; sumário final com status por identificador.
