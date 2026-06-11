@@ -35,9 +35,11 @@ scope: specifics-sync   # filtro de regras/skills no dispatch
 | Produto | Pasta | Sinais (resumo) |
 |---------|-------|-----------------|
 | Uappi v2 | `ext/uappi-v2/` | Cliente: `especifico/` + `.wapstore/build` — Core: remote `wapstore/wapstore` ou `core/wapstore/` |
+| Uappi v3 — backend | `ext/uappi-v3/backend/` | Core (qualquer sinal, todos backend): A — `grep -q "Uappi V3 Backend" README.ai.md` · B — dir `*.uappi` presente · C — dir `apis/api.uappi.com.br` presente. |
 
 ## Guias
 
 - Índice: [docs/guide/extensions/README.md](../docs/guide/extensions/README.md)
 - Criar extensão: [create-extension.md](../docs/guide/extensions/create-extension.md)
 - Comparar específicos (Uappi v2): [uappi-v2-specifics-compare.md](../docs/guide/extensions/uappi-v2-specifics-compare.md)
+- Documentar API (Uappi v3): [uappi-v3-api-doc.md](../docs/guide/extensions/uappi-v3-api-doc.md)

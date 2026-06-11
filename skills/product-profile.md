@@ -53,22 +53,49 @@ Product-specific personas, skills, and rules live under `ext/<product-id>/`. The
        repoKind: core
      ```
 
-3. **Persist** under `## Product Context` in the current session file:
+3. **Evaluate `uappi-v3/backend`** — **any one** signal suffices:
+
+   **Core repo** (`repoKind: core`) — stop at the first true signal:
+
+   ```bash
+   # Signal A — README declares V3
+   grep -q "Uappi V3 Backend" README.ai.md 2>/dev/null
+
+   # Signal B — microservices directory present (at least one *.uappi service)
+   find . -maxdepth 2 -type d -name "*.uappi" 2>/dev/null | grep -q .
+
+   # Signal C — API gateway present (doc-only checkout)
+   test -d apis/api.uappi.com.br
+   ```
+
+   > **Backend signals only.** All three signals above are backend-specific. A match activates `ext/uappi-v3/backend/` exclusively. Do NOT activate or read `ext/uappi-v3/frontend/` based on these signals — that subdirectory is the frontend extension and has its own detection logic (not yet defined).
+
+   When matched:
+   - Append `uappi-v3/backend` to `activeProducts`
+   - Write context:
+
+     ```yaml
+     uappi-v3:
+       repoKind: core
+     ```
+
+4. **Persist** under `## Product Context` in the current session file:
 
    ```markdown
    ## Product Context
 
-   activeProducts: [uappi-v2]
-   <yaml blocks per product>
+   activeProducts: [uappi-v2, uappi-v3/backend]
+   <yaml blocks per matched product>
    ```
 
-4. **Return to boot** — do not read `ext/` file contents here; only ids and `repoKind`.
+5. **Return to boot** — do not read `ext/` file contents here; only ids and `repoKind`.
 
 ## Maestro usage
 
 - Maestro routes Uappi extension workflows via `ext/uappi-v2/ROUTING.md` when `uappi-v2` is active — read `## Product Context` for `repoKind`.
 - If `uappi-v2.repoKind` is `core`, do **not** dispatch — explain the flow requires a **client** repo with `especifico/` and `.wapstore/build`, or an absolute client path + release in the task brief.
 - If `uappi-v2` is absent but the user triggers the comparador prompt, dispatch only after `especifico/` exists at the work root (or supplied path) and **Versão alvo** is in the brief.
+- Maestro routes Uappi V3 feature-doc workflows via `ext/uappi-v3/backend/ROUTING.md` when `uappi-v3/backend` is active.
 
 ## Guardrails
 
