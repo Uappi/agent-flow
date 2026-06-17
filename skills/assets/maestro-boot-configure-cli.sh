@@ -11,8 +11,8 @@
 # @usage        maestro-boot-configure-cli.sh
 # @output       Summary line with agent count, or nothing if no CLI config found.
 # @requires     bash v4+, yq v4+, jq v1.6+, ps
-# @version      0.5.5
-# @updated      2026-04-30
+# @version      0.5.6
+# @updated      2026-06-16
 set -euo pipefail
 
 checkRequiredDependencies() {
@@ -298,6 +298,7 @@ applyPermissionProfile() {
       "mkdir *": "allow"
     },
     "edit": {
+      ".memory/**/*": "allow",
       "*.md": "allow",
       "/tmp/*": "allow",
       "*": "ask"
@@ -308,6 +309,7 @@ applyPermissionProfile() {
       "*.env.*": "deny"
     },
     "external_directory": {
+      ".memory/**/*": "allow",
       "/tmp/*": "allow"
     }
   }
@@ -366,6 +368,7 @@ applyPermissionProfile() {
       "stat *": "allow"
     },
     "edit": {
+      ".memory/**/*": "allow",
       "*.md": "allow",
       "/tmp/*": "allow",
       "*": "ask"
@@ -374,6 +377,7 @@ applyPermissionProfile() {
       "*": "allow"
     },
     "external_directory": {
+      ".memory/**/*": "allow",
       "/tmp/*": "allow"
     }
   }
@@ -442,6 +446,7 @@ applyPermissionProfile() {
       "*.env.*": "deny"
     },
     "external_directory": {
+      ".memory/**/*": "allow",
       "/tmp/*": "allow"
     }
   }
@@ -500,6 +505,7 @@ applyPermissionProfile() {
       "stat *": "allow"
     },
     "edit": {
+      ".memory/**/*": "allow",
       "*.md": "allow",
       "/tmp/*": "allow",
       "*": "ask"
@@ -508,6 +514,7 @@ applyPermissionProfile() {
       "*": "allow"
     },
     "external_directory": {
+      ".memory/**/*": "allow",
       "/tmp/*": "allow"
     }
   }
@@ -558,6 +565,7 @@ applyPermissionProfile() {
       "mkdir *": "allow"
     },
     "edit": {
+      ".memory/**/*": "allow",
       "*.md": "allow",
       "/tmp/*": "allow",
       "*": "ask"
@@ -568,6 +576,7 @@ applyPermissionProfile() {
       "*.env.*": "deny"
     },
     "external_directory": {
+      ".memory/**/*": "allow",
       "/tmp/*": "allow"
     }
   }

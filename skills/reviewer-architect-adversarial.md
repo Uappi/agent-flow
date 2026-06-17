@@ -1,8 +1,8 @@
 ---
 shortDescription: Adversarial plan review — structural validation and assumption attack before implementation begins.
 usedBy: [reviewer]
-version: 0.3.0
-lastUpdated: 2026-04-25
+version: 0.4.0
+lastUpdated: 2026-06-15
 ---
 
 ## Purpose
@@ -46,7 +46,15 @@ A plan that survives adversarial scrutiny before implementation saves hours of r
    - List each distinct thing the original request asks for. For each, find the sentence in the target state that satisfies it. If no matching sentence exists, that is a Blocker (under-delivery).
    - List each file or abstraction the plan creates. For each, find the request sentence that motivated it. If no matching sentence exists and the plan does not explain why it is necessary, that is a Warning (scope creep).
 
-8. **Assemble findings.** Collect all findings from steps 2–7. Each finding already has a severity (Blocker or Warning) assigned by the checklist that produced it. Findings that do not fit any checklist item but seem worth mentioning are Notes. Format each finding as:
+8. **Phase dependency checklist.** For each phase, answer:
+   - List every file this phase modifies or creates. Does any other phase modify or create the same file? If yes and neither phase declares a dependency on the other, that is a Warning (hidden coupling).
+   - List every artifact this phase produces (a new file, a new table, a new endpoint). Does a later phase reference that artifact? If yes, is the dependency declared in the later phase's prerequisites? If not, that is a Warning (undocumented dependency).
+
+9. **Phase size checklist.** For each phase, check the estimated LOC (lines of code: insertions + deletions).
+   - **LOC threshold.** Does the phase estimate exceed 1000 LOC? If yes, that is a Blocker — the phase must be split into smaller phases. The Architect persona targets ~1000 LOC per phase maximum (follows: `personas/architect.md` step 6).
+   - **Missing estimate.** Does the phase have an estimated LOC? If not, that is a Blocker — every phase must include an LOC estimate.
+
+10. **Assemble findings.** Collect all findings from steps 2–9. Each finding already has a severity (Blocker or Warning) assigned by the checklist that produced it. Findings that do not fit any checklist item but seem worth mentioning are Notes. Format each finding as:
 
    ```
    - [Step <N>: <check name>] Expected: <what the plan claims or requires>. Found: <what verification revealed>. Fix: <concrete action for the Architect>.
