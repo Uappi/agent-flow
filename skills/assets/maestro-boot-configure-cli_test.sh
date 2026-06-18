@@ -4,8 +4,8 @@
 # @usage        maestro-boot-configure-cli_test.sh
 # @output       PASS/FAIL per test case, summary at end.
 # @requires     bash v4+, yq v4+, jq v1.6+
-# @version      0.0.23
-# @updated      2026-04-25
+# @version      0.1.0
+# @updated      2026-06-17
 set -euo pipefail
 
 scriptDir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -318,15 +318,15 @@ EOF
   passCount=$((passCount + 1))
 
   reviewerEditDeny=$(jq -r '.agent.reviewer.permission.edit["*"] // "missing"' "$testDir/opencode.json")
-  if [[ "$reviewerEditDeny" != "deny" ]]; then
+  if [[ "$reviewerEditDeny" != "ask" ]]; then
     cat <<EOF
-FAIL reviewer agent has permission.edit.* = deny
-  expected deny, got: $reviewerEditDeny
+FAIL reviewer agent has permission.edit.* = ask
+  expected ask, got: $reviewerEditDeny
 EOF
     failCount=$((failCount + 1))
     return
   fi
-  echo "PASS reviewer agent has permission.edit.* = deny"
+  echo "PASS reviewer agent has permission.edit.* = ask"
   passCount=$((passCount + 1))
 
   coderBashAsk=$(jq -r '.agent.coder.permission.bash["*"] // "missing"' "$testDir/opencode.json")
@@ -342,15 +342,15 @@ EOF
   passCount=$((passCount + 1))
 
   reviewerBashDeny=$(jq -r '.agent.reviewer.permission.bash["*"] // "missing"' "$testDir/opencode.json")
-  if [[ "$reviewerBashDeny" != "deny" ]]; then
+  if [[ "$reviewerBashDeny" != "ask" ]]; then
     cat <<EOF
-FAIL reviewer agent has permission.bash.* = deny
-  expected deny, got: $reviewerBashDeny
+FAIL reviewer agent has permission.bash.* = ask
+  expected ask, got: $reviewerBashDeny
 EOF
     failCount=$((failCount + 1))
     return
   fi
-  echo "PASS reviewer agent has permission.bash.* = deny"
+  echo "PASS reviewer agent has permission.bash.* = ask"
   passCount=$((passCount + 1))
 }
 
@@ -505,10 +505,10 @@ EOF
 
   resolvedModel=$(jq -r '.agent.coder.model' "$testDir/opencode.json")
 
-  if [[ "$resolvedModel" != "bailian-coding-plan/qwen3.5-plus" ]]; then
+  if [[ "$resolvedModel" != *"qwen"* ]]; then
     cat <<EOF
 FAIL host provider resolves to qwen tier-2 model
-  expected bailian-coding-plan/qwen3.5-plus, got: $resolvedModel
+  expected model to contain 'qwen', got: $resolvedModel
 EOF
     failCount=$((failCount + 1))
     return

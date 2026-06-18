@@ -1,8 +1,8 @@
 ---
 shortDescription: Universal code quality conventions for all languages.
 scope: coding
-version: 0.3.0
-lastUpdated: 2026-04-25
+version: 0.3.4
+lastUpdated: 2026-06-17
 ---
 
 ## Statement
@@ -19,6 +19,10 @@ Each piece of knowledge or behavior SHOULD have a single, unambiguous representa
 
 Functions, modules, and files SHOULD have one reason to change. A function that performs setup AND reporting, or parsing AND validation, has two responsibilities and SHOULD be split. When in doubt, ask: "if the requirements change, would these two operations change independently?" If yes, split. If no, keep together.
 
+### Method Granularity
+
+A function that delegates to a single call with trivial transformation is indirection without value. Functions SHOULD do meaningful work — if the body is a short sequence (roughly 5 lines or fewer) that could be inlined at the call site without loss of clarity, the function should not exist. Extract when the logic is reused, complex, or conceptually distinct. Do not extract to satisfy a reflexive "small functions are good" instinct.
+
 ### Variable Naming
 
 Variable names MUST convey intention or purpose, not describe content. Single-letter variable names MUST NOT be used.
@@ -26,6 +30,12 @@ Variable names MUST convey intention or purpose, not describe content. Single-le
 ### Function Naming
 
 Function names SHOULD NOT embed infrastructure or tool names (e.g., `resolveOpencodeConfigPath`). Use generic terms that describe the role (`resolveSupportedCliConfigPath`). The function should survive a tool swap without needing a rename.
+
+### Method Ordering
+
+Functions SHOULD be ordered top-down: if function A calls function B, then function B SHOULD be defined above function A. The reader should be able to read the file from top to bottom, understanding each function before encountering its callers. Helpers and low-level utilities come first; orchestrators and high-level entry points come last.
+
+Exception: constructors and factory functions (e.g., `NewFoo`, `CreateBar`) SHOULD be placed immediately after the struct/class/type declaration they construct, not at the bottom of the file. The type and its constructor form a single conceptual unit.
 
 ### Error Handling
 
@@ -40,6 +50,8 @@ Language constructs that terminate the process (`panic`, `os.Exit`, unhandled `t
 Data from outside the code — user input, database results, API responses, environment variables, file contents — SHOULD be treated as untrusted regardless of origin. A database row is no safer than a query parameter; both can carry injection payloads, malformed values, or stale state.
 
 External data flowing directly into queries, templates, commands, or domain operations without validation SHOULD be flagged. The recommended pattern is to convert external data into a value object (or language-equivalent typed representation) before use in business logic — the constructor or factory becomes the single validation point.
+
+Do not create separate parse or convert functions when the value object's constructor already validates and transforms the input. If the transformation is complex enough to warrant its own function, make it a method on the value object or an unexported helper called by the constructor, not a parallel public function.
 
 ### Testing
 
