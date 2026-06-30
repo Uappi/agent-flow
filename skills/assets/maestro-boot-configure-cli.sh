@@ -11,8 +11,33 @@
 # @usage        maestro-boot-configure-cli.sh
 # @output       Summary line with agent count, or nothing if no CLI config found.
 # @requires     bash v4+, yq v4+, jq v1.6+, ps
-# @version      0.6.2
-# @updated      2026-06-17
+# @version      0.6.13
+# @updated      2026-06-25
+#
+# ── Thinking/Reasoning Configuration ─────────────────────────────────────────
+#
+# Agent bindings emit BOTH Anthropic and OpenAI thinking formats so either SDK
+# respects the setting. The provider SDK determines which format is used:
+#
+#   Anthropic SDK (@ai-sdk/anthropic):
+#     - Uses "thinking" field: {type: "enabled", budgetTokens: N}
+#     - Config-level thinking is IGNORED by `opencode run` (only --thinking flag works)
+#     - `--thinking` CLI flag forces thinking ON, overriding config
+#
+#   OpenAI-compatible SDK (@ai-sdk/openai-compatible):
+#     - Uses "reasoning" field: {effort: "low"|"medium"|"high"|"xhigh"}
+#     - Also emits "reasoningEffort" (flat) for opencode pass-through compatibility
+#     - Config-level thinking IS respected by `opencode run`
+#
+# Humor → Thinking Budget → Effort Mapping:
+#   robotic     → budget=4096  → thinking.type=enabled,  reasoning.effort=low,  reasoningEffort=low
+#   introvert   → budget=8192  → thinking.type=enabled,  reasoning.effort=low,  reasoningEffort=low
+#   pragmatic   → budget=12288 → thinking.type=enabled,  reasoning.effort=medium, reasoningEffort=medium
+#   sympathetic → budget=14336 → thinking.type=enabled,  reasoning.effort=high, reasoningEffort=high
+#   extrovert   → budget=16384 → thinking.type=enabled,  reasoning.effort=xhigh, reasoningEffort=xhigh
+#
+# ──────────────────────────────────────────────────────────────────────────────
+
 set -euo pipefail
 
 checkRequiredDependencies() {
@@ -187,32 +212,44 @@ resolveHumorAttributes() {
   local humor="$1"
   local attribute="$2"
   case "$humor" in
+    robotic)
+      case "$attribute" in
+        temperature)      echo "0.2" ;;
+        topP)             echo "0.7" ;;
+        thinkingBudget)   echo "4096" ;;
+        reasoningEffort)  echo "low" ;;
+      esac
+      ;;
     introvert)
       case "$attribute" in
-        temperature)    echo "0.2" ;;
-        topP)           echo "0.85" ;;
-        thinkingBudget) echo "10240" ;;
+        temperature)      echo "0.2" ;;
+        topP)             echo "0.75" ;;
+        thinkingBudget)   echo "8192" ;;
+        reasoningEffort)  echo "low" ;;
       esac
       ;;
     pragmatic)
       case "$attribute" in
-        temperature)    echo "0.25" ;;
-        topP)           echo "0.85" ;;
-        thinkingBudget) echo "12288" ;;
+        temperature)      echo "0.25" ;;
+        topP)             echo "0.8" ;;
+        thinkingBudget)   echo "12288" ;;
+        reasoningEffort)  echo "medium" ;;
       esac
       ;;
     sympathetic)
       case "$attribute" in
-        temperature)    echo "0.3" ;;
-        topP)           echo "0.85" ;;
-        thinkingBudget) echo "14336" ;;
+        temperature)      echo "0.3" ;;
+        topP)             echo "0.85" ;;
+        thinkingBudget)   echo "14336" ;;
+        reasoningEffort)  echo "high" ;;
       esac
       ;;
     extrovert)
       case "$attribute" in
-        temperature)    echo "0.35" ;;
-        topP)           echo "0.85" ;;
-        thinkingBudget) echo "16384" ;;
+        temperature)      echo "0.35" ;;
+        topP)             echo "0.85" ;;
+        thinkingBudget)   echo "16384" ;;
+        reasoningEffort)  echo "xhigh" ;;
       esac
       ;;
     *)
@@ -264,6 +301,11 @@ applyPermissionProfile() {
       "curl *": "deny",
       "wget *": "deny",
       "sudo *": "deny",
+      "git clean *": "deny",
+      "git reset *": "deny",
+      "git rebase *": "deny",
+      "git push --force *": "deny",
+      "git push -f *": "deny",
       "bash skills/assets/*.sh *": "allow",
       "yq *": "allow",
       "jq *": "allow",
@@ -311,7 +353,11 @@ applyPermissionProfile() {
     },
     "edit": {
       ".memory/*": "allow",
-      ".memory/**/*": "allow",
+      ".memory/**": "allow",
+      ".memory/plan/*": "allow",
+      ".memory/todo/*": "allow",
+      ".memory/reviews/*": "allow",
+      ".memory/session/*": "allow",
       "*.md": "allow",
       "/tmp/*": "allow",
       "*": "ask"
@@ -323,7 +369,11 @@ applyPermissionProfile() {
     },
     "external_directory": {
       ".memory/*": "allow",
-      ".memory/**/*": "allow",
+      ".memory/**": "allow",
+      ".memory/plan/*": "allow",
+      ".memory/todo/*": "allow",
+      ".memory/reviews/*": "allow",
+      ".memory/session/*": "allow",
       "/tmp/*": "allow"
     }
   }
@@ -349,6 +399,11 @@ applyPermissionProfile() {
       "curl *": "deny",
       "wget *": "deny",
       "sudo *": "deny",
+      "git clean *": "deny",
+      "git reset *": "deny",
+      "git rebase *": "deny",
+      "git push --force *": "deny",
+      "git push -f *": "deny",
       "yq *": "allow",
       "jq *": "allow",
       "mktemp *": "allow",
@@ -393,11 +448,16 @@ applyPermissionProfile() {
       "git merge-base *": "allow",
       "git describe *": "allow",
       "diff *": "allow",
-      "stat *": "allow"
+      "stat *": "allow",
+      "mkdir *": "allow"
     },
     "edit": {
       ".memory/*": "allow",
-      ".memory/**/*": "allow",
+      ".memory/**": "allow",
+      ".memory/plan/*": "allow",
+      ".memory/todo/*": "allow",
+      ".memory/reviews/*": "allow",
+      ".memory/session/*": "allow",
       "*.md": "allow",
       "/tmp/*": "allow",
       "*": "ask"
@@ -407,7 +467,11 @@ applyPermissionProfile() {
     },
     "external_directory": {
       ".memory/*": "allow",
-      ".memory/**/*": "allow",
+      ".memory/**": "allow",
+      ".memory/plan/*": "allow",
+      ".memory/todo/*": "allow",
+      ".memory/reviews/*": "allow",
+      ".memory/session/*": "allow",
       "/tmp/*": "allow"
     }
   }
@@ -426,6 +490,11 @@ applyPermissionProfile() {
       "curl *": "deny",
       "wget *": "deny",
       "sudo *": "deny",
+      "git clean *": "deny",
+      "git reset *": "deny",
+      "git rebase *": "deny",
+      "git push --force *": "deny",
+      "git push -f *": "deny",
       "mkdir *": "allow",
       "yq *": "allow",
       "jq *": "allow",
@@ -489,7 +558,11 @@ applyPermissionProfile() {
     },
     "external_directory": {
       ".memory/*": "allow",
-      ".memory/**/*": "allow",
+      ".memory/**": "allow",
+      ".memory/plan/*": "allow",
+      ".memory/todo/*": "allow",
+      ".memory/reviews/*": "allow",
+      ".memory/session/*": "allow",
       "/tmp/*": "allow"
     }
   }
@@ -515,6 +588,11 @@ applyPermissionProfile() {
       "curl *": "deny",
       "wget *": "deny",
       "sudo *": "deny",
+      "git clean *": "deny",
+      "git reset *": "deny",
+      "git rebase *": "deny",
+      "git push --force *": "deny",
+      "git push -f *": "deny",
       "yq *": "allow",
       "jq *": "allow",
       "mktemp *": "allow",
@@ -559,11 +637,16 @@ applyPermissionProfile() {
       "git merge-base *": "allow",
       "git describe *": "allow",
       "diff *": "allow",
-      "stat *": "allow"
+      "stat *": "allow",
+      "mkdir *": "allow"
     },
     "edit": {
       ".memory/*": "allow",
-      ".memory/**/*": "allow",
+      ".memory/**": "allow",
+      ".memory/plan/*": "allow",
+      ".memory/todo/*": "allow",
+      ".memory/reviews/*": "allow",
+      ".memory/session/*": "allow",
       "*.md": "allow",
       "/tmp/*": "allow",
       "*": "ask"
@@ -573,7 +656,11 @@ applyPermissionProfile() {
     },
     "external_directory": {
       ".memory/*": "allow",
-      ".memory/**/*": "allow",
+      ".memory/**": "allow",
+      ".memory/plan/*": "allow",
+      ".memory/todo/*": "allow",
+      ".memory/reviews/*": "allow",
+      ".memory/session/*": "allow",
       "/tmp/*": "allow"
     }
   }
@@ -592,6 +679,11 @@ applyPermissionProfile() {
       "curl *": "deny",
       "wget *": "deny",
       "sudo *": "deny",
+      "git clean *": "deny",
+      "git reset *": "deny",
+      "git rebase *": "deny",
+      "git push --force *": "deny",
+      "git push -f *": "deny",
       "yq *": "allow",
       "jq *": "allow",
       "mktemp *": "allow",
@@ -637,7 +729,11 @@ applyPermissionProfile() {
     },
     "edit": {
       ".memory/*": "allow",
-      ".memory/**/*": "allow",
+      ".memory/**": "allow",
+      ".memory/plan/*": "allow",
+      ".memory/todo/*": "allow",
+      ".memory/reviews/*": "allow",
+      ".memory/session/*": "allow",
       "*.md": "allow",
       "/tmp/*": "allow",
       "*": "ask"
@@ -649,7 +745,11 @@ applyPermissionProfile() {
     },
     "external_directory": {
       ".memory/*": "allow",
-      ".memory/**/*": "allow",
+      ".memory/**": "allow",
+      ".memory/plan/*": "allow",
+      ".memory/todo/*": "allow",
+      ".memory/reviews/*": "allow",
+      ".memory/session/*": "allow",
       "/tmp/*": "allow"
     }
   }
@@ -672,7 +772,7 @@ writeAgentsToConfigFile() {
   tmpFile=$(mktemp)
 
   jq --argjson bindings "$agentBindings" \
-    '.agent = (.agent // {} | . * $bindings)' "$configPath" > "$tmpFile"
+    '.agent = (.agent // {} | . + $bindings)' "$configPath" > "$tmpFile"
   mv "$tmpFile" "$configPath"
 }
 
@@ -689,23 +789,36 @@ agentBindingBuilder() {
   local topP="$5"
   local thinkingBudget="$6"
   local agentBindings="$7"
+  local reasoningEffort="$8"
 
-  jq \
-    --arg name "$agentName" \
+  local thinkingJson=""
+  if [ -n "$thinkingBudget" ]; then
+    thinkingJson=$(jq -n \
+      --argjson budget "$thinkingBudget" \
+      --arg effort "$reasoningEffort" \
+      '{"thinking":{"type":"enabled","budgetTokens":$budget},"reasoning":{"effort":$effort},"reasoningEffort":$effort}')
+  fi
+
+  local agentJson
+  agentJson=$(jq -n \
     --arg model "$modelId" \
     --arg description "$description" \
-    --arg temperature "$temperature" \
-    --arg topP "$topP" \
-    --arg thinkingBudget "$thinkingBudget" \
-    '.[$name] = (
-      {
-        "model": $model,
-        "description": $description,
-        "temperature": (if $temperature == "" then null else ($temperature | tonumber) end),
-        "brainstorm": (if $topP == "" then null else {"top_p": ($topP | tonumber)} end),
-        "thinking": (if $thinkingBudget == "" then null else {"type": "enabled", "budgetTokens": ($thinkingBudget | tonumber)} end)
-      } | to_entries | map(select(.value != null)) | from_entries
-    )' <<< "$agentBindings"
+    '{model: $model, description: $description}')
+
+  if [ -n "$temperature" ]; then
+    agentJson=$(echo "$agentJson" | jq --argjson temp "$temperature" '. + {temperature: $temp}')
+  fi
+
+  if [ -n "$topP" ]; then
+    agentJson=$(echo "$agentJson" | jq --argjson topP "$topP" '. + {top_p: $topP}')
+  fi
+
+  if [ -n "$thinkingJson" ]; then
+    agentJson=$(echo "$agentJson" | jq --argjson thinking "$thinkingJson" '. + $thinking')
+  fi
+
+  jq -n --arg name "$agentName" --argjson agent "$agentJson" --argjson bindings "$agentBindings" \
+    '$bindings | .[$name] = $agent'
 }
 
 personaAgentJsonBuilder() {
@@ -732,8 +845,9 @@ personaAgentJsonBuilder() {
     temperature=$(resolveHumorAttributes "$humor" "temperature")
     topP=$(resolveHumorAttributes "$humor" "topP")
     thinkingBudget=$(resolveHumorAttributes "$humor" "thinkingBudget")
+    reasoningEffort=$(resolveHumorAttributes "$humor" "reasoningEffort")
 
-    agentBindings=$(agentBindingBuilder "$agentName" "$modelId" "$shortDescription" "$temperature" "$topP" "$thinkingBudget" "$agentBindings")
+    agentBindings=$(agentBindingBuilder "$agentName" "$modelId" "$shortDescription" "$temperature" "$topP" "$thinkingBudget" "$agentBindings" "$reasoningEffort")
 
     agentBindings=$(applyPermissionProfile "$agentName" "$agentBindings")
   done

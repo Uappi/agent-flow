@@ -53,7 +53,7 @@ Before step 1, enforce this startup behavior:
    bash .agents/skills/assets/maestro-boot-configure-cli.sh <your-model-id>
    ```
 
-   Pass your own model ID (e.g., `bailian-coding-plan/qwen3.6-plus`) so the script can resolve the correct provider when multiple providers share the same CLI.
+   Pass your own model ID (e.g., `opencode-go/deepseek-v4-flash`) so the script can resolve the correct provider when multiple providers share the same CLI.
 
     - If the script outputs `opencode.json created`, inform the user that the file was written and they should restart the session for agent bindings to take effect.
     - If the script outputs `opencode.json existed`, it means the file was already present and was updated — no restart required.

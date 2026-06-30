@@ -1,34 +1,33 @@
 ---
-shortDescription: LOC-based review tier selection with shapeshifter dispatch for the unified reviewer.
+shortDescription: LOC-based review tier selection with task-driven focus for the reviewer.
 usedBy: [maestro]
-version: 0.1.1
-lastUpdated: 2026-04-25
+version: 0.3.3
+lastUpdated: 2026-06-25
 ---
 
 ## Purpose
 
-Different scales of change need different review depth. This skill measures the scope of code changes, splits oversized scopes into reviewable blocks, selects the appropriate review tier, and dispatches the reviewer with the right focus instructions. It uses a single unified reviewer (`personas/reviewer.md`) dispatched multiple times with different cognitive focus per tier.
+Different scales of change need different review depth. This skill measures the scope of code changes, splits oversized scopes into reviewable blocks, selects the appropriate review tier, and dispatches the reviewer.
 
 ## Procedure
 
-1. **Measure scope.** For code changes, count the lines changed:
+1. **Measure scope.** For code changes, count the lines changed, including untracked files:
    ```bash
-   git diff --numstat | awk '{ s += $1 + $2 } END { print s }'
+   { git diff HEAD --numstat | awk '{s+=$1+$2}'; git ls-files --others --exclude-standard -z | xargs -0 -r cat | wc -l; } | awk '{s+=$1}END{print s}'
    ```
-   For plans and non-code work, skip to step 3 and use Unified tier.
+   This counts both staged and unstaged changes against the last commit, plus all lines in new untracked files. For plans and non-code work, skip to step 3 and use Unified tier.
 
-2. **Split if needed.** If total LOC exceeds 1500, dispatch the Contextualizer in review scoping mode (step 6 of `personas/contextualizer.md`, dispatch via: `skills/dispatch.md`) to group changed files into blocks of 1500 or fewer LOC. Each block proceeds independently through step 3.
+2. **Split if needed.** If total LOC exceeds 1000, dispatch the Contextualizer in review scoping mode (step 6 of `personas/contextualizer.md`, dispatch via: `skills/dispatch.md`) to group changed files into blocks of 1000 or fewer LOC. Each block proceeds independently through step 3.
 
-3. **Select tier and dispatch** (dispatch via: `skills/dispatch.md`). Each dispatch uses the same `personas/reviewer.md` persona. The task brief overrides the reviewer's focus — the reviewer shapeshifts into the role described in the brief while following the same playbook.
-   - **Unified** (< 500 LOC) — single dispatch of `personas/reviewer.md`.
-   - **Standard** (500–1000 LOC) — two dispatches of `personas/reviewer.md`, each with a `<review-focus>` block in the task brief:
-     - `<review-focus>Coherence and quality: trace logic paths, verify completeness, check naming and style against loaded rules.</review-focus>`
-     - `<review-focus>Security: trace untrusted inputs to dangerous sinks, check auth boundaries, verify error handling.</review-focus>`
-   - **Full** (1000–1500 LOC) — three dispatches of `personas/reviewer.md`, each with a `<review-focus>` block in the task brief:
-     - `<review-focus>Coherence: trace logic paths, verify completeness, check structural integrity.</review-focus>`
-     - `<review-focus>Quality: check naming, style, and patterns against loaded rules.</review-focus>`
-     - `<review-focus>Security: trace untrusted inputs to dangerous sinks, check auth boundaries.</review-focus>`
-     Suggest the user consider an external review tool (e.g., CodeRabbit, Greptile) for additional coverage at this scale.
+3. **Select tier and dispatch** (dispatch via: `skills/dispatch.md`). Each dispatch uses `personas/reviewer.md`.
+   - **Unified** (< 300 LOC) — single dispatch. No focus in `<task>`; reviewer runs all three lenses.
+   - **Standard** (300–600 LOC) — two dispatches with focused `<task>`:
+     - First: coherence and quality focus.
+     - Second: security focus.
+   - **Full** (600–1000 LOC) — three dispatches with focused `<task>`. Suggest the user consider an external review tool (e.g., CodeRabbit, Greptile) for additional coverage.
+     - First: coherence focus.
+     - Second: quality focus.
+     - Third: security focus.
 
 4. **Merge findings.** When multiple dispatches run, merge findings: union all blockers, warnings, and notes; deduplicate identical entries. Conflicting verdicts resolve to the stricter one.
 

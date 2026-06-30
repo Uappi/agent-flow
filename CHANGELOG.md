@@ -1,6 +1,99 @@
 # Changelog
 
 ```log
+0.9.2 - 2026/06/26
+refactor(dispatch): consolidate providers to one per CLI — merge qwen into deepseek entry; users swap model names instead of adding new provider entries
+docs(readme): update provider references — simplify Customization and FAQ sections to reflect one-per-CLI structure; mention OpenCode Go as coding plan for deepseek family
+docs(contributing): add provider list policy — models are examples, not a registry; PRs/issues adding providers will be declined
+
+0.9.1 - 2026/06/26
+refactor(self-review): improve DRAFT rubric — add scope mode, goal, assumptions, rule contradictions, finalize sections, planned commits; add gather-evidence step; restructure procedure
+refactor(reviewer): restructure plan adversarial review with progress file pattern — 8 review phases with disk-write gates; add completeness checks; align acceptance criteria and test spec checks to main framework
+
+0.9.0 - 2026/06/26
+refactor(architect): progressive plan construction with per-phase delta and complexity — playbook restructured with disk writes between each step; step 6 is rough phase outline, step 7 is per-phase loop (name methods, stress-test, complexity check, build); plan file is external memory
+refactor(architect): replace global before/after with per-phase before/after
+refactor(architect): add information flow trace — traces request path from user entry through layers and back
+refactor(architect): add explicit method signatures per phase
+refactor(architect): reference files per phase for Coder style matching
+refactor(architect): cap test specs at 1 per lens per method
+refactor(architect): expand Goal from one-sentence to problem-why-success
+refactor(coder): step 5a checks plan reference files first
+refactor(self-review): update DRAFT rubric for new plan structure
+refactor(reviewer): update adversarial plan review for new structure
+
+0.8.8 - 2026/06/25
+feat(configure-cli): add explicit .memory subdirectory permissions — .memory/plan/*, .memory/todo/*, .memory/reviews/*, .memory/session/* added to edit and external_directory for all persona profiles; agents no longer prompt for permission to write to .memory subdirectories
+feat(configure-cli): add mkdir permission to architect and reviewer — all agents now have mkdir * allowed; previously architect and reviewer were denied directory creation
+
+0.8.7 - 2026/06/25
+fix(review-loop): include untracked files in LOC measurement — LOC count command now adds `git ls-files --others --exclude-standard` line counts to `git diff HEAD --numstat` totals; new files were invisible to review tier selection
+
+0.8.6 - 2026/06/25
+fix(reviewer): enforce single-pass execution with immediate disk writes — playbook step 4 creates all progress files before reading any code, step 5 executes one complete pass at a time with findings written to disk immediately; red lines added to prevent holding findings in memory and starting next pass before current pass is fully written
+
+0.8.5 - 2026/06/24
+fix(configure-cli): robotic humor thinking budget 0→4096 — thinking re-enabled with minimal budget instead of disabled; reasoning effort mapped to low instead of none
+fix(configure-cli): introvert thinking budget 10240→8192 — aligned with industry effort-level estimates for hard tasks
+feat(configure-cli): vary top_p by humor — robotic 0.7, introvert 0.75, pragmatic 0.8, sympathetic 0.85, extrovert 0.85; deterministic roles get lower top_p for code precision, exploratory roles keep higher for design flexibility
+feat(configure-cli): block destructive git commands on all personas — git clean, git reset, git rebase, git push --force, git push -f explicitly denied in bash permission profiles for all personas; prevents accidental history rewrites, untracked file deletion, and force pushes
+refactor(personas): bump coder modelTier from tier-1 to tier-2 — fast model with no thinking insufficient for coding tasks that require reasoning about context, dependencies, and test design
+
+0.8.4 - 2026/06/24
+fix(self-review): adapt SHIELD dimensions for all pass types — S-dimension simplified, H-dimension generalized, E/L/D dimensions made pass-agnostic (grounding, evidence, external factors) instead of pass-specific; all dimensions now work for both full and focused reviews
+
+0.8.3 - 2026/06/24
+fix(self-review): SHIELD S-dimension handles focused reviews — rubric now explicitly scores based on required passes (focused pass only when task specifies focus, all three when no focus); eliminates ambiguity in scoring when task scopes to single pass
+
+0.8.2 - 2026/06/24
+fix(reviewer): restructure playbook for progress file discipline — step 3 reads skill(s) in full before proceeding, step 4 initializes progress files, step 5 executes each phase thoroughly with calming guidance; Identity adds depth-over-completeness principle; Red Line enforces progress file timing
+
+0.8.1 - 2026/06/24
+refactor(personas): align identities with main framework — all 5 persona identities trimmed to single paragraphs; operational guidance moved to Playbook/Red Lines, only character and principles remain
+
+0.8.0 - 2026/06/24
+refactor(reviewer): safety net identity — removed "three critics" framing; Reviewer is now the safety net that catches what was dropped, runs all three lenses (coherence, quality, security)
+refactor(reviewer): trimmed Red Lines to persona-specific only — removed process-related prohibitions already covered by review skills and SHIELD rubric
+refactor(review-loop): restore multi-dispatch tiers with <task> focus — Standard (2 dispatches) and Full (3 dispatches) tiers restored for MoE context window management; focus now stated in <task> itself, no separate `<review-focus>` block
+refactor(self-review): remove `<review-focus>` references — SHIELD rubric updated for task-driven focus
+
+0.7.9 - 2026/06/23
+refactor(configure-cli): improve agentBindingBuilder() readability — eliminated nested if/else, consolidated jq calls into linear flow with separate conditionals for temperature, top_p, and thinking; each step builds on previous result for clear data flow
+feat(configure-cli): emit reasoningEffort alongside reasoning.effort — flat `reasoningEffort` field added for opencode pass-through compatibility per docs (https://opencode.ai/docs/agents/#additional); both nested and flat formats emitted for max provider compatibility
+
+0.7.8 - 2026/06/23
+feat(configure-cli): dual-format thinking config — agent bindings emit both Anthropic (`thinking: {type, budgetTokens}`) and OpenAI (`reasoning: {effort}`) formats; disable works universally across SDKs
+fix(configure-cli): replace enable_thinking with proper thinking/reasoning formats — `enable_thinking` was wrong parameter for both Anthropic and OpenAI SDK providers
+
+0.7.7 - 2026/06/23
+feat(personas): add Observations convention — dispatch notes instruct all personas to optionally include a `## Observations` section in their handoff for honest opinions, concerns, or patterns outside their deliverable; Maestro scans and saves to long-term memory, feeds relevant observations into subsequent dispatch context
+feat(memory): add Observations section to long-term memory schema — dedicated section for persona specialist feedback that falls outside deliverables but may matter later
+refactor(contextualizer): humor changed from introvert to robotic — thinking disabled, same temperature/topP as introvert (0.2/0.85)
+
+0.7.6 - 2026/06/23
+fix(memory): pre-create all .memory subdirectories in agent-memory skill — plan/, todo/, reviews/ added alongside session/; prevents failures when architect, task-tracking, or code-quality-review skills write before dirs exist
+
+0.7.5 - 2026/06/22
+fix(configure-cli): simplify .memory permissions to single glob pattern — `.memory/*` and `.memory/**/*` replaced with `.memory/**` for consistent matching; prevents permission prompts for build agent editing .memory/ files
+fix(configure-cli): replace jq deep merge with shallow merge — `*` operator preserved stale budgetTokens when thinking disabled; `+` replaces agent objects entirely so disabled thinking has no budget field
+
+0.7.4 - 2026/06/22
+feat(configure-cli): add robotic humor — same temperature/topP as introvert (0.2/0.85) but thinking explicitly disabled; agentBindingBuilder handles "disabled" string for thinkingBudget
+refactor(coder): tier-2 to tier-1, pragmatic to robotic — fast model with no thinking for explicit linear playbooks
+
+0.7.3 - 2026/06/18
+refactor(architect): reduce per-phase LOC target from 1000 to 600 with 800 hard cap — aligns with Standard review tier threshold, reduces need for Full tier reviews
+feat(review): update adversarial review phase size threshold from 1000 to 800 LOC — enforces new per-phase hard cap
+feat(review): add LOC threshold to DRAFT self-review — F criterion now checks phase LOC against 600 soft cap and 800 hard cap
+fix(review): use `git diff HEAD` instead of `git diff` for LOC measurement — captures both staged and unstaged changes, prevents staged work from bypassing review
+
+0.7.2 - 2026/06/18
+fix(coder): make style absorption deterministic — run `ls` on target directory, read exactly two sibling files most similar in function, match structure/patterns/conventions exactly
+feat(rules): add native tooling rule — coders should use Edit/Read/Write/Grep/Glob directly, not write scripts for file operations
+feat(review): add style proximity verification — reviewer reads sibling files and compares against changed code before checking rules, project style takes precedence
+refactor(review): restructure code-quality-review around progress file breadcrumbs — phases tracked in `.memory/reviews/`, findings written incrementally, style proximity after rule walk (context window management), dedup final step
+refactor(review): lower review tier LOC thresholds — Unified <300, Standard 300-600, Full 600-1000, over 1000 must split via Contextualizer
+
 0.7.1 - 2026/06/17
 fix(configure-cli): add .memory/* alongside .memory/**/* in edit and external_directory for all personas — glob ** may not match direct children of .memory/; files like settings.conf and MEMORY.md were falling through to wildcard ask/deny
 feat(rules): add method granularity rule — trivial wrapper functions (~5 LOC or fewer) are indirection without value; functions must do meaningful work

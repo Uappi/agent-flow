@@ -1,8 +1,8 @@
 ---
 shortDescription: Universal code quality conventions for all languages.
 scope: coding
-version: 0.3.4
-lastUpdated: 2026-06-17
+version: 0.3.5
+lastUpdated: 2026-06-18
 ---
 
 ## Statement
@@ -70,6 +70,10 @@ Database schema modifications MUST be explicitly stated in any handoff or commit
 ### Comments
 
 Comments SHOULD be treated as a code smell. If a block needs a comment to be understood, review the logic first — the code itself may need to be clearer. Comments are acceptable only when the logic cannot speak for itself.
+
+### Native Tooling
+
+Coders SHOULD use native file operation tools (Edit, Read, Write, Grep, Glob) directly. Writing scripts (Python, Bash, etc.) to perform file reads, edits, searches, or any file system operation creates unnecessary friction — scripts require user authorization and review. The native tools are purpose-built for these operations and execute without approval overhead.
 
 ## Rationale
 

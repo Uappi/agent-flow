@@ -4,7 +4,7 @@
 
 Agent Starter Kit is a Natural Language AI Harness (NLAH) — multi-model, pure Markdown, zero dependencies. The smartest model orchestrates while cheaper, faster ones handle the routine work — extending your premium coding plan (such as Claude Code) instead of burning it on everything.
 
-It's model-agnostic: orchestrate on Claude, plan on Kimi, review on Qwen, or any combination you choose.
+It's model-agnostic: orchestrate on Claude, plan on Gemini, review on DeepSeek — or any combination you choose.
 
 ![Boot sequence demo](docs/demo.jpg)
 _Maestro booted on a Clean Architecture Go project — gitignore, auto-update, memory, rules, and 33 context files created automatically._
@@ -122,7 +122,7 @@ Skills codify procedures that personas reference. They answer "how to do X" so p
 
 ## Customization
 
-- **Dispatch** — edit `skills/dispatch.md` to match your CLI agents. The Providers list and CLI Dispatch section are pre-configured for Claude Code, Codex, Cursor, DeepSeek, Gemini, and Qwen. Add entries for any other provider/model you use.
+- **Dispatch** — edit `skills/dispatch.md` to customize providers. The Providers list is pre-configured with one entry per CLI. Each persona defaults to `host`, which uses whatever model your CLI provides — no configuration needed.
 - Add new personas to `personas/` following the schema in `personas/README.md`
 - Add rules to `rules/commandments/`, `rules/edicts/`, or `rules/counsel/`
 - Add skills to `skills/` following the schema in `skills/README.md`
@@ -150,11 +150,11 @@ Coding plans are routinely quantized and rate-limited weeks after launch — the
 
 ### What do I need to run this?
 
-A coding plan or API key for each provider you route to. We recommend coding plans — **Claude Code** (Anthropic), **Codex** (OpenAI), and **Alibaba Model Studio** (Qwen) offer flat-rate pricing with generous token allowances designed for agentic workflows. API keys work too, but plans are more cost-effective for sustained use. Each provider needs its CLI tool installed (e.g., `claude` for Claude Code, `codex` for Codex, `opencode` for DeepSeek or Qwen). If you only route to one provider, one plan is enough.
+A coding plan or API key for each provider you route to. We recommend coding plans — **Claude Code** (Anthropic), **Codex** (OpenAI), and **OpenCode Go** (DeepSeek, Qwen, Kimi, GLM, and more via the `opencode` CLI) offer flat-rate pricing with generous token allowances designed for agentic workflows. API keys work too, but plans are more cost-effective for sustained use. Each provider needs its CLI tool installed (e.g., `claude` for Claude Code, `codex` for Codex, `opencode` for DeepSeek). If you only route to one provider, one plan is enough.
 
 ### How does the Maestro use multiple models from a single CLI?
 
-The dispatch skill (`skills/dispatch.md`) handles this automatically. When a persona's `preferredModel` matches the host runtime (e.g., you're running Claude Code and the persona wants `claude`), the Maestro dispatches natively using the host's built-in subagent mechanism (e.g., the Task tool). When the `preferredModel` points to a different provider (e.g., `qwen`), the Maestro shells out to that provider's CLI tool (e.g., `opencode`) by piping the assembled prompt via `stdin`. The Providers list in `skills/dispatch.md` maps each model to its CLI — add entries for any provider you want to use.
+The dispatch skill (`skills/dispatch.md`) handles this automatically. When a persona's `preferredModel` matches the host runtime (e.g., you're running Claude Code and the persona wants `claude`), the Maestro dispatches natively using the host's built-in subagent mechanism (e.g., the Task tool). When the `preferredModel` points to a different provider (e.g., `deepseek`), the Maestro shells out to that provider's CLI tool (e.g., `opencode`) by piping the assembled prompt via `stdin`. The Providers list in `skills/dispatch.md` maps each model family to its CLI — see that file for details.
 
 ### Can I use this with just one model?
 
