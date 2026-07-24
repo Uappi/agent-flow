@@ -55,9 +55,9 @@ _Does this code respect the project's architectural boundaries?_
 
 _Does this code look like it belongs in this codebase?_
 
-- **0** — Code does not match the local style of surrounding files (different naming conventions, structure, or patterns). Commandment-level rule violations present. Cryptic one-liners or clever patterns that need comments to understand. Unjustified lint/type suppression markers added.
-- **1** — Style mostly matches, but one or two naming or formatting inconsistencies exist against the surrounding code. Counsel-level deviations present without visible justification. One lint suppression added without an adjacent comment explaining why.
-- **2** — Read two neighboring files before writing and matched their style exactly. All naming follows project conventions. Code is readable without comments — the structure explains itself. No new lint suppressions, or each has a clear adjacent justification. All `code-` rules checked and followed. Commandments respected, edicts justified, counsel noted.
+- **0** — Code does not match the local style of surrounding files (different naming conventions, structure, or patterns). MUST-level rule violations present. Cryptic one-liners or clever patterns that need comments to understand. Unjustified lint/type suppression markers added.
+- **1** — Style mostly matches, but one or two naming or formatting inconsistencies exist against the surrounding code. SHOULD-level deviations present without visible justification. One lint suppression added without an adjacent comment explaining why.
+- **2** — Read two neighboring files before writing and matched their style exactly. All naming follows project conventions. Code is readable without comments — the structure explains itself. No new lint suppressions, or each has a clear adjacent justification. All rules checked and followed. MUST rules respected, SHOULD deviations justified.
 
 ### P — PROTECTION
 

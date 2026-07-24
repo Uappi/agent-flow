@@ -2,7 +2,7 @@
 shortDescription: Adversarial plan review — structural validation and assumption attack before implementation begins.
 usedBy: [reviewer]
 version: 0.5.0
-lastUpdated: 2026-06-26
+lastUpdated: 2026-07-09
 ---
 
 ## Purpose
@@ -104,7 +104,7 @@ A plan that survives adversarial scrutiny before implementation saves hours of r
     - [Structural validation: File existence] Expected: `src/auth/handler.go` exists (plan says to modify it). Found: file does not exist. Fix: verify the correct path or remove from plan.
     ```
 
-    Group findings under `### Blockers`, `### Warnings`, and `### Notes` headings. Set Overall status to `Complete`. Deliver using the handoff format (follows: `skills/reviewer/reviewer-handoff.md`).
+    Group findings under `### Blockers`, `### Warnings`, and `### Notes` headings. Set Overall status to `Complete`. Deliver using the handoff format (follows: `skills/reviewer-handoff.md`).
 
 ## Guardrails
 

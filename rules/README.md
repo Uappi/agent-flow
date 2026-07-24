@@ -2,17 +2,11 @@
 
 Rules are constraints — short, direct, and non-procedural. A rule that needs multiple pages to explain is likely a skill in disguise.
 
-## Rule Hierarchy
-
-- **Commandments** (`rules/commandments/`) — sacred, absolute, never bypassed.
-- **Edicts** (`rules/edicts/`) — authoritative within their scope, shall not be bent.
-- **Counsel** (`rules/counsel/`) — wise guidance, may be deviated from with justification.
-
 ## Available Rules
 
-- **`commandments/git`** — Conventional commits, branch naming, commit style (coding)
-- **`edicts/code-quality`** — Universal naming, testing, and quality conventions (coding)
-- **`edicts/code-debugging`** — Root cause before fix, three-strike rule, anti-rationalization (coding)
+- **`git`** — Conventional commits, branch naming, commit style (coding)
+- **`code/quality`** — Universal naming, testing, and quality conventions (coding)
+- **`code/debugging`** — Root cause before fix, three-strike rule, anti-rationalization (coding)
 - **`counsel/clarification`** — Ambiguity taxonomy for when to stop, proceed, or escalate (communication)
 - **`support/support-initial-analysis`** — Initial backend support triage from a supplied support task link (support)
 - **`support/support-root-cause-analysis`** — Support RCA with technical root cause and MR/PR correlation (support)
@@ -24,7 +18,7 @@ Product-scoped rules live under `ext/<product-id>/rules/` (e.g. `ext/uappi-v2/ru
 
 Lowercase, hyphenated. Scoped rules are prefixed with the persona or domain they target: `coder-formatting.md`, not `formatting.md`. Universal rules carry no prefix.
 
-## Schema (v0.1.0 // 2026-03-04)
+## Schema (v0.2.0 // 2026-07-09)
 
 ### Frontmatter
 
