@@ -39,7 +39,7 @@ Agents working on multi-step tasks need a way to track progress that survives se
 
    **Target directory:** `.memory/todo/` — always at the project root, never anywhere else.
 
-   **Naming convention:** The filename uses the pattern `YYYY-MM-DD-<prefix>-<slug>.md`, where `<prefix>` is the conventional-commit type and `<slug>` is a short kebab-case summary — the same convention used for branch names (follows: `rules/commandments/git.md`). Examples: `.memory/todo/2026-02-18-feat-user-auth.md`, `.memory/todo/2026-02-18-fix-login-redirect.md`. If a git branch already exists for this work, derive the prefix and slug from the branch name.
+   **Naming convention:** The filename uses the pattern `YYYY-MM-DD-<prefix>-<slug>.md`, where `<prefix>` is the conventional-commit type and `<slug>` is a short kebab-case summary — the same convention used for branch names (follows: `rules/git.md`). Examples: `.memory/todo/2026-02-18-feat-user-auth.md`, `.memory/todo/2026-02-18-fix-login-redirect.md`. If a git branch already exists for this work, derive the prefix and slug from the branch name.
 
 3. **Update as you go.** After completing each item, mark it `[x]` and add a log entry if the outcome was notable (unexpected decision, deviation from plan, blocker encountered). Do not batch updates — mark items done as they finish.
 

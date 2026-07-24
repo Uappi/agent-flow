@@ -46,7 +46,7 @@ This is the core registry. Extension personas live under `ext/<product-id>/perso
    sed '/^---$/,/^---$/d' ext/<product>/<persona-path>.md
    ```
 
-6. **List the rules (scoped).** Consult `rules/README.md` and core `rules/`. For active product extensions, include matching files under `ext/<product>/rules/` whose `scope` frontmatter matches the task (e.g. `specifics-sync`). List paths in `<rules>` tags. When the task involves code changes, include `coding`-scoped core rules even for non-coding personas when planning implementations.
+6. **List the rules (scoped).** Consult `rules/README.md` and select rules whose scope matches the task category. For active product extensions, also include matching files under `ext/<product>/rules/` whose `scope` frontmatter matches the task (e.g. `specifics-sync`). List their file paths in `<rules>` tags — do not inline the file contents. The persona has file access and will read them directly. If no rules match, omit the block entirely. When the task involves code changes — even if the persona does not write code (e.g. architect planning implementations) — include `coding`-scoped rules so the persona's output aligns with the conventions the coder will follow.
 
 7. **List relevant skills.** Consult core `skills/README.md` and `ext/<product>/skills/` for active products. List paths in `<skills>` tags. Include `skills/agent-decision.md` when the brief is ambiguous.
 
