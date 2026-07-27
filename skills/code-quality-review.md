@@ -1,8 +1,8 @@
 ---
 shortDescription: Reviews code and plans against the project's coding rules.
 usedBy: [reviewer]
-version: 0.1.0
-lastUpdated: 2026-06-18
+version: 0.2.0
+lastUpdated: 2026-07-09
 ---
 
 ## Purpose
@@ -33,18 +33,17 @@ A code review without a checklist drifts toward gut feeling — catching whateve
    ## Findings
    ```
 
-2. **Collect the applicable rules.** Load all files from `rules/edicts/` and `rules/counsel/` whose names start with `code-`. Also load any applicable `rules/commandments/`. Separate them into three tiers:
-   - **Commandments** — violations are always blockers. No exceptions.
-   - **Edicts** — violations require justification visible in the code (a comment, a design note, or a `.context.md` entry). If the justification is clear, it is a warning. If absent or unclear, it is a blocker.
-   - **Counsel** — deviations are warnings. The code can ship, but the author should justify.
+2. **Collect the applicable rules.** Load all files from `rules/code/`. Also load any applicable rules (e.g., `rules/git.md`). Classify each rule's statements by RFC language:
+   - **MUST / MUST NOT / SHALL / SHALL NOT** — violations are always Blockers. No exceptions.
+   - **SHOULD / SHOULD NOT** — violations require justification visible in the code (a comment, a design note, or a `.context.md` entry). If the justification is clear, it is a Warning. If absent or unclear, it is a Blocker.
 
    If the codebase uses a specific language (e.g. Go), include the language-specific rule file if one exists. If the language has no dedicated file, apply only the general rules.
 
    Mark phase 1 as `[x]` in the progress file.
 
 3. **Walk the work against every rule and classify findings.** Check each statement in each loaded rule file against the changed code or plan. Do not skip rules, do not paraphrase — the rules are the source of truth. Classify each issue found:
-   - **Blocker** — commandment violation, unjustified edict violation, readability violation (cryptic code is always a blocker). Must be fixed.
-   - **Warning** — justified edict deviation, counsel deviation, minor inconsistency. Should be addressed.
+   - **Blocker** — MUST violation, unjustified SHOULD violation, readability violation (cryptic code is always a blocker). Must be fixed.
+    - **Warning** — justified SHOULD deviation, minor inconsistency. Should be addressed.
    - **Note** — style suggestion beyond what rules mandate. No action required.
 
    After reviewing each changed file, update the progress file: mark the file as `[x]` with finding counts, add findings under `## Findings`:
@@ -74,6 +73,6 @@ A code review without a checklist drifts toward gut feeling — catching whateve
 
 ## Guardrails
 
-- Never flag a counsel deviation as a blocker. Counsel is guidance, not law — it earns a warning, not a veto.
+- Never flag a SHOULD deviation as a blocker when justification is documented. SHOULD is guidance, not law — documented justification earns a warning, not a veto.
 - Never invent rules. If an issue does not trace back to a loaded `code-` rule, it is a Note at most.
 - Do not invent violations. If a pattern match is ambiguous, skip it rather than rationalizing it into a finding.

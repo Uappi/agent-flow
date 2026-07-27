@@ -1,6 +1,34 @@
 # Changelog
 
 ```log
+0.9.8 - 2026/07/20
+refactor(agents): strengthen AGENTS.md distillation of rules and skills — restore imperative force lost in distillation; add Style Proximity section (read sibling files, match local convention) required by coder-self-review and code-quality-review skills; add single-letter variable ban, Readability Over Performance (KISS), Native Tooling, branch name prefixes, Schema Changes callout; add advisory rules for no-else (metalanguages exception), squash/rebase avoidance, Hardcoding, Dependency Audit on Feature Change, testing setup/teardown inline, Frontend accessibility
+
+0.9.7 - 2026/07/17
+feat(agents): create AGENTS.md style book — distilled from rules/ and skills/ into a single auto-loaded entrypoint for quick dev work; replaces generic-boot.md for the common case; covers function extraction, duplication, single responsibility, naming, control flow, structure, data trust boundary, error handling, comments, logging, testing, debugging, code review, git, and context maintenance; pure style, no workflow opinions (no commit authorization rules, no branch aborts, no ambiguity escalation protocol, no dispatch references)
+refactor(agents): rename AGENTS.md to ENTRYPOINT.md — full orchestration boot (Maestro, personas, dispatch) now invoked via "Please comply with @.agents/ENTRYPOINT.md" instead of being the default entrypoint
+docs(readme): update setup for two-mode workflow — quick work is the default (just type, AGENTS.md auto-loads), full orchestration via ENTRYPOINT phrase; remove Quick Fixes (Developer Mode) section and generic-boot reference from skills list
+docs(skills): remove generic-boot from skills/README.md available skills list
+
+0.9.6 - 2026/07/09
+feat(configure-cli): add Go tooling to build, coder, reviewer agents — gofmt, go vet, go mod tidy for build; full Go suite for coder; go vet/build/test/list/doc/version/env/fmt for reviewer; align with main framework
+fix(configure-cli): block git stash and dangerous git operations for non-build agents — deny git stash, git checkout --, git restore, git filter-branch, git cherry-pick, git worktree, git reflog expire across architect, coder, reviewer, contextualizer
+
+0.9.5 - 2026/07/09
+refactor(rules): flatten directory structure and remove hierarchy terminology — remove commandments/, edicts/, counsel/ subdirectories; move code-* rules into rules/code/ subdirectory (dropping code- prefix); replace hierarchy tier names with RFC language (MUST/SHOULD) in code-quality-review; rename SHIELD E dimension from "edicts traced" to "evidence traced"; purge all commandment/edict/counsel references from skills, personas, and README
+refactor(generic-boot): align with main framework — orient reads README.md first; reorder steps (track progress before state intent); dispatch coder and reviewer via skills/dispatch.md; fallback references rules/code/ and skills/code-*.md instead of inlining procedures
+fix(reviewer-architect-adversarial): correct reviewer-handoff.md path — remove nonexistent reviewer/ subdirectory prefix
+refactor(generic-boot): simplify LOC counting — replace complex shell pipeline with git diff HEAD --shortstat
+
+0.9.4 - 2026/07/02
+feat(reviewer): add dead code and duplication detection — code coherence review now includes dedicated phase for dead code detection (unused functions/variables/imports, unreachable code, commented-out blocks, obsolete TODOs, deprecated logic) with codebase-wide verification; new duplication detection phase identifies duplicated functions, logic blocks (5+ lines), copy-pasted constants, and reinvented utilities with line-by-line comparison; step count increased from 4 to 6; classification updated with dead code and duplication severity thresholds; guardrails expanded with verification requirements
+
+0.9.3 - 2026/07/01
+feat(skills): donate generic-boot.md from main framework — lightweight alternative boot for quick fixes and simple tasks; adapted paths for starter-kit (agent-decision, task-tracking, code-quality-review, code-quality edict); removed Go-specific content
+docs(readme): add Quick Fixes (Developer Mode) section — generic boot as alternative for small fixes with invocation phrase
+docs(readme): clarify .agents/ is per-project, not a TUI plugin; clarify invocation phrases are first message per session
+docs(readme): add step 5 to describe task to Maestro; separate first-run Contextualizer dispatch as step 6
+
 0.9.2 - 2026/06/26
 refactor(dispatch): consolidate providers to one per CLI — merge qwen into deepseek entry; users swap model names instead of adding new provider entries
 docs(readme): update provider references — simplify Customization and FAQ sections to reflect one-per-CLI structure; mention OpenCode Go as coding plan for deepseek family

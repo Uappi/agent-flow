@@ -61,4 +61,4 @@ Persona-specific skills are prefixed with the persona name: `coder-linting.md`, 
 
 - **Purpose** (Required) — What this skill does and why it exists. One paragraph, no bullet points. Answer "what problem does this solve?" not "what steps does it take."
 - **Procedure** (Required) — Numbered steps for executing the skill. Each step that produces an artifact must describe its output inline — format, structure, and destination. Reference other skills or rules with `(uses: path)` or `(follows: path)` as needed.
-- **Guardrails** (Optional) — Skill-specific pitfalls to avoid. Not commandments, not procedure repetition. Ask: "what mistake would an agent make when using this skill carelessly?"
+- **Guardrails** (Optional) — Skill-specific pitfalls to avoid. Not rules, not procedure repetition. Ask: "what mistake would an agent make when using this skill carelessly?"

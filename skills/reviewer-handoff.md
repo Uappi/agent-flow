@@ -37,4 +37,4 @@ This skill defines the output format for review handoffs — the structured summ
    - `partial-pass` — zero blockers but a review step was skipped (e.g., external tool unavailable).
    - `fail` — one or more blockers.
 
-3. **Append planned commits on failure.** When the verdict is `fail` and the type is `code`, add a "Planned Commits" section after Notes with conventional-commit messages (follows: `rules/commandments/git.md`) describing the fixes being requested. This gives the next step ready-made commit messages once the fixes land.
+3. **Append planned commits on failure.** When the verdict is `fail` and the type is `code`, add a "Planned Commits" section after Notes with conventional-commit messages (follows: `rules/git.md`) describing the fixes being requested. This gives the next step ready-made commit messages once the fixes land.
