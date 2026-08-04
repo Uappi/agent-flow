@@ -4,7 +4,7 @@ Workflows for the Uappi V3 distributed microservices platform — backend only.
 
 ## Detection (`skills/product-profile.md`)
 
-All three signals below are **backend-specific**. A match activates this directory (`ext/uappi-v3/backend/`) exclusively. The sibling directory `ext/uappi-v3/frontend/` is the frontend extension — it has its own detection signals (not yet defined) and must NOT be loaded based on the signals below.
+All three signals below are **backend-specific**. A match activates this directory (`ext/uappi-v3/backend/`) exclusively. The sibling directory `ext/uappi-v3/frontend/` is the frontend extension — it has its own detection signal (see its `README.md`) and must NOT be loaded based on the signals below.
 
 | `repoKind` | Signal | Condition |
 |------------|--------|-----------|
