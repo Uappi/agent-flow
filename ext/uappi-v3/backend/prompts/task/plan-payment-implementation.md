@@ -99,72 +99,137 @@ Link da documentação: {link da documentação}
 
 <!-- PREENCHA APENAS OS CAMPOS NECESSÁRIOS, O RESTANTE PODE SER REMOVIDO ANTES DO PROMPT -->
 
-| Campo na request no gateway de pagamento | Campo na Uappi                              | Observação |
-|------------------------------------------|---------------------------------------------|------------|
-|                                          | *.customer.id                               |            |
-|                                          | *.customer.name                             |            |
-|                                          | *.customer.isCorporate                      |            |
-|                                          | *.customer.gender                           |            |
-|                                          | *.customer.document1                        |            |
-|                                          | *.customer.document2                        |            |
-|                                          | *.customer.email                            |            |
-|                                          | *.customer.phone                            |            |
-|                                          | *.customer.birthDate                        |            |
-|                                          | *.customer.homeAddress.zipCode              |            |
-|                                          | *.customer.homeAddress.street               |            |
-|                                          | *.customer.homeAddress.number               |            |
-|                                          | *.customer.homeAddress.district             |            |
-|                                          | *.customer.homeAddress.city                 |            |
-|                                          | *.customer.homeAddress.stateCode            |            |
-|                                          | *.customer.homeAddress.complement           |            |
-|                                          | *.customer.billingAddress.zipCode           |            |
-|                                          | *.customer.billingAddress.street            |            |
-|                                          | *.customer.billingAddress.number            |            |
-|                                          | *.customer.billingAddress.district          |            |
-|                                          | *.customer.billingAddress.city              |            |
-|                                          | *.customer.billingAddress.stateCode         |            |
-|                                          | *.customer.billingAddress.complement        |            |
-|                                          | *.order.id                                  |            |
-|                                          | *.order.number                              |            |
-|                                          | *.order.currency                            |            |
-|                                          | *.order.date                                |            |
-|                                          | *.order.shippingValue                       |            |
-|                                          | *.order.subtotalValue                       |            |
-|                                          | *.order.totalValue                          |            |
-|                                          | *.items.[]                                  |            |
-|                                          | *.payment.[0].paymentOptionId               |            |
-|                                          | *.payment.[0].paymentPositionKey            |            |
-|                                          | *.payment.[0].code                          |            |
-|                                          | *.payment.[0].method                        |            |
-|                                          | *.payment.[0].installments                  |            |
-|                                          | *.payment.[0].fee                           |            |
-|                                          | *.payment.[0].total                         |            |
-|                                          | *.payment.[0].capture                       |            |
-|                                          | *.payment.[0].date                          |            |
-|                                          | *.payment.[0].softDescription               |            |
-|                                          | *.payment.[0].pix.dueDate                   |            |
-|                                          | *.payment.[0].card.id                       |            |
-|                                          | *.payment.[0].card.token                    |            |
-|                                          | *.payment.[0].card.number                   |            |
-|                                          | *.payment.[0].card.flag                     |            |
-|                                          | *.payment.[0].card.name                     |            |
-|                                          | *.payment.[0].card.expiration               |            |
-|                                          | *.payment.[0].card.cvv                      |            |
-|                                          | *.payment.[0].billet.dueDate                |            |
-|                                          | *.payment.[0].billet.daysToExpiration       |            |
-|                                          | *.payment.[0].billetPix.dueDate             |            |
-|                                          | *.payment.[0].billetPix.ourNumber           |            |
-|                                          | *.payment.[0].external.defaultRedirect      |            |
-|                                          | *.payment.[0].external.confirmationRedirect |            |
-|                                          | *.payment.[0].external.cancellationRedirect |            |
-|                                          | *.payment.[0].externalDeposit.phoneNumber   |            |
-|                                          | *.payment.[0].externalDeposit.dueDate       |            |
-|                                          | *.payment.[0].callbackUrl                   |            |
+| Campo na request no gateway de pagamento | Campo na Uappi                               | Observação |
+|------------------------------------------|----------------------------------------------|------------|
+|                                          | *.customer.id                                |            |
+|                                          | *.customer.name                              |            |
+|                                          | *.customer.isCorporate                       |            |
+|                                          | *.customer.gender                            |            |
+|                                          | *.customer.document1                         |            |
+|                                          | *.customer.document2                         |            |
+|                                          | *.customer.email                             |            |
+|                                          | *.customer.phone                             |            |
+|                                          | *.customer.birthDate                         |            |
+|                                          | *.customer.homeAddress.zipCode               |            |
+|                                          | *.customer.homeAddress.street                |            |
+|                                          | *.customer.homeAddress.number                |            |
+|                                          | *.customer.homeAddress.district              |            |
+|                                          | *.customer.homeAddress.city                  |            |
+|                                          | *.customer.homeAddress.stateCode             |            |
+|                                          | *.customer.homeAddress.complement            |            |
+|                                          | *.customer.billingAddress.zipCode            |            |
+|                                          | *.customer.billingAddress.street             |            |
+|                                          | *.customer.billingAddress.number             |            |
+|                                          | *.customer.billingAddress.district           |            |
+|                                          | *.customer.billingAddress.city               |            |
+|                                          | *.customer.billingAddress.stateCode          |            |
+|                                          | *.customer.billingAddress.complement         |            |
+|                                          | *.order.id                                   |            |
+|                                          | *.order.number                               |            |
+|                                          | *.order.currency                             |            |
+|                                          | *.order.date                                 |            |
+|                                          | *.order.shippingValue                        |            |
+|                                          | *.order.subtotalValue                        |            |
+|                                          | *.order.totalValue                           |            |
+|                                          | *.items.[]                                   |            |
+|                                          | *.payments.[0].paymentOptionId               |            |
+|                                          | *.payments.[0].paymentPositionKey            |            |
+|                                          | *.payments.[0].code                          |            |
+|                                          | *.payments.[0].method                        |            |
+|                                          | *.payments.[0].installments                  |            |
+|                                          | *.payments.[0].fee                           |            |
+|                                          | *.payments.[0].total                         |            |
+|                                          | *.payments.[0].capture                       |            |
+|                                          | *.payments.[0].date                          |            |
+|                                          | *.payments.[0].softDescription               |            |
+|                                          | *.payments.[0].pix.dueDate                   |            |
+|                                          | *.payments.[0].card.id                       |            |
+|                                          | *.payments.[0].card.token                    |            |
+|                                          | *.payments.[0].card.number                   |            |
+|                                          | *.payments.[0].card.flag                     |            |
+|                                          | *.payments.[0].card.name                     |            |
+|                                          | *.payments.[0].card.expiration               |            |
+|                                          | *.payments.[0].card.cvv                      |            |
+|                                          | *.payments.[0].billet.dueDate                |            |
+|                                          | *.payments.[0].billet.daysToExpiration       |            |
+|                                          | *.payments.[0].billetPix.dueDate             |            |
+|                                          | *.payments.[0].billetPix.ourNumber           |            |
+|                                          | *.payments.[0].external.defaultRedirect      |            |
+|                                          | *.payments.[0].external.confirmationRedirect |            |
+|                                          | *.payments.[0].external.cancellationRedirect |            |
+|                                          | *.payments.[0].externalDeposit.phoneNumber   |            |
+|                                          | *.payments.[0].externalDeposit.dueDate       |            |
+|                                          | *.payments.[0].callbackUrl                   |            |
+
+#### Mapeamento de campos CreateTransactionResponse x Campos de resposta do gateway de pagamento
+
+Utilize os campos da tabela abaixo para gerar o processo que vai mapear os dados de resposta do gateway de pagamento para a respota de criação de transação.
+
+Os campos `paymentOptionId`, `paymentPositionKey`, `method` sempre devem ser obtidos do objeto de request (type `CreateTransactionRequest`).
+
+O campo `date`, sempre deve ser preenchido com a data atual.
+
+Os campos de forma de pagamento (`pix`, `billet`, `billetPix`, `card`, `external`, `externalDeposit`) são **nullable** e caso não sejam mapeados na tabela, devem receber o valor `null`.
+
+Para os campos de `request` e `response` sempre utilize o objeto de request montado e o objeto resposta recebido.
+
+O campo de referência para mapear o status da transação está em `{{caminho}}`.
+
+| Campo na Uappi                   | Campo na response no gateway de pagamento | Observação |
+|----------------------------------|-------------------------------------------|------------|
+| *.success                        |                                           |            |
+| *.value                          |                                           |            |
+| *.data.id                        |                                           |            |
+| *.data.reference                 |                                           |            |
+| *.data.external                  |                                           |            |
+| *.data.nsu                       |                                           |            |
+| *.data.captured                  |                                           |            |
+| *.data.captured                  |                                           |            |
+| *.card.nsu                       |                                           |            |
+| *.card.bin                       |                                           |            |
+| *.card.last4                     |                                           |            |
+| *.card.brand                     |                                           |            |
+| *.card.expiration                |                                           |            |
+| *.card.holder                    |                                           |            |
+| *.pix.id                         |                                           |            |
+| *.pix.dueDate                    |                                           |            |
+| *.pix.emv                        |                                           |            |
+| *.pix.qrCode                     |                                           |            |
+| *.pix.link                       |                                           |            |
+| *.billet.id                      |                                           |            |
+| *.billet.ourNumber               |                                           |            |
+| *.billet.base64                  |                                           |            |
+| *.billet.barCode                 |                                           |            |
+| *.billet.link                    |                                           |            |
+| *.billet.digitableLine           |                                           |            |
+| *.billet.dueDate                 |                                           |            |
+| *.billetPix.billet               |                                           |            |
+| *.billetPix.billet.id            |                                           |            |
+| *.billetPix.billet.ourNumber     |                                           |            |
+| *.billetPix.billet.base64        |                                           |            |
+| *.billetPix.billet.barCode       |                                           |            |
+| *.billetPix.billet.link          |                                           |            |
+| *.billetPix.billet.digitableLine |                                           |            |
+| *.billetPix.billet.dueDate       |                                           |            |
+| *.billetPix.pix                  |                                           |            |
+| *.billetPix.pix.id               |                                           |            |
+| *.billetPix.pix.dueDate          |                                           |            |
+| *.billetPix.pix.emv              |                                           |            |
+| *.billetPix.pix.qrCode           |                                           |            |
+| *.billetPix.pix.link             |                                           |            |
+| *.external.paymentUrl            |                                           |            |
+| *.external.paymentUrl            |                                           |            |
+| *.captures.[].nsu                |                                           |            |
+| *.captures.[].date               |                                           |            |
+| *.captures.[].value              |                                           |            |
+| *.refunds.[].id                  |                                           |            |
+| *.refunds.[].date                |                                           |            |
+| *.refunds.[].value               |                                           |            |
 
 ### Captura de transação - Equivale ao método `capture`
 Link da documentação: {link da documentação}
 
-### Captura de transação - Equivale ao método `cancel`
+### Cancelamento de transação - Equivale ao método `cancel`
 Link da documentação: {link da documentação}
 
 ### Resposta de webhook - Equivale ao método `webhook`
